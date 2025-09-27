@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>iPAS 資訊安全工程師 考試重點整理 - IS132 加解密與金鑰生命週期</title> <!-- Changed Title -->
+    <style>
+        /* RWD設定，讓整體版面在不同裝置都有良好顯示 */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft JhengHei", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto; /* Added top/bottom margin */
+            padding: 25px;
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border-radius: 8px;
+        }
+        /* Updated Header */
+        .header-container {
+            background: linear-gradient(135deg, #2c3e50, #34495e); /* Darker gradient */
+            color: white;
+            padding: 30px 20px; /* Increased padding */
+            margin: -25px -25px 25px -25px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+        .header-container h1 {
+            margin: 0;
+            color: white;
+            font-size: 2.2rem; /* Larger title */
+            font-weight: 600;
+            margin-bottom: 5px; /* Space below title */
+        }
+        .header-container div { /* Subtitle */
+             font-size: 1.2rem;
+             opacity: 0.9;
+             margin-top: 5px;
+             font-weight: 300; /* Lighter weight */
+        }
+
+        /* Topic Categories Section (Renamed from Directions) */
+        .categories-container { /* Renamed */
+            background-color: #e8f0f5; /* Slightly different blue */
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 5px solid #5dade2; /* Lighter blue border */
+            border-radius: 5px;
+        }
+        .categories-title { /* Renamed */
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .categories-grid { /* Renamed */
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        .category-item { /* Renamed */
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #d6e0ea; /* Border matching background */
+        }
+        .category-item:hover {
+            background-color: #5dade2; /* Lighter blue hover */
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: #5dade2;
+        }
+        .category-number { /* Renamed */
+            width: 30px;
+            height: 30px;
+            background-color: #5dade2; /* Lighter blue number */
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .category-item:hover .category-number {
+            background-color: white;
+            color: #5dade2;
+        }
+        .category-text { /* Renamed */
+            font-size: 0.95rem;
+        }
+
+        /* Focus Point Card Styling (Replaces Question Card) */
+        .focus-points-container { /* Renamed */
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px; /* Increased gap */
+        }
+        .focus-card { /* Renamed */
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 0; /* Remove padding here, apply to inner elements */
+            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.1); /* Slightly stronger shadow */
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            border: 1px solid #e0e0e0;
+            overflow: hidden; /* Ensure inner elements respect border radius */
+        }
+        .focus-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(44, 62, 80, 0.15);
+        }
+        .focus-header { /* Renamed */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px; /* Padding inside header */
+            background-color: #f8f9fa; /* Light header background */
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .focus-id { /* Renamed */
+            font-weight: bold;
+            color: #5dade2; /* Lighter blue ID */
+            font-size: 1rem;
+            background-color: #e8f0f5; /* Background for ID */
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .focus-importance { /* Renamed */
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .focus-topic-container { /* New container for the main topic */
+             padding: 25px 25px 20px 25px; /* Padding around the topic */
+             border-bottom: 1px dashed #eee; /* Separator line */
+        }
+
+        .focus-topic { /* Replaces question-content */
+            font-size: 1.5rem; /* Larger font for the topic */
+            font-weight: 600; /* Bolder */
+            margin-bottom: 0; /* Remove margin, handled by container padding */
+            line-height: 1.4;
+            color: #2c3e50; /* Dark blue-grey for topic */
+        }
+
+        /* Styling for terminology within topic/details */
+        .english-abbr {
+            color: #8e44ad; /* Purple for abbreviations */
+            font-weight: 600;
+        }
+        .english-fullname {
+            color: #c0392b; /* Darker red for full names/concepts */
+            font-weight: 500;
+        }
+
+
+        /* Details Section Styling (Replaces Explanation) */
+        .focus-details-container { /* Renamed */
+            padding: 20px 25px 25px 25px; /* Padding for details */
+            /* background-color: #fdfefe; */ /* Optional subtle background, removing for cleaner look */
+        }
+        .details-header { /* Renamed */
+            font-weight: bold;
+            margin-bottom: 15px; /* Space below header */
+            color: #34495e;
+            font-size: 1.2rem; /* Slightly larger details header */
+            /* text-transform: uppercase; */ /* Optional styling */
+            letter-spacing: 0.5px; /* Optional spacing */
+            /* border-bottom: 2px solid #5dade2; */ /* Optional underline */
+            /* display: inline-block; */ /* If using underline */
+            /* padding-bottom: 5px; */ /* If using underline */
+        }
+        .details-content { /* Renamed */
+            line-height: 1.75; /* Increased line height for readability */
+            color: #444;
+            font-size: 1.05rem; /* Slightly larger detail text */
+        }
+        .details-content ul { /* Style lists if used in details */
+             padding-left: 25px;
+             margin-top: 10px;
+             margin-bottom: 10px;
+        }
+         .details-content li {
+             margin-bottom: 8px; /* Space between list items */
+         }
+
+        /* Controls Section Styling (Adjusted for Focus Points) */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 15px;
+            background-color: #fdfdfd;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+        .filter-container, .search-container, .star-filter-container { /* Removed .toggle-explanations */
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            min-width: 200px;
+        }
+         .search-container { flex-grow: 2; }
+        .filter-label, .search-label, .star-filter-label {
+            font-weight: 600;
+            margin-right: 10px;
+            white-space: nowrap;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        select, input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+            flex-grow: 1;
+            font-size: 0.95rem;
+            background-color: white;
+        }
+         input[type="text"] { min-width: 180px; }
+        button {
+            padding: 10px 18px;
+            background-color: #5dade2; /* Lighter blue buttons */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.2s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-left: 8px;
+            white-space: nowrap;
+        }
+        button:hover {
+            background-color: #3498db; /* Darker blue hover */
+        }
+
+        /* RWD Adjustments */
+        @media (max-width: 992px) {
+             .controls { flex-direction: column; align-items: stretch; }
+            .filter-container, .search-container, .star-filter-container { width: 100%; flex-grow: 0; }
+             select, input[type="text"] { width: 100%; }
+             button { margin-left: 0; margin-top: 5px; }
+             .search-container button { margin-left: 8px; margin-top: 0; }
+             #searchInput { width: calc(100% - 90px); }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .header-container { padding: 25px 15px; margin: -15px -15px 20px -15px; }
+            .categories-grid { grid-template-columns: 1fr; }
+            .focus-card { padding: 0; } /* Ensure no padding on card itself */
+             .focus-header, .focus-topic-container, .focus-details-container { padding-left: 20px; padding-right: 20px; } /* Adjust inner padding */
+            h1 { font-size: 1.8rem; }
+            .header-container h1 { font-size: 2rem; }
+            .focus-topic { font-size: 1.3rem; }
+            .details-header { font-size: 1.1rem; }
+            .details-content { font-size: 1rem; }
+        }
+
+        /* Back to Top Button & Progress Bar (No changes needed) */
+        .back-to-top {
+            position: fixed; bottom: 25px; right: 25px; background-color: #5dade2; color: white;
+            width: 45px; height: 45px; border-radius: 50%; display: none; justify-content: center;
+            align-items: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, opacity 0.3s, transform 0.3s; z-index: 1000;
+            opacity: 0.8; font-size: 1.2rem;
+        }
+        .back-to-top:hover { background-color: #3498db; opacity: 1; transform: scale(1.1); }
+        .progress-container {
+            width: 100%; height: 5px; background-color: #e8f0f5; position: fixed;
+            top: 0; left: 0; z-index: 1001;
+        }
+        .progress-bar {
+            height: 5px; background: linear-gradient(90deg, #5dade2, #85c1e9); /* Adjusted gradient */
+            width: 0%; border-radius: 0 2px 2px 0; transition: width 0.1s linear;
+        }
+         #noResultsMessage {
+             text-align: center; padding: 20px; color: #777; display: none; font-style: italic;
+         }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <div class="header-container">
+            <h1>iPAS 資訊安全工程師 考試重點</h1> <!-- Updated Title -->
+            <div>IS132 加解密與金鑰生命週期</div> <!-- Updated Subtitle -->
+        </div>
+
+        <div class="controls">
+             <div class="filter-container">
+                 <!-- Updated Label -->
+                <label for="categoryFilter" class="filter-label">篩選主題：</label>
+                <select id="categoryFilter"> <!-- Updated ID -->
+                    <option value="all">全部主題</option>
+                    <option value="1">密碼學基本概念與目的</option>
+                    <option value="2">對稱式加密演算法</option>
+                    <option value="3">非對稱式加密演算法</option>
+                    <option value="4">雜湊函數與加鹽</option>
+                    <option value="5">數位簽章與數位信封</option>
+                    <option value="6">金鑰管理與生命週期</option>
+                    <option value="7">密碼攻擊與防護</option>
+                    <option value="8">公開金鑰基礎建設 (PKI)</option>
+                 </select>
+            </div>
+
+            <div class="star-filter-container">
+                <label for="starFilter" class="star-filter-label">重要性：</label>
+                <select id="starFilter">
+                    <option value="all">全部重要性</option>
+                    <option value="5">★★★★★</option>
+                    <option value="4">★★★★</option>
+                    <option value="3">★★★</option>
+                    <option value="2">★★</option>
+                    <option value="1">★</option>
+                </select>
+            </div>
+
+            <div class="search-container">
+                <label for="searchInput" class="search-label">搜尋：</label>
+                <input type="text" id="searchInput" placeholder="輸入關鍵字...">
+                <button id="searchButton">搜尋</button>
+            </div>
+            <!-- Removed Toggle Explanations Button -->
+        </div>
+
+        <div class="categories-container"> <!-- Renamed -->
+            <div class="categories-title">主題分類</div> <!-- Updated Title -->
+            <div class="categories-grid" id="categoriesGrid"> <!-- Renamed ID -->
+                <!-- Renamed classes and updated filter function call -->
+                 <div class="category-item" onclick="filterByCategory(1)">
+                    <div class="category-number">1</div>
+                    <div class="category-text">密碼學基本概念與目的</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(2)">
+                    <div class="category-number">2</div>
+                    <div class="category-text">對稱式加密演算法</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(3)">
+                    <div class="category-number">3</div>
+                    <div class="category-text">非對稱式加密演算法</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(4)">
+                    <div class="category-number">4</div>
+                    <div class="category-text">雜湊函數與加鹽</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(5)">
+                    <div class="category-number">5</div>
+                    <div class="category-text">數位簽章與數位信封</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(6)">
+                    <div class="category-number">6</div>
+                    <div class="category-text">金鑰管理與生命週期</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(7)">
+                    <div class="category-number">7</div>
+                    <div class="category-text">密碼攻擊與防護</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(8)">
+                    <div class="category-number">8</div>
+                    <div class="category-text">公開金鑰基礎建設 (PKI)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="focus-points-container" id="focusPointsContainer"> <!-- Renamed -->
+
+            <!-- Focus Point 1 -->
+            <div class="focus-card" data-category="1" data-stars="5">
+                <div class="focus-header">
+                    <div class="focus-id">#1</div>
+                    <div class="focus-importance">★★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">密碼學</span> (<span class="english-fullname">Cryptography</span>) 基本概念
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">密碼學</span>是研究<span style="background-color: #ffff0030;">資訊加密、解密以及其安全性</span>的學科。其主要目標是確保資訊的：
+                        <ul>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">機密性</b> (<span class="english-fullname">Confidentiality</span>)</span>：防止未經授權的存取。</li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">完整性</b> (<span class="english-fullname">Integrity</span>)</span>：確保資料未被竄改。</li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">身份認證</b> (<span class="english-fullname">Authentication</span>)</span>：驗證通訊對方的身份。</li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">不可否認性</b> (<span class="english-fullname">Non-repudiation</span>)</span>：防止發送方或接收方否認其行為。</li>
+                        </ul>
+                         一套<span style="color: blue; font-weight: bold;">加密系統</span>通常<span style="background-color: #ffff0030;">不包含</span><span style="background-color: #ffff0030;">暴力破解機制</span>，這是攻擊者使用的手段。
+                         (資料來源：109初級-管理概論 Q38, 111初級-管理概論 Q36)
+                    </div>
+                    <div class="details-header">基本術語</div>
+                     <div class="details-content">
+                        <ul>
+                            <li><span style="color: blue; font-weight: bold;">明文</span> (<span class="english-fullname">Plaintext</span>)：未加密的原始訊息。</li>
+                            <li><span style="color: blue; font-weight: bold;">密文</span> (<span class="english-fullname">Ciphertext</span>)：經過加密處理後的訊息。</li>
+                            <li><span style="color: blue; font-weight: bold;">加密</span> (<span class="english-fullname">Encryption</span>)：將明文轉換為密文的過程。</li>
+                            <li><span style="color: blue; font-weight: bold;">解密</span> (<span class="english-fullname">Decryption</span>)：將密文還原為明文的過程。</li>
+                             <li><span style="color: blue; font-weight: bold;">金鑰</span> (<span class="english-fullname">Key</span>)：用於加密和解密的參數。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 2 -->
+            <div class="focus-card" data-category="2" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#2</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">對稱式加密</span> (<span class="english-fullname">Symmetric Encryption</span>)
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">對稱式加密</span>使用<span style="background-color: #ffff0030;">相同的金鑰</span>進行加密和解密。
+                        <ul>
+                            <li><span style="background-color: #ffff0030;">優點</span>：加解密<span style="background-color: #ffff0030;">速度快</span>，適合處理大量資料。</li>
+                            <li><span style="background-color: #ffff0030;">缺點</span>：金鑰分發困難且不安全，若金鑰洩漏則加密失效；<span style="background-color: #ffff0030;">無法驗證檔案所有人身分</span>。金鑰數量隨使用者增加而<span style="background-color: #ffff0030;">平方級增長</span> (N*(N-1)/2)。</li>
+                         </ul>
+                         常見演算法：
+                         <ul>
+                            <li><span class="english-abbr">DES</span> (<span class="english-fullname">Data Encryption Standard</span>)：已被視為<span style="background-color: #ffff0030;">不安全</span>，因金鑰長度過短 (56位元)。</li>
+                            <li><span class="english-abbr">3DES</span> (<span class="english-fullname">Triple DES</span>)：DES 的加強版，較安全但效率較低。</li>
+                            <li><span class="english-abbr">AES</span> (<span class="english-fullname">Advanced Encryption Standard</span>)：目前<span style="background-color: #ffff0030;">最常用</span>且安全的對稱加密標準，金鑰長度可為 128、192、256 位元。</li>
+                            <li><span class="english-abbr">IDEA</span> (<span class="english-fullname">International Data Encryption Algorithm</span>)</li>
+                         </ul>
+                         (資料來源：109技術-概論 Q37, 109初級-管理概論 Q40, 109初級-管理概論 Q41, 110初級-管理概論 Q39, 113管理 Q37)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 3 -->
+            <div class="focus-card" data-category="3" data-stars="5">
+                <div class="focus-header">
+                    <div class="focus-id">#3</div>
+                    <div class="focus-importance">★★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">非對稱式加密</span> (<span class="english-fullname">Asymmetric Encryption</span>) / <span style="color: blue; font-weight: bold;">公開金鑰加密</span>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">非對稱式加密</span>（又稱<span style="color: blue; font-weight: bold;">公開金鑰加密</span>）使用<span style="background-color: #ffff0030;">一對金鑰</span>：<span style="color: blue; font-weight: bold;">公開金鑰</span> (<span class="english-fullname">Public Key</span>) 和<span style="color: blue; font-weight: bold;">私密金鑰</span> (<span class="english-fullname">Private Key</span>)。
+                        <ul>
+                             <li><span style="background-color: #ffff0030;">公鑰</span>：可公開給任何人，用於<span style="background-color: #ffff0030;">加密</span>資料或<span style="background-color: #ffff0030;">驗證簽章</span>。</li>
+                             <li><span style="background-color: #ffff0030;">私鑰</span>：由擁有者<span style="background-color: #ffff0030;">秘密保存</span>，用於<span style="background-color: #ffff0030;">解密</span>資料或<span style="background-color: #ffff0030;">產生簽章</span>。</li>
+                            <li><span style="background-color: #ffff0030;">特性</span>：使用公鑰加密的資料只能用對應的私鑰解密；使用私鑰簽署的資料能用對應的公鑰驗證。</li>
+                            <li><span style="background-color: #ffff0030;">優點</span>：解決了對稱加密的金鑰分發問題，可用於身份認證和數位簽章。</li>
+                            <li><span style="background-color: #ffff0030;">缺點</span>：加解密<span style="background-color: #ffff0030;">速度較慢</span>，不適合處理大量資料。</li>
+                             <li>若有 N 個使用者，總共需要 N 對金鑰 (即 2N 個金鑰)。</li>
+                         </ul>
+                         常見演算法：
+                         <ul>
+                             <li><span class="english-abbr">RSA</span> (<span class="english-fullname">Rivest–Shamir–Adleman</span>)</li>
+                             <li><span class="english-abbr">ECC</span> (<span class="english-fullname">Elliptic Curve Cryptography</span>)：效率較 <span class="english-abbr">RSA</span> 高，金鑰長度較短。</li>
+                         </ul>
+                         <span class="english-abbr">DES</span>, <span class="english-abbr">AES</span>, <span class="english-abbr">IDEA</span> 屬於<span style="background-color: #ffff0030;">對稱式加密</span>。
+                         (資料來源：109技術-概論 Q18, 109初級-管理概論 Q40, 109初級-管理概論 Q41, 110初級-管理概論 Q38, 110初級-管理概論 Q40, 113管理 Q36, 113管理 Q38)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 4 -->
+            <div class="focus-card" data-category="4" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#4</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">雜湊函數</span> (<span class="english-fullname">Hash Function</span>) 與<span style="color: blue; font-weight: bold;">加鹽</span> (<span class="english-fullname">Salt</span>)
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">雜湊函數</span>是一種將任意長度的輸入數據轉換為固定長度輸出的單向函數。
+                        <ul>
+                            <li><span style="background-color: #ffff0030;">單向性</span>：從雜湊值<span style="background-color: #ffff0030;">難以</span>反推回原始輸入。</li>
+                            <li><span style="background-color: #ffff0030;">固定長度輸出</span>：無論輸入多長，輸出長度固定。</li>
+                             <li><span style="background-color: #ffff0030;">碰撞抗性</span>：難以找到兩個不同的輸入產生相同的雜湊值。</li>
+                            <li>主要應用：<span style="background-color: #ffff0030;">資料完整性</span>驗證、<span style="background-color: #ffff0030;">密碼儲存</span>。</li>
+                        </ul>
+                         <span style="color: blue; font-weight: bold;">加鹽</span> (<span class="english-fullname">Salt</span>) 是指在對密碼進行雜湊處理<span style="background-color: #ffff0030;">之前</span>，先將一個<span style="background-color: #ffff0030;">隨機的字串（鹽）附加到密碼</span>上。
+                         <ul>
+                            <li><span style="background-color: #ffff0030;">目的</span>：即使兩個使用者使用相同密碼，由於鹽不同，其儲存的雜湊值也會不同，能有效<span style="background-color: #ffff0030;">抵禦彩虹表攻擊</span>。</li>
+                            <li><span style="color: blue; font-weight: bold;">金鑰延伸函式</span> (<span class="english-abbr">KDF</span>, <span class="english-fullname">Key Derivation Function</span>) <span style="background-color: #ffff0030;">with a Salt</span> 是實現加鹽雜湊的一種方法。</li>
+                         </ul>
+                          (資料來源：109技術-概論 Q35, 110初級-管理概論 Q39)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 5 -->
+            <div class="focus-card" data-category="5" data-stars="4">
+                 <div class="focus-header">
+                    <div class="focus-id">#5</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">數位簽章</span> (<span class="english-fullname">Digital Signature</span>) 與<span style="color: blue; font-weight: bold;">數位信封</span> (<span class="english-fullname">Digital Envelope</span>)
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">數位簽章</div>
+                    <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">數位簽章</span>利用<span style="color: blue; font-weight: bold;">非對稱式加密</span>和<span style="color: blue; font-weight: bold;">雜湊函數</span>，提供：
+                        <ul>
+                            <li><span style="background-color: #ffff0030;">身份認證</span>：確認發送者身份。</li>
+                            <li><span style="background-color: #ffff0030;">資料完整性</span>：確保資料未被竄改。</li>
+                             <li><span style="background-color: #ffff0030;">不可否認性</span>：發送者無法否認發送過該訊息。</li>
+                        </ul>
+                        <span style="background-color: #ffff0030;">簽署過程</span>：發送者用自己的<span style="background-color: #ffff0030;">私鑰</span>對訊息摘要（雜湊值）進行加密。<br>
+                        <span style="background-color: #ffff0030;">驗證過程</span>：接收者用發送者的<span style="background-color: #ffff0030;">公鑰</span>解密簽章，並比對重新計算的雜湊值。
+                        (資料來源：109初級-管理概論 Q35, 109初級-管理概論 Q41, 110初級-管理概論 Q38)
+                    </div>
+                     <div class="details-header">數位信封</div>
+                     <div class="details-content">
+                         <span style="color: blue; font-weight: bold;">數位信封</span>結合了<span style="color: blue; font-weight: bold;">對稱式</span>和<span style="color: blue; font-weight: bold;">非對稱式</span>加密，用於<span style="background-color: #ffff0030;">保護大量資料的機密性</span>：
+                         <ol>
+                            <li>使用<span style="background-color: #ffff0030;">對稱式金鑰</span>（如 <span class="english-abbr">AES</span>）加密原始訊息（效率高）。</li>
+                            <li>使用接收者的<span style="background-color: #ffff0030;">公鑰</span>加密該對稱式金鑰（解決金鑰分發問題）。</li>
+                             <li>將加密後的訊息和加密後的對稱式金鑰一起發送給接收者。</li>
+                         </ol>
+                         接收者先用自己的<span style="background-color: #ffff0030;">私鑰</span>解密對稱式金鑰，再用該對稱式金鑰解密原始訊息。
+                         (資料來源：109初級-管理概論 Q34)
+                    </div>
+                    <div class="details-header">安全傳送資料</div>
+                    <div class="details-content">
+                         若要<span style="background-color: #ffff0030;">安全傳送資料</span>，達到<span style="background-color: #ffff0030;">只有接收方能開啟</span>並<span style="background-color: #ffff0030;">確認內容未遭竄改</span>，應採取：
+                         <ol>
+                            <li>資料先進行<span style="color: blue; font-weight: bold;">雜湊</span> (<span class="english-fullname">Hash</span>) 運算產生摘要（確保完整性）。</li>
+                            <li>將資料與摘要一起使用接收方的<span style="color: blue; font-weight: bold;">公開金鑰</span> (<span class="english-fullname">Public Key</span>) 進行<span style="color: blue; font-weight: bold;">非對稱式加密</span>（確保機密性）。</li>
+                         </ol>
+                         另一種結合簽章的方式：
+                         <ol>
+                            <li>資料進行<span style="color: blue; font-weight: bold;">雜湊</span>運算。</li>
+                            <li>使用<span style="background-color: #ffff0030;">傳送者的私鑰</span>對雜湊值進行簽章。</li>
+                             <li>使用<span style="background-color: #ffff0030;">接收者的公鑰</span>加密原始資料和簽章（或使用對稱加密+數位信封）。</li>
+                         </ol>
+                         (資料來源：109技術-概論 Q18)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 6 -->
+             <div class="focus-card" data-category="6" data-stars="3">
+                 <div class="focus-header">
+                    <div class="focus-id">#6</div>
+                    <div class="focus-importance">★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">金鑰生命週期管理</span> (<span class="english-fullname">Key Management Lifecycle</span>)
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">管理階段</div>
+                    <div class="details-content">
+                         <span style="color: blue; font-weight: bold;">金鑰生命週期</span>管理是指對加密金鑰從產生到銷毀的整個過程進行管理，確保金鑰的安全與有效性。主要階段包括：
+                         <ul>
+                            <li><span style="background-color: #ffff0030;">產生</span>：安全地生成金鑰。</li>
+                            <li><span style="background-color: #ffff0030;">儲存</span>：安全地儲存金鑰，如使用硬體安全模組 (<span class="english-abbr">HSM</span>, <span class="english-fullname">Hardware Security Module</span>) 或密碼庫 (<span class="english-fullname">Cryptographic Vault</span>)。金鑰<span style="background-color: #ffff0030;">不應以明文形式儲存</span>，也不建議儲存在系統記憶體 (<span class="english-fullname">Memory</span>) 中。</li>
+                            <li><span style="background-color: #ffff0030;">分發</span>/交換：安全地將金鑰傳遞給需要的使用者或系統。</li>
+                             <li><span style="background-color: #ffff0030;">使用</span>：在加解密、簽章等操作中使用金鑰。</li>
+                            <li><span style="background-color: #ffff0030;">備份</span>/復原：備份金鑰以防遺失，並有安全的復原機制。</li>
+                             <li><span style="background-color: #ffff0030;">更新</span>/輪替：定期更換金鑰以降低洩漏風險。</li>
+                             <li><span style="background-color: #ffff0030;">撤銷</span>/停用：當金鑰疑似洩漏或不再需要時，使其失效。</li>
+                             <li><span style="background-color: #ffff0030;">銷毀</span>：安全地銷毀不再使用的金鑰。</li>
+                         </ul>
+                         <span style="color: blue; font-weight: bold;">對稱式加密</span>的金鑰管理是重要課題，因為需要確保金鑰安全地分發給所有通訊方。
+                          (資料來源：111初級-管理概論 Q37, 110初級-管理概論 Q39)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 7 -->
+             <div class="focus-card" data-category="7" data-stars="3">
+                 <div class="focus-header">
+                    <div class="focus-id">#7</div>
+                    <div class="focus-importance">★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">密碼攻擊</span>與防護 - <span style="color: blue; font-weight: bold;">彩虹表</span>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                     <div class="details-header">彩虹表攻擊</div>
+                     <div class="details-content">
+                         <span style="color: blue; font-weight: bold;">彩虹表</span> (<span class="english-fullname">Rainbow Table</span>) 是一種預先計算好的雜湊值與對應明文密碼的<span style="background-color: #ffff0030;">查找表</span>，用於<span style="background-color: #ffff0030;">快速破解</span>儲存為雜湊值的密碼。<br>
+                         <span style="background-color: #ffff0030;">防禦方法</span>：使用<span style="background-color: #ffff0030;">加鹽雜湊</span> (<span class="english-fullname">Salted Hashing</span>)。透過在密碼雜湊前加入隨機的鹽值，使得即使是相同的密碼，其儲存的雜湊值也不同，彩虹表因此失效。<span style="color: blue; font-weight: bold;">金鑰延伸函式</span> (<span class="english-abbr">KDF</span>) <span style="background-color: #ffff0030;">with a Salt</span> 是推薦的防禦方式。
+                         (資料來源：109初級-管理概論 Q39)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 8 -->
+             <div class="focus-card" data-category="8" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#8</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">公開金鑰基礎建設</span> (<span class="english-abbr">PKI</span>)
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">公開金鑰基礎建設</span> (<span class="english-abbr">PKI</span>, <span class="english-fullname">Public Key Infrastructure</span>) 是一套用於<span style="background-color: #ffff0030;">創建、管理、分發、使用、儲存和撤銷數位憑證</span>的政策、標準、硬體和軟體系統。其核心目的是將<span style="background-color: #ffff0030;">公開金鑰與特定實體（如個人、組織、伺服器）的身份綁定</span>起來。<br>
+                         主要元件：
+                         <ul>
+                             <li><span style="color: blue; font-weight: bold;">憑證機構</span> (<span class="english-abbr">CA</span>, <span class="english-fullname">Certificate Authority</span>)：負責<span style="background-color: #ffff0030;">簽發和管理</span>數位憑證的可信第三方。</li>
+                             <li><span style="color: blue; font-weight: bold;">註冊機構</span> (<span class="english-abbr">RA</span>, <span class="english-fullname">Registration Authority</span>)：負責驗證申請者身份。</li>
+                             <li><span style="color: blue; font-weight: bold;">數位憑證</span> (<span class="english-fullname">Digital Certificate</span>)：包含公開金鑰、持有者資訊、<span class="english-abbr">CA</span> 簽章等的電子文件。</li>
+                             <li>憑證撤銷清單 (<span class="english-abbr">CRL</span>, <span class="english-fullname">Certificate Revocation List</span>) / 線上憑證狀態協定 (<span class="english-abbr">OCSP</span>, <span class="english-fullname">Online Certificate Status Protocol</span>)：用於查詢憑證是否已被撤銷。</li>
+                             <li>憑證儲存庫：儲存和發布憑證的地方。</li>
+                         </ul>
+                         <span style="background-color: #ffff0030;">數位簽章</span>使用 <span class="english-abbr">PKI</span> 來驗證簽署者身份。
+                         (資料來源：109初級-管理概論 Q35)
+                    </div>
+                </div>
+            </div>
+
+
+             <!-- Placeholder for No Results -->
+             <div id="noResultsMessage">沒有找到符合條件的重點。</div>
+
+        </div><!-- end focus-points-container -->
+
+        <div class="back-to-top" id="backToTop">↑</div>
+    </div>
+
+    <script>
+        // Progress bar (no changes needed)
+        const progressBar = document.getElementById("progressBar");
+        window.onscroll = function() { updateProgressBar(); toggleBackToTopButton(); };
+        function updateProgressBar() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (height > 0) ? (winScroll / height) * 100 : 0;
+            progressBar.style.width = scrolled + "%";
+        }
+
+        // Back to top button (no changes needed)
+        const backToTopButton = document.getElementById("backToTop");
+        function toggleBackToTopButton() {
+             backToTopButton.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "flex" : "none";
+        }
+        backToTopButton.addEventListener("click", () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+        // Filter by category (Updated function name and logic)
+        function filterByCategory(categoryNumber) {
+            // Ensure categoryNumber is treated as a string for comparison, except for 'all'
+             const valueToSet = categoryNumber === 'all' ? 'all' : String(categoryNumber);
+             document.getElementById('categoryFilter').value = valueToSet;
+             document.getElementById('searchInput').value = ''; // Clear search on filter click
+             filterFocusPoints(); // Call updated filter function
+        }
+
+        // Event listeners for filters and search (Updated IDs/functions)
+        document.getElementById("categoryFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("starFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("searchButton").addEventListener("click", searchFocusPoints); // Updated function call
+        document.getElementById("searchInput").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                searchFocusPoints(); // Updated function call
+            }
+        });
+
+        const noResultsMessage = document.getElementById('noResultsMessage');
+
+        // Combined filter function (Updated variable/class names)
+        function filterFocusPoints() {
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+            let points = document.querySelectorAll(".focus-card"); // Target .focus-card
+            let anyVisible = false;
+
+            points.forEach(function(point) {
+                // Updated dataset attribute name
+                const pointCategory = point.dataset.category;
+                const pointStars = point.dataset.stars;
+
+                const matchesCategory = (category === "all" || pointCategory === category);
+                const matchesStars = (stars === "all" || pointStars === stars);
+
+                if (matchesCategory && matchesStars) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                 // Updated message text
+                 noResultsMessage.textContent = '沒有找到符合篩選條件的重點。';
+             }
+        }
+
+        // Search function (Updated variable/class names)
+        function searchFocusPoints() {
+            let searchText = document.getElementById("searchInput").value.toLowerCase().trim();
+            let points = document.querySelectorAll(".focus-card"); // Target .focus-card
+            let anyVisible = false;
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+
+            points.forEach(function(point) {
+                // Check filters first
+                 const pointCategory = point.dataset.category;
+                 const pointStars = point.dataset.stars;
+                 const matchesCategory = (category === "all" || pointCategory === category);
+                 const matchesStars = (stars === "all" || pointStars === stars);
+                let visibleBasedOnFilter = matchesCategory && matchesStars;
+
+                // Check search text
+                let pointText = point.textContent.toLowerCase();
+                let matchesSearch = (searchText === "" || pointText.includes(searchText));
+
+                // Show if matches filters AND search (or if search is empty)
+                if (visibleBasedOnFilter && matchesSearch) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 if (searchText !== "") {
+                      noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                      // Updated message text
+                      noResultsMessage.textContent = '沒有找到符合目前篩選及搜尋條件的重點。';
+                 } else {
+                     // If search is empty, rely on filter results
+                     filterFocusPoints();
+                 }
+             }
+        }
+
+        // Removed Toggle Explanations Logic
+
+         // Initial setup
+         toggleBackToTopButton();
+         updateProgressBar();
+         filterFocusPoints(); // Apply default filters on load
+
+    </script>
+</body>
+</html>

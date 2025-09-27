@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>iPAS 資訊安全工程師 考試重點整理 - IS113 隱私權保護與智慧財產權</title> <!-- Changed Title -->
+    <style>
+        /* RWD設定，讓整體版面在不同裝置都有良好顯示 */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft JhengHei", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto; /* Added top/bottom margin */
+            padding: 25px;
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border-radius: 8px;
+        }
+        /* Updated Header */
+        .header-container {
+            background: linear-gradient(135deg, #2c3e50, #34495e); /* Darker gradient */
+            color: white;
+            padding: 30px 20px; /* Increased padding */
+            margin: -25px -25px 25px -25px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+        .header-container h1 {
+            margin: 0;
+            color: white;
+            font-size: 2.2rem; /* Larger title */
+            font-weight: 600;
+            margin-bottom: 5px; /* Space below title */
+        }
+        .header-container div { /* Subtitle */
+             font-size: 1.2rem;
+             opacity: 0.9;
+             margin-top: 5px;
+             font-weight: 300; /* Lighter weight */
+        }
+
+        /* Topic Categories Section (Renamed from Directions) */
+        .categories-container { /* Renamed */
+            background-color: #e8f0f5; /* Slightly different blue */
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 5px solid #5dade2; /* Lighter blue border */
+            border-radius: 5px;
+        }
+        .categories-title { /* Renamed */
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .categories-grid { /* Renamed */
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        .category-item { /* Renamed */
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #d6e0ea; /* Border matching background */
+        }
+        .category-item:hover {
+            background-color: #5dade2; /* Lighter blue hover */
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: #5dade2;
+        }
+        .category-number { /* Renamed */
+            width: 30px;
+            height: 30px;
+            background-color: #5dade2; /* Lighter blue number */
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .category-item:hover .category-number {
+            background-color: white;
+            color: #5dade2;
+        }
+        .category-text { /* Renamed */
+            font-size: 0.95rem;
+        }
+
+        /* Focus Point Card Styling (Replaces Question Card) */
+        .focus-points-container { /* Renamed */
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px; /* Increased gap */
+        }
+        .focus-card { /* Renamed */
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 0; /* Remove padding here, apply to inner elements */
+            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.1); /* Slightly stronger shadow */
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            border: 1px solid #e0e0e0;
+            overflow: hidden; /* Ensure inner elements respect border radius */
+        }
+        .focus-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(44, 62, 80, 0.15);
+        }
+        .focus-header { /* Renamed */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px; /* Padding inside header */
+            background-color: #f8f9fa; /* Light header background */
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .focus-id { /* Renamed */
+            font-weight: bold;
+            color: #5dade2; /* Lighter blue ID */
+            font-size: 1rem;
+            background-color: #e8f0f5; /* Background for ID */
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .focus-importance { /* Renamed */
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .focus-topic-container { /* New container for the main topic */
+             padding: 25px 25px 20px 25px; /* Padding around the topic */
+             border-bottom: 1px dashed #eee; /* Separator line */
+        }
+
+        .focus-topic { /* Replaces question-content */
+            font-size: 1.5rem; /* Larger font for the topic */
+            font-weight: 600; /* Bolder */
+            margin-bottom: 0; /* Remove margin, handled by container padding */
+            line-height: 1.4;
+            color: #2c3e50; /* Dark blue-grey for topic */
+        }
+
+        /* Styling for terminology within topic/details */
+        .english-abbr {
+            color: #8e44ad; /* Purple for abbreviations */
+            font-weight: 600;
+        }
+        .english-fullname {
+            color: #c0392b; /* Darker red for full names/concepts */
+            font-weight: 500;
+        }
+
+
+        /* Details Section Styling (Replaces Explanation) */
+        .focus-details-container { /* Renamed */
+            padding: 20px 25px 25px 25px; /* Padding for details */
+            /* background-color: #fdfefe; */ /* Optional subtle background, removing for cleaner look */
+        }
+        .details-header { /* Renamed */
+            font-weight: bold;
+            margin-bottom: 15px; /* Space below header */
+            color: #34495e;
+            font-size: 1.2rem; /* Slightly larger details header */
+            /* text-transform: uppercase; */ /* Optional styling */
+            letter-spacing: 0.5px; /* Optional spacing */
+            /* border-bottom: 2px solid #5dade2; */ /* Optional underline */
+            /* display: inline-block; */ /* If using underline */
+            /* padding-bottom: 5px; */ /* If using underline */
+        }
+        .details-content { /* Renamed */
+            line-height: 1.75; /* Increased line height for readability */
+            color: #444;
+            font-size: 1.05rem; /* Slightly larger detail text */
+        }
+        .details-content ul { /* Style lists if used in details */
+             padding-left: 25px;
+             margin-top: 10px;
+             margin-bottom: 10px;
+        }
+         .details-content li {
+             margin-bottom: 8px; /* Space between list items */
+         }
+
+        /* Controls Section Styling (Adjusted for Focus Points) */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 15px;
+            background-color: #fdfdfd;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+        .filter-container, .search-container, .star-filter-container { /* Removed .toggle-explanations */
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            min-width: 200px;
+        }
+         .search-container { flex-grow: 2; }
+        .filter-label, .search-label, .star-filter-label {
+            font-weight: 600;
+            margin-right: 10px;
+            white-space: nowrap;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        select, input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+            flex-grow: 1;
+            font-size: 0.95rem;
+            background-color: white;
+        }
+         input[type="text"] { min-width: 180px; }
+        button {
+            padding: 10px 18px;
+            background-color: #5dade2; /* Lighter blue buttons */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.2s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-left: 8px;
+            white-space: nowrap;
+        }
+        button:hover {
+            background-color: #3498db; /* Darker blue hover */
+        }
+
+        /* RWD Adjustments */
+        @media (max-width: 992px) {
+             .controls { flex-direction: column; align-items: stretch; }
+            .filter-container, .search-container, .star-filter-container { width: 100%; flex-grow: 0; }
+             select, input[type="text"] { width: 100%; }
+             button { margin-left: 0; margin-top: 5px; }
+             .search-container button { margin-left: 8px; margin-top: 0; }
+             #searchInput { width: calc(100% - 90px); }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .header-container { padding: 25px 15px; margin: -15px -15px 20px -15px; }
+            .categories-grid { grid-template-columns: 1fr; }
+            .focus-card { padding: 0; } /* Ensure no padding on card itself */
+             .focus-header, .focus-topic-container, .focus-details-container { padding-left: 20px; padding-right: 20px; } /* Adjust inner padding */
+            h1 { font-size: 1.8rem; }
+            .header-container h1 { font-size: 2rem; }
+            .focus-topic { font-size: 1.3rem; }
+            .details-header { font-size: 1.1rem; }
+            .details-content { font-size: 1rem; }
+        }
+
+        /* Back to Top Button & Progress Bar (No changes needed) */
+        .back-to-top {
+            position: fixed; bottom: 25px; right: 25px; background-color: #5dade2; color: white;
+            width: 45px; height: 45px; border-radius: 50%; display: none; justify-content: center;
+            align-items: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, opacity 0.3s, transform 0.3s; z-index: 1000;
+            opacity: 0.8; font-size: 1.2rem;
+        }
+        .back-to-top:hover { background-color: #3498db; opacity: 1; transform: scale(1.1); }
+        .progress-container {
+            width: 100%; height: 5px; background-color: #e8f0f5; position: fixed;
+            top: 0; left: 0; z-index: 1001;
+        }
+        .progress-bar {
+            height: 5px; background: linear-gradient(90deg, #5dade2, #85c1e9); /* Adjusted gradient */
+            width: 0%; border-radius: 0 2px 2px 0; transition: width 0.1s linear;
+        }
+         #noResultsMessage {
+             text-align: center; padding: 20px; color: #777; display: none; font-style: italic;
+         }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <div class="header-container">
+            <h1>iPAS 資訊安全工程師 考試重點</h1> <!-- Updated Title -->
+            <div>IS113 隱私權保護與智慧財產權</div> <!-- Updated Subtitle -->
+        </div>
+
+        <div class="controls">
+             <div class="filter-container">
+                 <!-- Updated Label -->
+                <label for="categoryFilter" class="filter-label">篩選主題：</label>
+                <select id="categoryFilter"> <!-- Updated ID -->
+                    <option value="all">全部主題</option>
+                    <option value="1">資訊倫理與法規概論</option>
+                    <option value="2">個人資料保護法 - 定義與原則</option>
+                    <option value="3">個人資料保護法 - 當事人權利與義務</option>
+                    <option value="4">個人資料保護法 - 罰則與損害賠償</option>
+                    <option value="5">智慧財產權 - 概論與類型</option>
+                    <option value="6">著作權</option>                    
+                    <option value="7">商標權與營業秘密</option>
+                </select>
+            </div>
+
+            <div class="star-filter-container">
+                <label for="starFilter" class="star-filter-label">重要性：</label>
+                <select id="starFilter">
+                    <option value="all">全部重要性</option>
+                    <option value="5">★★★★★</option>
+                    <option value="4">★★★★</option>
+                    <option value="3">★★★</option>
+                    <option value="2">★★</option>
+                    <option value="1">★</option>
+                </select>
+            </div>
+
+            <div class="search-container">
+                <label for="searchInput" class="search-label">搜尋：</label>
+                <input type="text" id="searchInput" placeholder="輸入關鍵字...">
+                <button id="searchButton">搜尋</button>
+            </div>
+            <!-- Removed Toggle Explanations Button -->
+        </div>
+
+        <div class="categories-container"> <!-- Renamed -->
+            <div class="categories-title">主題分類</div> <!-- Updated Title -->
+            <div class="categories-grid" id="categoriesGrid"> <!-- Renamed ID -->
+                <!-- Renamed classes and updated filter function call -->
+                <div class="category-item" onclick="filterByCategory(1)">
+                    <div class="category-number">1</div>
+                    <div class="category-text">資訊倫理與法規概論</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(2)">
+                    <div class="category-number">2</div>
+                    <div class="category-text">個人資料保護法 - 定義與原則</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(3)">
+                    <div class="category-number">3</div>
+                    <div class="category-text">個人資料保護法 - 當事人權利與義務</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(4)">
+                    <div class="category-number">4</div>
+                    <div class="category-text">個人資料保護法 - 罰則與損害賠償</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(5)">
+                    <div class="category-number">5</div>
+                    <div class="category-text">智慧財產權 - 概論與類型</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(6)">
+                    <div class="category-number">6</div>
+                    <div class="category-text">著作權</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(7)">
+                    <div class="category-number">7</div>
+                    <div class="category-text">商標權與營業秘密</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="focus-points-container" id="focusPointsContainer"> <!-- Renamed -->
+
+            <!-- Focus Point 1 -->
+            <div class="focus-card" data-category="1" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#1</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">資訊倫理</span>四大議題 (<span class="english-abbr">PAPA</span>)
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        學者 <span class="english-fullname">Mason</span> 提出資訊倫理常探討的四大議題 (<span class="english-abbr">PAPA</span>)：
+                        <ul>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">隱私權</b> (<span class="english-fullname">Privacy</span>)</span>：個人保護自有資訊，<span style="background-color: #ffff0030;">決定是否公開或保密的權利</span>。</li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">正確性</b> (<span class="english-fullname">Accuracy</span>)</span>：資訊的精確度和真實性。</li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">財產權</b> (<span class="english-fullname">Property</span>)</span>：資訊的所有權與智慧財產權相關議題。</li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">存取權</b> (<span class="english-fullname">Accessibility</span> / <span class="english-fullname">Access</span>)</span>：誰有權利存取資訊及如何存取。</li>
+                        </ul>
+                        (資料來源：109年初級-管理概論 Q7)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 2 -->
+            <div class="focus-card" data-category="2" data-stars="5">
+                <div class="focus-header">
+                    <div class="focus-id">#2</div>
+                    <div class="focus-importance">★★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">個人資料保護法</span> (<span class="english-abbr">PIPL</span>) - 保護目的與法規
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心目的</div>
+                    <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">個人資料保護法</span> (<span class="english-abbr">PIPL</span>, <span class="english-fullname">Personal Information Protection Law</span>) 主要目的在於「<span style="background-color: #ffff0030;">避免人格權受侵害，並促進個人資料之合理利用</span>」。它規範了個人資料的<span style="background-color: #ffff0030;">蒐集、處理及利用</span>行為。<br>
+                        相關法規也包含<span style="color: blue; font-weight: bold;">電子簽章法</span>等，用於確保數位資料的法律效力。
+                        (資料來源：109年初級-管理概論 Q6, 110初級-管理概論 Q6, 109初級-管理概論 Q7)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 3 -->
+            <div class="focus-card" data-category="2" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#3</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span class="english-abbr">OECD</span> <span style="color: blue; font-weight: bold;">個人資料保護八大原則</span>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">主要原則</div>
+                    <div class="details-content">
+                        經濟合作及發展組織 (<span class="english-abbr">OECD</span>, <span class="english-fullname">Organization for Economic Cooperation and Development</span>) 提出的<span style="background-color: #ffff0030;">八大個人資料保護原則</span>是許多國家個資法的基礎，包括：
+                        <ul>
+                            <li><span style="background-color: #ffff0030;">限制蒐集原則</span> (<span class="english-fullname">Collection Limitation Principle</span>)</li>
+                            <li>資料內容原則 (<span class="english-fullname">Data Quality Principle</span>)</li>
+                            <li>目的明確原則 (<span class="english-fullname">Purpose Specification Principle</span>)</li>
+                            <li>利用限制原則 (<span class="english-fullname">Use Limitation Principle</span>)</li>
+                            <li>安全保護原則 (<span class="english-fullname">Security Safeguards Principle</span>)</li>
+                            <li><span style="background-color: #ffff0030;">公開原則</span> (<span class="english-fullname">Openness Principle</span>)</li>
+                            <li><span style="background-color: #ffff0030;">個人參與原則</span> (<span class="english-fullname">Individual Participation Principle</span>)</li>
+                            <li>責任明確原則 (<span class="english-fullname">Accountability Principle</span>)</li>
+                        </ul>
+                        其中<span style="background-color: #ffff0030;">「分享原則」(<span class="english-fullname">Share Principle</span>) 並不包含在內</span>。
+                        (資料來源：109年初級-管理概論 Q9)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 4 -->
+            <div class="focus-card" data-category="3" data-stars="5">
+                <div class="focus-header">
+                    <div class="focus-id">#4</div>
+                    <div class="focus-importance">★★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">個人資料保護法</span> - <span style="color: blue; font-weight: bold;">當事人權利</span>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">主要權利</div>
+                    <div class="details-content">
+                        依據<span style="color: blue; font-weight: bold;">個資法</span>第三條，當事人對其個人資料擁有以下權利，且<span style="background-color: #ffff0030;">不得預先拋棄或以特約限制</span>：
+                        <ul>
+                            <li><span style="background-color: #ffff0030;">查詢或請求閱覽</span></li>
+                            <li><span style="background-color: #ffff0030;">請求製給複製本</span> (蒐集者可酌收必要成本費用)</li>
+                            <li><span style="background-color: #ffff0030;">請求補充或更正</span></li>
+                            <li><span style="background-color: #ffff0030;">請求停止蒐集、處理或利用</span></li>
+                            <li><span style="background-color: #ffff0030;">請求刪除</span></li>
+                        </ul>
+                        請求<span style="background-color: #ffff0030;">永久保留</span>並非當事人之權利。
+                        (資料來源：110初級-管理概論 Q7, 112初級-管理概論 Q6, 112初級-管理概論 Q10)
+                    </div>
+                    <div class="details-header">請求處理時限</div>
+                     <div class="details-content">
+                        公務或非公務機關對於當事人查詢、閱覽、補充、更正、停止利用、刪除等請求，應於<span style="background-color: #ffff0030;">三十日內</span>回覆是否同意；必要時得延長，延長期間不得逾三十日，並應以書面通知當事人。若請求閱覽，應於<span style="background-color: #ffff0030;">十五日內</span>回覆。 (注意：113-1 題目給的答案是 30天內告知是否同意，而非 45 天後才告知不同意)
+                        (資料來源：113初級-管理概論 Q9)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 5 -->
+            <div class="focus-card" data-category="3" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#5</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">個人資料保護法</span> - <span style="color: blue; font-weight: bold;">蒐集告知義務</span>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">告知事項</div>
+                    <div class="details-content">
+                        公務或非公務機關在蒐集個人資料時，應明確告知當事人下列事項 (依<span style="color: blue; font-weight: bold;">個資法</span>第八條)：
+                        <ul>
+                            <li>機關或單位名稱</li>
+                            <li><span style="background-color: #ffff0030;">蒐集之目的</span></li>
+                            <li><span style="background-color: #ffff0030;">個人資料之類別</span></li>
+                            <li><span style="background-color: #ffff0030;">個人資料利用之期間、地區、對象及方式</span></li>
+                            <li>當事人依第三條規定得行使之權利及方式</li>
+                            <li>當事人得自由選擇提供個人資料時，不提供將對其權益之影響</li>
+                        </ul>
+                        告知內容<span style="background-color: #ffff0030;">不包含</span>「個人資料儲存方式」。告知方式<span style="background-color: #ffff0030;">不限於書面</span>，得以言詞、電話、簡訊、電子郵件等方式為之。
+                        (資料來源：109初級-管理概論 Q13, 113初級-管理概論 Q8)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 6 -->
+            <div class="focus-card" data-category="2" data-stars="3">
+                <div class="focus-header">
+                    <div class="focus-id">#6</div>
+                    <div class="focus-importance">★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">個人資料保護法</span> - <span style="color: blue; font-weight: bold;">特種個資</span>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">定義</div>
+                    <div class="details-content">
+                        依<span style="color: blue; font-weight: bold;">個資法</span>第六條，有關<span style="background-color: #ffff0030;">病歷、醫療、基因、性生活、健康檢查及犯罪前科</span>之個人資料，不得蒐集、處理或利用 (有法定例外情形)。<br>
+                        <span style="background-color: #ffff0030;">指紋</span>屬於一般個資中的生物特徵，但因其高度敏感性，實務上常比照特種個資處理。<span style="background-color: #ffff0030;">血統</span>並非現行法規定的特種個資。
+                        (資料來源：111初級-管理概論 Q6, 112初級-管理概論 Q12)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 7 -->
+            <div class="focus-card" data-category="4" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#7</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">個人資料保護法</span> - <span style="color: blue; font-weight: bold;">損害賠償</span>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">賠償計算</div>
+                    <div class="details-content">
+                        因違反<span style="color: blue; font-weight: bold;">個資法</span>規定致個人資料遭不法侵害，被害人<span style="background-color: #ffff0030;">不易或不能證明其實際損害金額時</span>，得請求法院依侵害情節，以每人每一事件<span style="background-color: #ffff0030;">新臺幣五百元以上二萬元以下</span>計算。
+                        (資料來源：109初級-管理概論 Q12)
+                    </div>
+                     <div class="details-header">公務員加重處罰</div>
+                    <div class="details-content">
+                         公務員假借職務上之權力、機會或方法，犯<span style="color: blue; font-weight: bold;">個人資料保護法</span>所訂之罪者，<span style="background-color: #ffff0030;">加重其刑至二分之一</span>。
+                        (資料來源：111初級-管理概論 Q7)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 8 -->
+            <div class="focus-card" data-category="5" data-stars="5">
+                <div class="focus-header">
+                    <div class="focus-id">#8</div>
+                    <div class="focus-importance">★★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">智慧財產權</span> (<span class="english-abbr">IPR</span>) - 基本概念與類型
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">定義與類型</div>
+                    <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">智慧財產權</span> (<span class="english-abbr">IPR</span>, <span class="english-fullname">Intellectual Property Rights</span>) 是指由人類思想、智慧、創作而產生具有財產價值的產物。<br>
+                        主要類型包括：
+                        <ul>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">著作權</b> (<span class="english-fullname">Copyright</span>)</span>：保護文學、藝術、科學等創作。</li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">專利權</b> (<span class="english-fullname">Patent</span>)</span>：保護發明、新型、設計等技術創新。</li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">商標權</b> (<span class="english-fullname">Trademark</span>)</span>：保護用於區別商品或服務來源的標識。</li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">營業秘密</b> (<span class="english-fullname">Trade Secret</span>)</span>：保護具有經濟價值且採取保密措施的技術或經營資訊。</li>
+                        </ul>
+                         <span style="background-color: #ffff0030;">肖像權</span>屬於人格權範疇，保護個人形象不被濫用，<span style="background-color: #ffff0030;">不屬於</span>智慧財產權。
+                        (資料來源：109初級-技術概論 Q7, 111初級-管理概論 Q32, 108初級-管理概論 Q45)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 9 -->
+             <div class="focus-card" data-category="6" data-stars="3">
+                <div class="focus-header">
+                    <div class="focus-id">#9</div>
+                    <div class="focus-importance">★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">著作權</span> (<span class="english-fullname">Copyright</span>) - 保護範圍
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">保護標的</div>
+                    <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">著作權</span> 保護文學、科學、藝術或其他學術範圍之創作。例如：自創音樂、小說創作、攝影作品等。
+                        <br>
+                        依據<span style="color: blue; font-weight: bold;">著作權法</span>第 9 條，<span style="background-color: #ffff0030;">不得為著作權標的</span>之項目包括：
+                        <ul>
+                            <li>憲法、法律、命令或<span style="background-color: #ffff0030;">公文</span>。</li>
+                            <li>中央或地方機關就前款著作作成之翻譯物或編輯物。</li>
+                            <li>標語及通用之符號、名詞、公式、數表、表格、簿冊或時曆。</li>
+                            <li>單純為傳達事實之新聞報導所作成之語文著作。</li>
+                            <li>依法令舉行之各類考試試題及其備用試題。</li>
+                        </ul>
+                         (資料來源：111初級-管理概論 Q17)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 10 -->
+             <div class="focus-card" data-category="7" data-stars="3">
+                <div class="focus-header">
+                    <div class="focus-id">#10</div>
+                    <div class="focus-importance">★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">營業秘密</span> (<span class="english-fullname">Trade Secret</span>) - 要件
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">構成要件</div>
+                    <div class="details-content">
+                        依據<span style="color: blue; font-weight: bold;">營業秘密法</span>，構成<span style="color: blue; font-weight: bold;">營業秘密</span>的資訊須符合以下三要件：
+                        <ul>
+                            <li><span style="background-color: #ffff0030;">秘密性</span>：非一般涉及該類資訊之人所知者。</li>
+                            <li><span style="background-color: #ffff0030;">經濟價值</span>：因其秘密性而具有實際或潛在之經濟價值者。</li>
+                            <li><span style="background-color: #ffff0030;">保密措施</span>：所有人已採取合理之保密措施者。</li>
+                        </ul>
+                        技術、方法、製程、配方、程式、設計等可用於生產、銷售或經營之資訊皆可為營業秘密。<br>
+                        <span style="background-color: #ffff0030;">程式不必然屬於著作權</span>，若符合上述要件，也可受營業秘密法保護。<br>
+                        <span style="background-color: #ffff0030;">營業秘密不得為質權及強制執行之標的</span>。
+                        (資料來源：109初級-管理概論 Q11, 112初級-管理概論 Q11)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 11 -->
+             <div class="focus-card" data-category="5" data-stars="3">
+                <div class="focus-header">
+                    <div class="focus-id">#11</div>
+                    <div class="focus-importance">★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">智慧財產權</span> - 相關法規
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">相關法令</div>
+                    <div class="details-content">
+                       保護智慧財產權的相關法規主要有：
+                        <ul>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">著作權法</b></span></li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">專利法</b></span></li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">商標法</b></span></li>
+                             <li><span style="background-color: #ffff0030;"><b style="color: blue;">營業秘密法</b></span></li>
+                        </ul>
+                        <span style="background-color: #ffff0030;"><b style="color: blue;">個人資料保護法</b></span>主要在保護個人隱私權，與智慧財產權範疇不同。
+                        (資料來源：110初級-管理概論 Q7)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 12 -->
+             <div class="focus-card" data-category="5" data-stars="2">
+                <div class="focus-header">
+                    <div class="focus-id">#12</div>
+                    <div class="focus-importance">★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">智慧財產權</span> - 保護實務
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">保護措施</div>
+                    <div class="details-content">
+                       保護智慧財產權的適當做法包括：
+                        <ul>
+                            <li>向信譽良好的店家購買合法軟體。</li>
+                             <li>制定保護智慧財產權的政策。</li>
+                             <li>定期審查安裝的軟體是否經授權。</li>
+                        </ul>
+                        <span style="background-color: #ffff0030;">從網路下載破解版軟體</span>是<span style="background-color: #ffff0030;">不適當且違法的</span>行為。
+                        (資料來源：111初級-管理概論 Q16)
+                    </div>
+                </div>
+            </div>
+
+
+             <!-- Placeholder for No Results -->
+             <div id="noResultsMessage">沒有找到符合條件的重點。</div>
+
+        </div><!-- end focus-points-container -->
+
+        <div class="back-to-top" id="backToTop">↑</div>
+    </div>
+
+    <script>
+        // Progress bar (no changes needed)
+        const progressBar = document.getElementById("progressBar");
+        window.onscroll = function() { updateProgressBar(); toggleBackToTopButton(); };
+        function updateProgressBar() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (height > 0) ? (winScroll / height) * 100 : 0;
+            progressBar.style.width = scrolled + "%";
+        }
+
+        // Back to top button (no changes needed)
+        const backToTopButton = document.getElementById("backToTop");
+        function toggleBackToTopButton() {
+             backToTopButton.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "flex" : "none";
+        }
+        backToTopButton.addEventListener("click", () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+        // Filter by category (Updated function name)
+        function filterByCategory(categoryNumber) {
+            // Find the option element corresponding to the category number
+            const categoryOption = document.querySelector(`#categoryFilter option[value="${categoryNumber}"]`);
+            if (categoryOption) {
+                 document.getElementById('categoryFilter').value = categoryNumber;
+                 document.getElementById('searchInput').value = ''; // Clear search on filter click
+                 filterFocusPoints(); // Call updated filter function
+            } else if (categoryNumber === 'all') {
+                document.getElementById('categoryFilter').value = 'all';
+                document.getElementById('searchInput').value = '';
+                filterFocusPoints();
+            }
+        }
+
+        // Event listeners for filters and search (Updated IDs/functions)
+        document.getElementById("categoryFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("starFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("searchButton").addEventListener("click", searchFocusPoints); // Updated function call
+        document.getElementById("searchInput").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                searchFocusPoints(); // Updated function call
+            }
+        });
+
+        const noResultsMessage = document.getElementById('noResultsMessage');
+
+        // Combined filter function (Updated variable/class names)
+        function filterFocusPoints() {
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+            let points = document.querySelectorAll(".focus-card"); // Target .focus-card
+            let anyVisible = false;
+
+            points.forEach(function(point) {
+                // Updated dataset attribute name
+                const matchesCategory = (category === "all" || point.dataset.category === category);
+                const matchesStars = (stars === "all" || point.dataset.stars === stars);
+
+                if (matchesCategory && matchesStars) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                 // Updated message text
+                 noResultsMessage.textContent = '沒有找到符合篩選條件的重點。';
+             }
+        }
+
+        // Search function (Updated variable/class names)
+        function searchFocusPoints() {
+            let searchText = document.getElementById("searchInput").value.toLowerCase().trim();
+            let points = document.querySelectorAll(".focus-card"); // Target .focus-card
+            let anyVisible = false;
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+
+            points.forEach(function(point) {
+                // Check filters first
+                const matchesCategory = (category === "all" || point.dataset.category === category);
+                const matchesStars = (stars === "all" || point.dataset.stars === stars);
+                let visibleBasedOnFilter = matchesCategory && matchesStars;
+
+                // Check search text
+                let pointText = point.textContent.toLowerCase();
+                let matchesSearch = (searchText === "" || pointText.includes(searchText));
+
+                // Show if matches filters AND search (or if search is empty)
+                if (visibleBasedOnFilter && matchesSearch) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 if (searchText !== "") {
+                      noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                      // Updated message text
+                      noResultsMessage.textContent = '沒有找到符合目前篩選及搜尋條件的重點。';
+                 } else {
+                     // If search is empty, rely on filter results
+                     filterFocusPoints();
+                 }
+             }
+        }
+
+        // Removed Toggle Explanations Logic
+
+         // Initial setup
+         toggleBackToTopButton();
+         updateProgressBar();
+         filterFocusPoints(); // Apply default filters on load
+
+    </script>
+</body>
+</html>

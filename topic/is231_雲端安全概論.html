@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>iPAS 資訊安全工程師 考試重點整理 - 雲端安全概論</title> <!-- Changed Title -->
+    <style>
+        /* RWD設定，讓整體版面在不同裝置都有良好顯示 */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft JhengHei", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto; /* Added top/bottom margin */
+            padding: 25px;
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border-radius: 8px;
+        }
+        /* Updated Header */
+        .header-container {
+            background: linear-gradient(135deg, #2c3e50, #34495e); /* Darker gradient */
+            color: white;
+            padding: 30px 20px; /* Increased padding */
+            margin: -25px -25px 25px -25px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+        .header-container h1 {
+            margin: 0;
+            color: white;
+            font-size: 2.2rem; /* Larger title */
+            font-weight: 600;
+            margin-bottom: 5px; /* Space below title */
+        }
+        .header-container div { /* Subtitle */
+             font-size: 1.2rem;
+             opacity: 0.9;
+             margin-top: 5px;
+             font-weight: 300; /* Lighter weight */
+        }
+
+        /* Topic Categories Section (Renamed from Directions) */
+        .categories-container { /* Renamed */
+            background-color: #e8f0f5; /* Slightly different blue */
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 5px solid #5dade2; /* Lighter blue border */
+            border-radius: 5px;
+        }
+        .categories-title { /* Renamed */
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .categories-grid { /* Renamed */
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        .category-item { /* Renamed */
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #d6e0ea; /* Border matching background */
+        }
+        .category-item:hover {
+            background-color: #5dade2; /* Lighter blue hover */
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: #5dade2;
+        }
+        .category-number { /* Renamed */
+            width: 30px;
+            height: 30px;
+            background-color: #5dade2; /* Lighter blue number */
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .category-item:hover .category-number {
+            background-color: white;
+            color: #5dade2;
+        }
+        .category-text { /* Renamed */
+            font-size: 0.95rem;
+        }
+
+        /* Focus Point Card Styling (Replaces Question Card) */
+        .focus-points-container { /* Renamed */
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px; /* Increased gap */
+        }
+        .focus-card { /* Renamed */
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 0; /* Remove padding here, apply to inner elements */
+            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.1); /* Slightly stronger shadow */
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            border: 1px solid #e0e0e0;
+            overflow: hidden; /* Ensure inner elements respect border radius */
+        }
+        .focus-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(44, 62, 80, 0.15);
+        }
+        .focus-header { /* Renamed */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px; /* Padding inside header */
+            background-color: #f8f9fa; /* Light header background */
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .focus-id { /* Renamed */
+            font-weight: bold;
+            color: #5dade2; /* Lighter blue ID */
+            font-size: 1rem;
+            background-color: #e8f0f5; /* Background for ID */
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .focus-importance { /* Renamed */
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .focus-topic-container { /* New container for the main topic */
+             padding: 25px 25px 20px 25px; /* Padding around the topic */
+             border-bottom: 1px dashed #eee; /* Separator line */
+        }
+
+        .focus-topic { /* Replaces question-content */
+            font-size: 1.5rem; /* Larger font for the topic */
+            font-weight: 600; /* Bolder */
+            margin-bottom: 0; /* Remove margin, handled by container padding */
+            line-height: 1.4;
+            color: #2c3e50; /* Dark blue-grey for topic */
+        }
+
+        /* Styling for terminology within topic/details */
+        .chinese-term {
+            color: #0000FF; /* Blue */
+            font-weight: bold;
+        }
+        .english-abbr {
+            color: #800080; /* Purple */
+            font-weight: bold;
+        }
+        .english-fullname {
+            color: #FF0000; /* Red */
+            font-weight: bold;
+        }
+        .keyword-highlight {
+            background-color: #ffff0030; /* Light yellow background */
+        }
+
+
+        /* Details Section Styling (Replaces Explanation) */
+        .focus-details-container { /* Renamed */
+            padding: 20px 25px 25px 25px; /* Padding for details */
+            /* background-color: #fdfefe; */ /* Optional subtle background, removing for cleaner look */
+        }
+        .details-header { /* Renamed */
+            font-weight: bold;
+            margin-bottom: 15px; /* Space below header */
+            color: #34495e;
+            font-size: 1.2rem; /* Slightly larger details header */
+            /* text-transform: uppercase; */ /* Optional styling */
+            letter-spacing: 0.5px; /* Optional spacing */
+            /* border-bottom: 2px solid #5dade2; */ /* Optional underline */
+            /* display: inline-block; */ /* If using underline */
+            /* padding-bottom: 5px; */ /* If using underline */
+        }
+        .details-content { /* Renamed */
+            line-height: 1.75; /* Increased line height for readability */
+            color: #444;
+            font-size: 1.05rem; /* Slightly larger detail text */
+        }
+        .details-content ul { /* Style lists if used in details */
+             padding-left: 25px;
+             margin-top: 10px;
+             margin-bottom: 10px;
+        }
+         .details-content li {
+             margin-bottom: 8px; /* Space between list items */
+         }
+         .source-ref {
+            font-size: 0.85rem;
+            color: #777;
+            margin-top: 15px;
+            display: block;
+            text-align: right;
+         }
+
+        /* Controls Section Styling (Adjusted for Focus Points) */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 15px;
+            background-color: #fdfdfd;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+        .filter-container, .search-container, .star-filter-container { /* Removed .toggle-explanations */
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            min-width: 200px;
+        }
+         .search-container { flex-grow: 2; }
+        .filter-label, .search-label, .star-filter-label {
+            font-weight: 600;
+            margin-right: 10px;
+            white-space: nowrap;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        select, input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+            flex-grow: 1;
+            font-size: 0.95rem;
+            background-color: white;
+        }
+         input[type="text"] { min-width: 180px; }
+        button {
+            padding: 10px 18px;
+            background-color: #5dade2; /* Lighter blue buttons */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.2s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-left: 8px;
+            white-space: nowrap;
+        }
+        button:hover {
+            background-color: #3498db; /* Darker blue hover */
+        }
+
+        /* RWD Adjustments */
+        @media (max-width: 992px) {
+             .controls { flex-direction: column; align-items: stretch; }
+            .filter-container, .search-container, .star-filter-container { width: 100%; flex-grow: 0; }
+             select, input[type="text"] { width: 100%; }
+             button { margin-left: 0; margin-top: 5px; }
+             .search-container button { margin-left: 8px; margin-top: 0; }
+             #searchInput { width: calc(100% - 90px); }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .header-container { padding: 25px 15px; margin: -15px -15px 20px -15px; }
+            .categories-grid { grid-template-columns: 1fr; }
+            .focus-card { padding: 0; } /* Ensure no padding on card itself */
+             .focus-header, .focus-topic-container, .focus-details-container { padding-left: 20px; padding-right: 20px; } /* Adjust inner padding */
+            h1 { font-size: 1.8rem; }
+            .header-container h1 { font-size: 2rem; }
+            .focus-topic { font-size: 1.3rem; }
+            .details-header { font-size: 1.1rem; }
+            .details-content { font-size: 1rem; }
+        }
+
+        /* Back to Top Button & Progress Bar (No changes needed) */
+        .back-to-top {
+            position: fixed; bottom: 25px; right: 25px; background-color: #5dade2; color: white;
+            width: 45px; height: 45px; border-radius: 50%; display: none; justify-content: center;
+            align-items: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, opacity 0.3s, transform 0.3s; z-index: 1000;
+            opacity: 0.8; font-size: 1.2rem;
+        }
+        .back-to-top:hover { background-color: #3498db; opacity: 1; transform: scale(1.1); }
+        .progress-container {
+            width: 100%; height: 5px; background-color: #e8f0f5; position: fixed;
+            top: 0; left: 0; z-index: 1001;
+        }
+        .progress-bar {
+            height: 5px; background: linear-gradient(90deg, #5dade2, #85c1e9); /* Adjusted gradient */
+            width: 0%; border-radius: 0 2px 2px 0; transition: width 0.1s linear;
+        }
+         #noResultsMessage {
+             text-align: center; padding: 20px; color: #777; display: none; font-style: italic;
+         }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <div class="header-container">
+            <h1>iPAS 資訊安全工程師 考試重點</h1> <!-- Updated Title -->
+            <div>雲端安全概論</div>
+        </div>
+
+        <div class="controls">
+             <div class="filter-container">
+                <label for="categoryFilter" class="filter-label">篩選主題：</label>
+                <select id="categoryFilter">
+                    <option value="all">全部主題</option>
+                    <option value="1">雲端運算基本概念</option>
+                    <option value="2">雲端部署與服務模型</option>
+                    <!--<option value="3">雲端安全責任模型</option> --> <!-- Removed as no questions map here -->
+                    <option value="4">雲端安全威脅與風險</option>
+                    <!--<option value="5">雲端安全控制措施</option> --> <!-- Removed as no questions map here -->
+                    <option value="6">雲端安全標準與合規</option>
+                </select>
+            </div>
+
+            <div class="star-filter-container">
+                <label for="starFilter" class="star-filter-label">重要性：</label>
+                <select id="starFilter">
+                    <option value="all">全部重要性</option>
+                    <option value="5">★★★★★</option>
+                    <option value="4">★★★★</option>
+                    <option value="3">★★★</option>
+                    <option value="2">★★</option>
+                    <option value="1">★</option>
+                </select>
+            </div>
+
+            <div class="search-container">
+                <label for="searchInput" class="search-label">搜尋：</label>
+                <input type="text" id="searchInput" placeholder="輸入關鍵字...">
+                <button id="searchButton">搜尋</button>
+            </div>
+        </div>
+
+        <div class="categories-container">
+            <div class="categories-title">主題分類</div>
+            <div class="categories-grid" id="categoriesGrid">
+                <div class="category-item" onclick="filterByCategory(1)">
+                    <div class="category-number">1</div>
+                    <div class="category-text">雲端運算基本概念</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(2)">
+                    <div class="category-number">2</div>
+                    <div class="category-text">雲端部署與服務模型</div>
+                </div>
+                 <!--<div class="category-item" onclick="filterByCategory(3)">
+                    <div class="category-number">3</div>
+                    <div class="category-text">雲端安全責任模型</div>
+                </div> -->
+                 <div class="category-item" onclick="filterByCategory(4)">
+                    <div class="category-number">4</div>
+                    <div class="category-text">雲端安全威脅與風險</div>
+                </div>
+                <!-- <div class="category-item" onclick="filterByCategory(5)">
+                    <div class="category-number">5</div>
+                    <div class="category-text">雲端安全控制措施</div>
+                </div> -->
+                 <div class="category-item" onclick="filterByCategory(6)">
+                    <div class="category-number">6</div>
+                    <div class="category-text">雲端安全標準與合規</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="focus-points-container" id="focusPointsContainer">
+
+            <div class="focus-card" data-category="1" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#CS01</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                       <span class="chinese-term">雲端運算</span> (<span class="english-fullname">Cloud Computing</span>) 的關鍵特徵 (<span class="english-abbr">NIST</span> 定義)
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">五大關鍵特徵</div>
+                    <div class="details-content">
+                        根據<span class="chinese-term">美國國家標準技術研究院</span> (<span class="english-fullname">National Institute of Standards and Technology</span>, <span class="english-abbr">NIST</span>) 的定義，雲端運算有五個關鍵特徵：
+                        <ul>
+                            <li><span class="chinese-term">隨需自助服務</span> (<span class="english-fullname">On-demand Self-service</span>)：使用者可以<span class="keyword-highlight">自行配置所需的運算資源</span>，無需人工干預。</li>
+                            <li><span class="chinese-term">廣泛的網路存取</span> (<span class="english-fullname">Broad Network Access</span>)：可以透過<span class="keyword-highlight">標準機制和各種裝置</span> (手機、筆電等) 存取雲端服務。</li>
+                            <li><span class="chinese-term">資源池</span> (<span class="english-fullname">Resource Pooling</span>)：供應商的運算資源 (儲存、處理、記憶體、網路頻寬等) <span class="keyword-highlight">匯集起來服務多個客戶</span>，採用多租戶模型 (<span class="english-fullname">multi-tenant model</span>)。</li>
+                            <li><span class="chinese-term">快速彈性</span> (<span class="english-fullname">Rapid Elasticity</span>)：資源可以<span class="keyword-highlight">快速、彈性地擴展或縮減</span>，通常是自動化的，讓使用者感覺資源是無限的。</li>
+                            <li><span class="chinese-term">可量測的服務</span> (<span class="english-fullname">Measured Service</span>)：雲端系統會<span class="keyword-highlight">自動控制和優化資源使用</span>，並根據使用的服務類型 (如儲存、處理、頻寬) 進行量測，對供應商和使用者都是透明的。</li>
+                        </ul>
+                        <span class="keyword-highlight">知識即服務</span> (<span class="english-fullname">Knowledge as a Service</span>, <span class="english-abbr">KaaS</span>) <span class="keyword-highlight">不屬於</span> NIST 定義的雲端運算服務模型。
+                    </div>
+                    <span class="source-ref">(資料來源：風險管理 p50, 111初級技術 Q43)</span>
+                </div>
+            </div>
+
+             <div class="focus-card" data-category="2" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#CS02</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                       <span class="chinese-term">雲端運算</span><span class="chinese-term">部署模型</span>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">四種部署模型</div>
+                    <div class="details-content">
+                        <ul>
+                             <li><span class="chinese-term">私有雲</span> (<span class="english-fullname">Private Cloud</span>)：雲端基礎設施<span class="keyword-highlight">專供單一組織使用</span>，可由該組織或第三方管理，可在組織內部或外部部署。</li>
+                             <li><span class="chinese-term">公有雲</span> (<span class="english-fullname">Public Cloud</span>)：雲端基礎設施<span class="keyword-highlight">開放給公眾或大型產業群體使用</span>，由銷售雲端服務的組織擁有。</li>
+                             <li><span class="chinese-term">社群雲</span> (<span class="english-fullname">Community Cloud</span>)：雲端基礎設施由<span class="keyword-highlight">具有共同考量</span> (例如使命、安全要求、政策) 的<span class="keyword-highlight">特定消費者社群共享</span>。</li>
+                             <li><span class="chinese-term">混合雲</span> (<span class="english-fullname">Hybrid Cloud</span>)：由<span class="keyword-highlight">兩個或多個不同的雲端基礎設施</span> (私有、社群或公有) 組成，它們保持獨特實體，但透過標準化或專有技術連結在一起，實現資料和應用程式的可攜性。</li>
+                        </ul>
+                        <span class="keyword-highlight">自由雲</span> (<span class="english-fullname">Free Cloud</span>) <span class="keyword-highlight">不是</span>標準的雲端部署模型分類。
+                    </div>
+                     <span class="source-ref">(資料來源：112初級技術 Q44)</span>
+                </div>
+            </div>
+
+            <div class="focus-card" data-category="2" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#CS03</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                       <span class="chinese-term">雲端運算</span><span class="chinese-term">服務模型</span>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">三種主要服務模型</div>
+                    <div class="details-content">
+                        <ul>
+                            <li><span class="chinese-term">基礎設施即服務</span> (<span class="english-fullname">Infrastructure as a Service</span>, <span class="english-abbr">IaaS</span>)：提供<span class="keyword-highlight">基本的運算資源</span>，如處理、儲存、網路等。消費者可以部署和運行任意軟體，包括作業系統和應用程式，但<span class="keyword-highlight">不管理底層雲端基礎設施</span>，只控制作業系統、儲存和部署的應用程式。</li>
+                            <li><span class="chinese-term">平台即服務</span> (<span class="english-fullname">Platform as a Service</span>, <span class="english-abbr">PaaS</span>)：提供<span class="keyword-highlight">部署客戶自創或取得的應用程式</span>到雲端基礎設施的平台。消費者<span class="keyword-highlight">不管理底層基礎設施</span>，但控制部署的應用程式和可能的應用程式託管環境配置。</li>
+                            <li><span class="chinese-term">軟體即服務</span> (<span class="english-fullname">Software as a Service</span>, <span class="english-abbr">SaaS</span>)：提供<span class="keyword-highlight">在雲端基礎設施上運行的供應商應用程式</span>。消費者透過各種客戶端裝置 (如網頁瀏覽器) 存取應用程式。<span class="keyword-highlight">消費者不管理底層基礎設施</span>，可能僅限於有限的使用者特定應用程式配置設定。</li>
+                        </ul>
+                        <span class="keyword-highlight">知識即服務</span> (<span class="english-fullname">Knowledge as a Service</span>, <span class="english-abbr">KaaS</span>) <span class="keyword-highlight">不屬於</span>標準的三種雲端服務模型。
+                    </div>
+                    <span class="source-ref">(資料來源：風險管理 p50, 111初級技術 Q43)</span>
+                </div>
+            </div>
+
+             <div class="focus-card" data-category="6" data-stars="3">
+                <div class="focus-header">
+                    <div class="focus-id">#CS04</div>
+                    <div class="focus-importance">★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span class="chinese-term">雲端安全</span>相關<span class="chinese-term">國際標準</span>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">常見標準</div>
+                    <div class="details-content">
+                        <ul>
+                            <li><span class="english-abbr">ISO/IEC 27017</span>：<span class="keyword-highlight">雲端服務</span>資訊安全控制措施的實務準則。</li>
+                            <li><span class="english-abbr">ISO/IEC 27018</span>：公有雲中<span class="keyword-highlight">個人可識別資訊</span> (<span class="english-abbr">PII</span>) 保護的實務準則 (關注<span class="keyword-highlight">個人隱私保護</span>)。</li>
+                            <li><span class="english-abbr">ISO/IEC 27001</span>：資訊安全管理系統 (<span class="english-abbr">ISMS</span>) 的要求標準 (通用)。</li>
+                            <li><span class="english-abbr">ISO/IEC 27011</span>：基於 <span class="english-abbr">ISO/IEC 27002</span> 之<span class="keyword-highlight">電信組織</span>資訊安全管理指導方針。</li>
+                            <li><span class="chinese-term">雲端安全聯盟</span> (<span class="english-fullname">Cloud Security Alliance</span>, <span class="english-abbr">CSA</span>) <span class="english-abbr">STAR</span> (<span class="english-fullname">Security, Trust, Assurance and Risk</span>)：雲端安全保證計畫。</li>
+                        </ul>
+                        <span class="keyword-highlight"><span class="english-abbr">ISO/IEC 27011</span> 不特定針對雲端安全</span>，而是針對電信業。
+                    </div>
+                    <span class="source-ref">(資料來源：111初級技術 Q44, Q45)</span>
+                </div>
+            </div>
+
+             <div class="focus-card" data-category="4" data-stars="3">
+                <div class="focus-header">
+                    <div class="focus-id">#CS05</div>
+                    <div class="focus-importance">★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span class="chinese-term">雲端運算</span>的主要<span class="chinese-term">安全威脅</span> (<span class="english-abbr">CSA</span> 報告)
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">CSA 十一大安全威脅 (2019)</div>
+                    <div class="details-content">
+                         <span class="chinese-term">雲端安全聯盟</span> (<span class="english-abbr">CSA</span>) 定期發布雲端運算面臨的主要威脅報告。根據 2019 年的報告 (題目所指)，主要的威脅包括（但不限於）：
+                        <ul>
+                           <li><span class="keyword-highlight">資料外洩</span> (<span class="english-fullname">Data Breaches</span>)</li>
+                           <li><span class="keyword-highlight">設定錯誤和變更控制不足</span> (<span class="english-fullname">Misconfiguration and inadequate change control</span>)</li>
+                           <li><span class="keyword-highlight">缺乏雲端安全架構和策略</span> (<span class="english-fullname">Lack of cloud security architecture and strategy</span>)</li>
+                           <li><span class="keyword-highlight">驗證、憑證、存取和金鑰管理機制不足</span> (<span class="english-fullname">Insufficient identity, credential, access and key management</span>)</li>
+                           <li>帳戶劫持 (<span class="english-fullname">Account Hijacking</span>)</li>
+                           <li>內鬼威脅 (<span class="english-fullname">Insider Threat</span>)</li>
+                           <li>不安全的介面與 <span class="english-abbr">API</span> (<span class="english-fullname">Insecure Interfaces and APIs</span>)</li>
+                           <li>控制平面薄弱 (<span class="english-fullname">Weak Control Plane</span>)</li>
+                           <li>元結構和應用程式結構失效 (<span class="english-fullname">Metastructure and Applistructure Failures</span>)</li>
+                           <li>有限的雲端使用可見性 (<span class="english-fullname">Limited Cloud Usage Visibility</span>)</li>
+                           <li>濫用和惡意使用雲端服務 (<span class="english-fullname">Abuse and Nefarious Use of Cloud Services</span>)</li>
+                        </ul>
+                        <span class="keyword-highlight">設定錯誤</span>是其中一項重要威脅，但<span class="keyword-highlight">資料外洩</span>通常被認為是後果最嚴重的威脅之一。
+                    </div>
+                    <span class="source-ref">(資料來源：111初級技術 Q48)</span>
+                </div>
+            </div>
+
+             <div class="focus-card" data-category="6" data-stars="2">
+                <div class="focus-header">
+                    <div class="focus-id">#CS06</div>
+                    <div class="focus-importance">★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                       確保<span class="chinese-term">雲端服務</span>安全的考量
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">使用者/組織的責任</div>
+                    <div class="details-content">
+                        在採用雲端服務時，使用者或組織應考慮以下幾點以確保安全：
+                        <ul>
+                            <li>了解<span class="chinese-term">共擔責任模型</span> (<span class="english-fullname">Shared Responsibility Model</span>)，釐清供應商與自身的安全責任。</li>
+                            <li>評估供應商的安全措施與合規性 (例如是否符合 <span class="english-abbr">ISO 27001</span>, <span class="english-abbr">ISO 27017</span>, <span class="english-abbr">SOC 2</span> 等標準)。</li>
+                            <li><span class="keyword-highlight">資料加密</span>：確保傳輸中和靜態的資料都經過加密保護。</li>
+                            <li><span class="chinese-term">身份與存取管理</span> (<span class="english-abbr">IAM</span>)：實施強健的身份驗證 (如 <span class="english-abbr">MFA</span>) 與最小權限原則。</li>
+                            <li><span class="chinese-term">安全設定</span>：正確配置雲端服務，避免設定錯誤。</li>
+                            <li><span class="chinese-term">監控與記錄</span>：啟用日誌記錄並定期監控異常活動。</li>
+                            <li>合約審查：仔細審查服務等級協議 (<span class="english-abbr">SLA</span>) 和合約中的安全條款。</li>
+                        </ul>
+                       <span class="keyword-highlight">不應只選擇單一雲端供應商</span>，而應根據需求和風險評估選擇最合適的服務。<span class="keyword-highlight">實施稽核</span>是確認雲端服務商是否符合安全要求的重要方法。
+                    </div>
+                    <span class="source-ref">(資料來源：111初級管理 Q43)</span>
+                </div>
+            </div>
+
+             <div class="focus-card" data-category="4" data-stars="2">
+                <div class="focus-header">
+                    <div class="focus-id">#CS07</div>
+                    <div class="focus-importance">★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                       雲端資料庫的安全考量
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">安全措施</div>
+                    <div class="details-content">
+                        在雲端建立資料庫時，需要考慮以下安全措施：
+                         <ul>
+                            <li><span class="chinese-term">資料加密</span>：<span class="keyword-highlight">對儲存的資料進行加密</span>，保護資料機密性。</li>
+                            <li><span class="chinese-term">存取控制</span>：<span class="keyword-highlight">設定適當的使用者角色和權限</span>，限制資料存取。</li>
+                            <li><span class="chinese-term">網路安全</span>：<span class="keyword-highlight">控制連線來源</span>，例如使用防火牆規則或安全群組限制特定IP或網段的存取。</li>
+                            <li><span class="chinese-term">稽核與監控</span>：記錄資料庫的存取與操作日誌。</li>
+                         </ul>
+                         <span class="keyword-highlight">使用正規化</span> (<span class="english-fullname">Normalization</span>) 主要是<span class="keyword-highlight">資料庫設計</span>的原則，目的是減少資料冗餘和提高資料一致性，與<span class="keyword-highlight">資訊安全</span>的直接關聯較小。
+                    </div>
+                     <span class="source-ref">(資料來源：111初級技術 Q43)</span>
+                </div>
+            </div>
+
+
+            <!-- Placeholder for No Results -->
+             <div id="noResultsMessage">沒有找到符合條件的重點。</div>
+
+        </div><!-- end focus-points-container -->
+
+        <div class="back-to-top" id="backToTop">↑</div>
+    </div>
+
+    <script>
+        // Progress bar
+        const progressBar = document.getElementById("progressBar");
+        window.onscroll = function() { updateProgressBar(); toggleBackToTopButton(); };
+        function updateProgressBar() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (height > 0) ? (winScroll / height) * 100 : 0;
+            progressBar.style.width = scrolled + "%";
+        }
+
+        // Back to top button
+        const backToTopButton = document.getElementById("backToTop");
+        function toggleBackToTopButton() {
+             backToTopButton.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "flex" : "none";
+        }
+        backToTopButton.addEventListener("click", () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+        // Filter by category
+        function filterByCategory(categoryNumber) {
+            document.getElementById('categoryFilter').value = categoryNumber === 'all' ? 'all' : String(categoryNumber);
+            document.getElementById('searchInput').value = ''; // Clear search on filter click
+            filterFocusPoints();
+        }
+
+        // Event listeners for filters and search
+        document.getElementById("categoryFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("starFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("searchButton").addEventListener("click", searchFocusPoints);
+        document.getElementById("searchInput").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                searchFocusPoints();
+            }
+        });
+
+        const noResultsMessage = document.getElementById('noResultsMessage');
+
+        // Combined filter function
+        function filterFocusPoints() {
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+            let points = document.querySelectorAll(".focus-card");
+            let anyVisible = false;
+
+            points.forEach(function(point) {
+                const matchesCategory = (category === "all" || point.dataset.category === category);
+                const matchesStars = (stars === "all" || point.dataset.stars === stars);
+
+                if (matchesCategory && matchesStars) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                 noResultsMessage.textContent = '沒有找到符合篩選條件的重點。';
+             }
+        }
+
+        // Search function
+        function searchFocusPoints() {
+            let searchText = document.getElementById("searchInput").value.toLowerCase().trim();
+            let points = document.querySelectorAll(".focus-card");
+            let anyVisible = false;
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+
+            points.forEach(function(point) {
+                // Check filters first
+                const matchesCategory = (category === "all" || point.dataset.category === category);
+                const matchesStars = (stars === "all" || point.dataset.stars === stars);
+                let visibleBasedOnFilter = matchesCategory && matchesStars;
+
+                // Check search text
+                let pointText = point.textContent.toLowerCase();
+                let matchesSearch = (searchText === "" || pointText.includes(searchText));
+
+                // Show if matches filters AND search (or if search is empty)
+                if (visibleBasedOnFilter && matchesSearch) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 if (searchText !== "") {
+                      noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                      noResultsMessage.textContent = '沒有找到符合目前篩選及搜尋條件的重點。';
+                 } else {
+                     // If search is empty, rely on filter results displayed by filterFocusPoints
+                     filterFocusPoints(); // Re-apply filters to show potentially hidden items
+                 }
+             }
+        }
+
+         // Initial setup
+         toggleBackToTopButton();
+         updateProgressBar();
+         filterFocusPoints(); // Apply default filters on load
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>iPAS 資訊安全工程師 考試重點整理 - IS112 相關法規職場與遵循</title> <!-- Changed Title -->
+    <style>
+        /* RWD設定，讓整體版面在不同裝置都有良好顯示 */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft JhengHei", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto; /* Added top/bottom margin */
+            padding: 25px;
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border-radius: 8px;
+        }
+        /* Updated Header */
+        .header-container {
+            background: linear-gradient(135deg, #2c3e50, #34495e); /* Darker gradient */
+            color: white;
+            padding: 30px 20px; /* Increased padding */
+            margin: -25px -25px 25px -25px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+        .header-container h1 {
+            margin: 0;
+            color: white;
+            font-size: 2.2rem; /* Larger title */
+            font-weight: 600;
+            margin-bottom: 5px; /* Space below title */
+        }
+        .header-container div { /* Subtitle */
+             font-size: 1.2rem;
+             opacity: 0.9;
+             margin-top: 5px;
+             font-weight: 300; /* Lighter weight */
+        }
+
+        /* Topic Categories Section (Renamed from Directions) */
+        .categories-container { /* Renamed */
+            background-color: #e8f0f5; /* Slightly different blue */
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 5px solid #5dade2; /* Lighter blue border */
+            border-radius: 5px;
+        }
+        .categories-title { /* Renamed */
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .categories-grid { /* Renamed */
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        .category-item { /* Renamed */
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #d6e0ea; /* Border matching background */
+        }
+        .category-item:hover {
+            background-color: #5dade2; /* Lighter blue hover */
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: #5dade2;
+        }
+        .category-number { /* Renamed */
+            width: 30px;
+            height: 30px;
+            background-color: #5dade2; /* Lighter blue number */
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .category-item:hover .category-number {
+            background-color: white;
+            color: #5dade2;
+        }
+        .category-text { /* Renamed */
+            font-size: 0.95rem;
+        }
+
+        /* Focus Point Card Styling (Replaces Question Card) */
+        .focus-points-container { /* Renamed */
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px; /* Increased gap */
+        }
+        .focus-card { /* Renamed */
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 0; /* Remove padding here, apply to inner elements */
+            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.1); /* Slightly stronger shadow */
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            border: 1px solid #e0e0e0;
+            overflow: hidden; /* Ensure inner elements respect border radius */
+        }
+        .focus-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(44, 62, 80, 0.15);
+        }
+        .focus-header { /* Renamed */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px; /* Padding inside header */
+            background-color: #f8f9fa; /* Light header background */
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .focus-id { /* Renamed */
+            font-weight: bold;
+            color: #5dade2; /* Lighter blue ID */
+            font-size: 1rem;
+            background-color: #e8f0f5; /* Background for ID */
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .focus-importance { /* Renamed */
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .focus-topic-container { /* New container for the main topic */
+             padding: 25px 25px 20px 25px; /* Padding around the topic */
+             border-bottom: 1px dashed #eee; /* Separator line */
+        }
+
+        .focus-topic { /* Replaces question-content */
+            font-size: 1.5rem; /* Larger font for the topic */
+            font-weight: 600; /* Bolder */
+            margin-bottom: 0; /* Remove margin, handled by container padding */
+            line-height: 1.4;
+            color: #2c3e50; /* Dark blue-grey for topic */
+        }
+
+        /* Styling for terminology within topic/details */
+        strong[style*="color: blue"] { /* Chinese Proper Noun */
+            color: blue !important;
+            font-weight: bold;
+        }
+        strong[style*="color: purple"] { /* English Abbreviation */
+            color: purple !important;
+            font-weight: bold;
+        }
+        strong[style*="color: red"] { /* English Full Name */
+            color: red !important;
+            font-weight: bold;
+        }
+
+
+        /* Details Section Styling (Replaces Explanation) */
+        .focus-details-container { /* Renamed */
+            padding: 20px 25px 25px 25px; /* Padding for details */
+            /* background-color: #fdfefe; */ /* Optional subtle background, removing for cleaner look */
+        }
+        .details-header { /* Renamed */
+            font-weight: bold;
+            margin-bottom: 15px; /* Space below header */
+            color: #34495e;
+            font-size: 1.2rem; /* Slightly larger details header */
+            /* text-transform: uppercase; */ /* Optional styling */
+            letter-spacing: 0.5px; /* Optional spacing */
+            /* border-bottom: 2px solid #5dade2; */ /* Optional underline */
+            /* display: inline-block; */ /* If using underline */
+            /* padding-bottom: 5px; */ /* If using underline */
+        }
+        .details-content { /* Renamed */
+            line-height: 1.75; /* Increased line height for readability */
+            color: #444;
+            font-size: 1.05rem; /* Slightly larger detail text */
+        }
+        .details-content ul { /* Style lists if used in details */
+             padding-left: 25px;
+             margin-top: 10px;
+             margin-bottom: 10px;
+        }
+         .details-content li {
+             margin-bottom: 8px; /* Space between list items */
+         }
+         .details-content span[style*="background-color"] {
+             background-color: #ffff0030;
+             padding: 0.1em 0.2em; /* Optional: adds slight padding around highlighted text */
+             border-radius: 3px; /* Optional: rounds corners */
+         }
+
+
+        /* Controls Section Styling (Adjusted for Focus Points) */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 15px;
+            background-color: #fdfdfd;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+        .filter-container, .search-container, .star-filter-container { /* Removed .toggle-explanations */
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            min-width: 200px;
+        }
+         .search-container { flex-grow: 2; }
+        .filter-label, .search-label, .star-filter-label {
+            font-weight: 600;
+            margin-right: 10px;
+            white-space: nowrap;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        select, input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+            flex-grow: 1;
+            font-size: 0.95rem;
+            background-color: white;
+        }
+         input[type="text"] { min-width: 180px; }
+        button {
+            padding: 10px 18px;
+            background-color: #5dade2; /* Lighter blue buttons */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.2s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-left: 8px;
+            white-space: nowrap;
+        }
+        button:hover {
+            background-color: #3498db; /* Darker blue hover */
+        }
+
+        /* RWD Adjustments */
+        @media (max-width: 992px) {
+             .controls { flex-direction: column; align-items: stretch; }
+            .filter-container, .search-container, .star-filter-container { width: 100%; flex-grow: 0; }
+             select, input[type="text"] { width: 100%; }
+             button { margin-left: 0; margin-top: 5px; }
+             .search-container button { margin-left: 8px; margin-top: 0; }
+             #searchInput { width: calc(100% - 90px); }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .header-container { padding: 25px 15px; margin: -15px -15px 20px -15px; }
+            .categories-grid { grid-template-columns: 1fr; }
+            .focus-card { padding: 0; } /* Ensure no padding on card itself */
+             .focus-header, .focus-topic-container, .focus-details-container { padding-left: 20px; padding-right: 20px; } /* Adjust inner padding */
+            h1 { font-size: 1.8rem; }
+            .header-container h1 { font-size: 2rem; }
+            .focus-topic { font-size: 1.3rem; }
+            .details-header { font-size: 1.1rem; }
+            .details-content { font-size: 1rem; }
+        }
+
+        /* Back to Top Button & Progress Bar (No changes needed) */
+        .back-to-top {
+            position: fixed; bottom: 25px; right: 25px; background-color: #5dade2; color: white;
+            width: 45px; height: 45px; border-radius: 50%; display: none; justify-content: center;
+            align-items: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, opacity 0.3s, transform 0.3s; z-index: 1000;
+            opacity: 0.8; font-size: 1.2rem;
+        }
+        .back-to-top:hover { background-color: #3498db; opacity: 1; transform: scale(1.1); }
+        .progress-container {
+            width: 100%; height: 5px; background-color: #e8f0f5; position: fixed;
+            top: 0; left: 0; z-index: 1001;
+        }
+        .progress-bar {
+            height: 5px; background: linear-gradient(90deg, #5dade2, #85c1e9); /* Adjusted gradient */
+            width: 0%; border-radius: 0 2px 2px 0; transition: width 0.1s linear;
+        }
+         #noResultsMessage {
+             text-align: center; padding: 20px; color: #777; display: none; font-style: italic;
+         }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <div class="header-container">
+            <h1>iPAS 資訊安全工程師 考試重點</h1> <!-- Updated Title -->
+            <div>IS112 相關法規職場與遵循</div> <!-- Updated Subtitle -->
+        </div>
+
+        <div class="controls">
+             <div class="filter-container">
+                <label for="categoryFilter" class="filter-label">篩選主題：</label>
+                <select id="categoryFilter">
+                    <option value="all">全部主題</option>
+                    <option value="1">相關法規</option>
+                    <option value="2">職場倫理與遵循</option>
+                    <option value="3">智慧財產權</option>
+                </select>
+            </div>
+
+            <div class="star-filter-container">
+                <label for="starFilter" class="star-filter-label">重要性：</label>
+                <select id="starFilter">
+                    <option value="all">全部重要性</option>
+                    <option value="5">★★★★★</option>
+                    <option value="4">★★★★</option>
+                    <option value="3">★★★</option>
+                    <option value="2">★★</option>
+                    <option value="1">★</option>
+                </select>
+            </div>
+
+            <div class="search-container">
+                <label for="searchInput" class="search-label">搜尋：</label>
+                <input type="text" id="searchInput" placeholder="輸入關鍵字...">
+                <button id="searchButton">搜尋</button>
+            </div>
+        </div>
+
+        <div class="categories-container">
+            <div class="categories-title">主題分類</div>
+            <div class="categories-grid" id="categoriesGrid">
+                <div class="category-item" onclick="filterByCategory(1)">
+                    <div class="category-number">1</div>
+                    <div class="category-text">相關法規（個資法、資通法、GDPR等）</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(2)">
+                    <div class="category-number">2</div>
+                    <div class="category-text">職場倫理與遵循</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(3)">
+                    <div class="category-number">3</div>
+                    <div class="category-text">智慧財產權（著作權、營業秘密等）</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="focus-points-container" id="focusPointsContainer">
+
+            <!-- Focus Point 1: PDPA Core -->
+            <div class="focus-card" data-category="1" data-stars="5">
+                <div class="focus-header">
+                    <div class="focus-id">#1</div>
+                    <div class="focus-importance">★★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <strong style="color: blue;">個人資料保護法</strong> (<strong style="color: red;">Personal Data Protection Act</strong>, <strong style="color: purple;">PDPA</strong>) - 核心概念 (台灣)
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">重要規定</div>
+                    <div class="details-content">
+                        台灣的<strong style="color: purple;">PDPA</strong>旨在規範<strong style="color: blue;">個人資料</strong>的<span style="background-color: #ffff0030;">蒐集</span>、<span style="background-color: #ffff0030;">處理</span>及<span style="background-color: #ffff0030;">利用</span>，以避免人格權受侵害，並促進個人資料之合理利用。(管理113-2 Q11)
+                        <ul>
+                            <li><strong style="color: blue;">個人資料</strong>：指<span style="background-color: #ffff0030;">得以直接或間接方式識別</span>該個人的資料。公司營業據點<span style="background-color: #ffff0030;">不屬於</span>個人資料。(管理111-2 Q12)</li>
+                            <li><strong style="color: blue;">特種個資</strong>（<span style="background-color: #ffff0030;">敏感個資</span>）：包括<span style="background-color: #ffff0030;">病歷</span>、<span style="background-color: #ffff0030;">醫療</span>、<span style="background-color: #ffff0030;">基因</span>、<span style="background-color: #ffff0030;">性生活</span>、<span style="background-color: #ffff0030;">健康檢查</span>及<span style="background-color: #ffff0030;">犯罪前科</span>。指紋<span style="background-color: #ffff0030;">不屬於</span>特種個資。(管理111-2 Q6) <strong style="color: purple;">GDPR</strong>定義不同，例如<strong style="color: purple;">GDPR</strong>未明確列入犯罪前科，但台灣<strong style="color: purple;">PDPA</strong>有。(管理113-2 Q13)</li>
+                            <li><strong style="color: blue;">告知義務</strong>：蒐集個資時應明確告知事項，包含<span style="background-color: #ffff0030;">個資類別</span>、<span style="background-color: #ffff0030;">利用期間/地區/對象/方式</span>等，但<span style="background-color: #ffff0030;">不包含</span>儲存方式。(管理111-2 Q11)</li>
+                            <li><strong style="color: blue;">當事人權利</strong>：查詢閱覽、製給複製本、補充更正、<span style="background-color: #ffff0030;">請求停止</span>蒐集/處理/利用、<span style="background-color: #ffff0030;">請求刪除</span>。<span style="background-color: #ffff0030;">不包含</span>請求永久保留。(管理112-1 Q10)</li>
+                            <li><strong style="color: blue;">目的限制</strong>：蒐集、處理、利用不得<span style="background-color: #ffff0030;">逾越</span>特定目的之<span style="background-color: #ffff0030;">必要範圍</span>。(管理112-2 Q13)</li>
+                            <li><strong style="color: blue;">安全維護</strong>：應採行<span style="background-color: #ffff0030;">適當之安全措施</span>。施行細則第12條詳述措施，包含風險評估、認知宣導、稽核機制等，<span style="background-color: #ffff0030;">不包含</span>導入<strong style="color: purple;">ISO</strong>管理架構。(管理112-2 Q9)</li>
+                            <li><strong style="color: blue;">公務員加重處罰</strong>：加重其刑<span style="background-color: #ffff0030;">至二分之一</span>。(管理111-2 Q7)</li>
+                            <li><strong style="color: blue;">請求回應時限</strong>：原則上應於<span style="background-color: #ffff0030;">30天內</span>回覆當事人請求，必要時可延長15天。(管理113-1 Q9)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 2: CSMA -->
+            <div class="focus-card" data-category="1" data-stars="5">
+                <div class="focus-header">
+                    <div class="focus-id">#2</div>
+                    <div class="focus-importance">★★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <strong style="color: blue;">資通安全管理法</strong> (<strong style="color: red;">Cyber Security Management Act</strong>, <strong style="color: purple;">CSMA</strong>) - 核心概念 (台灣)
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">重要規定與子法</div>
+                    <div class="details-content">
+                        <strong style="color: purple;">CSMA</strong>旨在<span style="background-color: #ffff0030;">積極推動國家資通安全政策</span>，加速建構國家<strong style="color: blue;">資通安全環境</strong>，以保障國家安全，維護社會公共利益。(管理113-2 Q11)
+                        <ul>
+                            <li><strong style="color: blue;">適用對象</strong>：<strong style="color: blue;">公務機關</strong>(不含軍事、情報機關)及<strong style="color: blue;">特定非公務機關</strong>（<span style="background-color: #ffff0030;">關鍵基礎設施提供者</span>、<span style="background-color: #ffff0030;">公營事業</span>、<span style="background-color: #ffff0030;">政府捐助之財團法人</span>）。(管理112-1 Q7)</li>
+                            <li><strong style="color: blue;">責任等級分級</strong>：依業務重要性等分為 <strong style="color: purple;">A, B, C, D, E</strong> 五級，A級最高。<span style="background-color: #ffff0030;">業務涉及全國性</span>民眾服務或跨特定非公務機關共用性資通系統維運者為<span style="background-color: #ffff0030;">A級</span>。(管理112-2 Q6)</li>
+                            <li><strong style="color: blue;">事件通報與應變</strong>：事件分<span style="background-color: #ffff0030;">四級</span>。公務機關知悉後<span style="background-color: #ffff0030;">1小時內</span>通報上級；特定非公務機關通報中央目的事業主管機關。</li>
+                            <li><strong style="color: blue;">損害控制/復原時限</strong>：第一、二級<span style="background-color: #ffff0030;">72小時</span>；第三、四級<span style="background-color: #ffff0030;">36小時</span>。(管理112-2 Q7, 管理111-2 Q20)</li>
+                             <li><strong style="color: blue;">主管機關審核時限</strong>：第一、二級<span style="background-color: #ffff0030;">8小時</span>；第三、四級<span style="background-color: #ffff0030;">2小時</span>。(管理113-2 Q9, 管理111-2 Q12)</li>
+                            <li><strong style="color: blue;">罰則</strong>：針對<span style="background-color: #ffff0030;">特定非公務機關</span>未依規定通報者，處<span style="background-color: #ffff0030;">30萬~500萬</span>罰鍰；其他未符規定者處<span style="background-color: #ffff0030;">10萬~100萬</span>罰鍰。公務機關人員違法則<span style="background-color: #ffff0030;">懲戒或懲處</span>。(管理111-2 Q8)</li>
+                             <li><strong style="color: blue;">相關子法</strong>：<strong style="color: blue;">資通安全責任等級分級辦法</strong>、<strong style="color: blue;">資通安全事件通報及應變辦法</strong>、<strong style="color: blue;">資通安全情資分享辦法</strong>等。<span style="background-color: #ffff0030;">資通安全事件通報及應變辦法</span>定義了演練作業項目。(管理113-1 Q7)</li>
+                             <li><strong style="color: blue;">委外廠商管理</strong>：委託辦理資通系統建置維運或服務提供時，應<span style="background-color: #ffff0030;">選任及監督</span>受託者，並進行<span style="background-color: #ffff0030;">適任性查核</span>(如是否曾犯洩密罪等)。(管理111-2 Q9)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 3: GDPR -->
+             <div class="focus-card" data-category="1" data-stars="3">
+                 <div class="focus-header">
+                     <div class="focus-id">#3</div>
+                     <div class="focus-importance">★★★</div>
+                 </div>
+                 <div class="focus-topic-container">
+                     <div class="focus-topic">
+                         <strong style="color: blue;">歐盟一般資料保護規則</strong> (<strong style="color: red;">General Data Protection Regulation</strong>, <strong style="color: purple;">GDPR</strong>)
+                     </div>
+                 </div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心原則與影響</div>
+                     <div class="details-content">
+                         <strong style="color: purple;">GDPR</strong> 是歐盟的資料保護法規，對全球有廣泛影響。
+                         <ul>
+                             <li><strong style="color: blue;">適用範圍</strong>：處理歐盟境內<span style="background-color: #ffff0030;">個人資料</span>的組織，包括<span style="background-color: #ffff0030;">雲端處理者</span>與<span style="background-color: #ffff0030;">控制者</span>。(管理110-2 Q9)</li>
+                             <li><strong style="color: blue;">核心原則</strong>：包含<span style="background-color: #ffff0030;">資料最小化</span>、<span style="background-color: #ffff0030;">問責制度</span>(<strong style="color: red;">Accountability</strong>)等。</li>
+                         </ul>
+                         與台灣<strong style="color: purple;">PDPA</strong>比較：兩者皆規範個資處理，但<strong style="color: purple;">GDPR</strong>在某些權利（如被遺忘權、資料可攜權）及罰則上更為嚴格。<strong style="color: purple;">GDPR</strong>對<span style="background-color: #ffff0030;">特種個資</span>的定義<span style="background-color: #ffff0030;">範圍更廣</span>。(管理113-2 Q13)
+                     </div>
+                 </div>
+             </div>
+
+             <!-- Focus Point 4: Workplace Ethics -->
+            <div class="focus-card" data-category="2" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#4</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <strong style="color: blue;">職場倫理</strong>與<strong style="color: blue;">專業行為準則</strong>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">資訊安全專業人員守則</div>
+                    <div class="details-content">
+                        資訊安全專業人員應遵守高標準的職業道德：
+                        <ul>
+                            <li><strong style="color: blue;">保護機密資訊</strong>：<span style="background-color: #ffff0030;">不得</span>未經授權<span style="background-color: #ffff0030;">洩露</span>雇主或客戶的機密資訊。</li>
+                            <li><strong style="color: blue;">誠實正直</strong>(<strong style="color: red;">Integrity</strong>)：在所有專業活動中<span style="background-color: #ffff0030;">保持誠實</span>，避免利益衝突。</li>
+                            <li><strong style="color: blue;">客觀性</strong>(<strong style="color: red;">Objectivity</strong>)：不受個人偏見或外部壓力影響判斷。</li>
+                            <li><strong style="color: blue;">保密性</strong>(<strong style="color: red;">Confidentiality</strong>)：保護所接觸到的敏感資訊。</li>
+                            <li><strong style="color: blue;">專業能力</strong>(<strong style="color: red;">Competency</strong>)：持續<span style="background-color: #ffff0030;">精進</span>專業知識與技能，提供稱職的服務。</li>
+                            <li><strong style="color: blue;">遵守法律</strong>：遵守所有適用的法律、法規與合約義務。</li>
+                            <li><strong style="color: blue;">促進安全文化</strong>：在組織內<span style="background-color: #ffff0030;">推廣</span>資訊安全意識與最佳實務。</li>
+                            <li><strong style="color: blue;">避免不當行為</strong>：例如，<span style="background-color: #ffff0030;">為維持</span>與受稽核對象的<span style="background-color: #ffff0030;">良好關係</span>而<span style="background-color: #ffff0030;">隱瞞</span>重大稽核發現，是<span style="background-color: #ffff0030;">違反</span>專業倫理的行為。(管理110-2 Q98)</li>
+                        </ul>
+                        內部稽核人員四大原則：<strong style="color: blue;">誠正</strong>、<strong style="color: blue;">客觀</strong>、<strong style="color: blue;">保密</strong>、<strong style="color: blue;">能力</strong>（不包含節省）。(管理112-1 Q148)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 5: Intellectual Property -->
+            <div class="focus-card" data-category="3" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#5</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <strong style="color: blue;">智慧財產權</strong> (<strong style="color: red;">Intellectual Property Rights</strong>, <strong style="color: purple;">IPR</strong>) 保護
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">主要類型與保護</div>
+                    <div class="details-content">
+                         <ul>
+                            <li><strong style="color: blue;">著作權</strong> (<strong style="color: red;">Copyright</strong>)：保護<span style="background-color: #ffff0030;">原創</span>文學、藝術、音樂、<span style="background-color: #ffff0030;">軟體</span>等表達形式。保護是<span style="background-color: #ffff0030;">創作完成即自動產生</span>。不得重製、散布、改作等。<span style="background-color: #ffff0030;">例外</span>：公文、法規、標語、新聞報導（單純傳達事實）等<span style="background-color: #ffff0030;">不屬於</span>保護範圍。(管理111-1 Q17) 在學校宿舍分享下載的音樂影片<span style="background-color: #ffff0030;">侵犯</span>著作權。(管理110-2 Q47) <span style="background-color: #ffff0030;">肖像權</span>屬於人格權，<span style="background-color: #ffff0030;">非</span>智慧財產權。(管理112-1 Q45)</li>
+                            <li><strong style="color: blue;">專利權</strong> (<strong style="color: red;">Patent</strong>)：保護<span style="background-color: #ffff0030;">發明</span>、<span style="background-color: #ffff0030;">新型</span>或<span style="background-color: #ffff0030;">設計</span>。<span style="background-color: #ffff0030;">需申請獲准</span>。保護期限一般發明為<span style="background-color: #ffff0030;">20年</span>。(管理112-1 Q46)</li>
+                            <li><strong style="color: blue;">商標權</strong> (<strong style="color: red;">Trademark</strong>)：保護<span style="background-color: #ffff0030;">區別</span>商品/服務來源的<span style="background-color: #ffff0030;">標識</span>。<span style="background-color: #ffff0030;">需申請註冊</span>。(管理112-1 Q46)</li>
+                            <li><strong style="color: blue;">營業秘密</strong> (<strong style="color: red;">Trade Secret</strong>)：保護具<span style="background-color: #ffff0030;">經濟價值</span>、<span style="background-color: #ffff0030;">秘密性</span>且採<span style="background-color: #ffff0030;">合理保密措施</span>的資訊。不得為質權及強制執行之標的。(管理111-2 Q12)</li>
+                            <li><strong style="color: blue;">保護措施</strong>：購買<span style="background-color: #ffff0030;">正版軟體</span>、制訂<strong style="color: purple;">IPR</strong>政策、<span style="background-color: #ffff0030;">定期審查</span>授權。<span style="background-color: #ffff0030;">下載破解版</span>軟體是<span style="background-color: #ffff0030;">不當</span>做法。(管理111-1 Q16, 管理112-1 Q47)</li>
+                        </ul>
+                         <strong style="color: blue;">個人資料保護法</strong>主要保護<span style="background-color: #ffff0030;">個人隱私</span>，與智慧財產權保護的標的不同。(管理110-2 Q7)
+                    </div>
+                </div>
+            </div>
+
+            <div id="noResultsMessage">沒有找到符合條件的重點。</div>
+
+        </div><!-- end focus-points-container -->
+
+        <div class="back-to-top" id="backToTop">↑</div>
+    </div>
+
+    <script>
+        // Progress bar (no changes needed)
+        const progressBar = document.getElementById("progressBar");
+        window.onscroll = function() { updateProgressBar(); toggleBackToTopButton(); };
+        function updateProgressBar() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (height > 0) ? (winScroll / height) * 100 : 0;
+            progressBar.style.width = scrolled + "%";
+        }
+
+        // Back to top button (no changes needed)
+        const backToTopButton = document.getElementById("backToTop");
+        function toggleBackToTopButton() {
+             backToTopButton.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "flex" : "none";
+        }
+        backToTopButton.addEventListener("click", () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+        // Filter by category (Updated function name)
+        function filterByCategory(categoryNumber) {
+            document.getElementById('categoryFilter').value = categoryNumber === 'all' ? 'all' : String(categoryNumber);
+            document.getElementById('searchInput').value = ''; // Clear search on filter click
+            filterFocusPoints(); // Call updated filter function
+        }
+
+        // Event listeners for filters and search (Updated IDs/functions)
+        document.getElementById("categoryFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("starFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("searchButton").addEventListener("click", searchFocusPoints); // Updated function call
+        document.getElementById("searchInput").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                searchFocusPoints(); // Updated function call
+            }
+        });
+
+        const noResultsMessage = document.getElementById('noResultsMessage');
+
+        // Combined filter function (Updated variable/class names)
+        function filterFocusPoints() {
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+            let points = document.querySelectorAll(".focus-card"); // Target .focus-card
+            let anyVisible = false;
+
+            points.forEach(function(point) {
+                // Updated dataset attribute name
+                const matchesCategory = (category === "all" || point.dataset.category === category);
+                const matchesStars = (stars === "all" || point.dataset.stars === stars);
+
+                if (matchesCategory && matchesStars) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                 // Updated message text
+                 noResultsMessage.textContent = '沒有找到符合篩選條件的重點。';
+             }
+        }
+
+        // Search function (Updated variable/class names)
+        function searchFocusPoints() {
+            let searchText = document.getElementById("searchInput").value.toLowerCase().trim();
+            let points = document.querySelectorAll(".focus-card"); // Target .focus-card
+            let anyVisible = false;
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+
+            points.forEach(function(point) {
+                // Check filters first
+                const matchesCategory = (category === "all" || point.dataset.category === category);
+                const matchesStars = (stars === "all" || point.dataset.stars === stars);
+                let visibleBasedOnFilter = matchesCategory && matchesStars;
+
+                // Check search text
+                let pointText = point.textContent.toLowerCase();
+                let matchesSearch = (searchText === "" || pointText.includes(searchText));
+
+                // Show if matches filters AND search (or if search is empty)
+                if (visibleBasedOnFilter && matchesSearch) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 if (searchText !== "") {
+                      noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                      // Updated message text
+                      noResultsMessage.textContent = '沒有找到符合目前篩選及搜尋條件的重點。';
+                 } else {
+                     // If search is empty, rely on filter results
+                     filterFocusPoints();
+                 }
+             }
+        }
+
+        // Removed Toggle Explanations Logic
+
+         // Initial setup
+         toggleBackToTopButton();
+         updateProgressBar();
+         filterFocusPoints(); // Apply default filters on load
+
+    </script>
+</body>
+</html>

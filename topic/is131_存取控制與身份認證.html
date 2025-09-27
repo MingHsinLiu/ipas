@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>iPAS 資訊安全工程師 考試重點整理 - IS131 存取控制與身份認證</title> <!-- Changed Title -->
+    <style>
+        /* RWD設定，讓整體版面在不同裝置都有良好顯示 */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft JhengHei", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto; /* Added top/bottom margin */
+            padding: 25px;
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border-radius: 8px;
+        }
+        /* Updated Header */
+        .header-container {
+            background: linear-gradient(135deg, #2c3e50, #34495e); /* Darker gradient */
+            color: white;
+            padding: 30px 20px; /* Increased padding */
+            margin: -25px -25px 25px -25px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+        .header-container h1 {
+            margin: 0;
+            color: white;
+            font-size: 2.2rem; /* Larger title */
+            font-weight: 600;
+            margin-bottom: 5px; /* Space below title */
+        }
+        .header-container div { /* Subtitle */
+             font-size: 1.2rem;
+             opacity: 0.9;
+             margin-top: 5px;
+             font-weight: 300; /* Lighter weight */
+        }
+
+        /* Topic Categories Section (Renamed from Directions) */
+        .categories-container { /* Renamed */
+            background-color: #e8f0f5; /* Slightly different blue */
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 5px solid #5dade2; /* Lighter blue border */
+            border-radius: 5px;
+        }
+        .categories-title { /* Renamed */
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .categories-grid { /* Renamed */
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        .category-item { /* Renamed */
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #d6e0ea; /* Border matching background */
+        }
+        .category-item:hover {
+            background-color: #5dade2; /* Lighter blue hover */
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: #5dade2;
+        }
+        .category-number { /* Renamed */
+            width: 30px;
+            height: 30px;
+            background-color: #5dade2; /* Lighter blue number */
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .category-item:hover .category-number {
+            background-color: white;
+            color: #5dade2;
+        }
+        .category-text { /* Renamed */
+            font-size: 0.95rem;
+        }
+
+        /* Focus Point Card Styling (Replaces Question Card) */
+        .focus-points-container { /* Renamed */
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px; /* Increased gap */
+        }
+        .focus-card { /* Renamed */
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 0; /* Remove padding here, apply to inner elements */
+            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.1); /* Slightly stronger shadow */
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            border: 1px solid #e0e0e0;
+            overflow: hidden; /* Ensure inner elements respect border radius */
+        }
+        .focus-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(44, 62, 80, 0.15);
+        }
+        .focus-header { /* Renamed */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px; /* Padding inside header */
+            background-color: #f8f9fa; /* Light header background */
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .focus-id { /* Renamed */
+            font-weight: bold;
+            color: #5dade2; /* Lighter blue ID */
+            font-size: 1rem;
+            background-color: #e8f0f5; /* Background for ID */
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .focus-importance { /* Renamed */
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .focus-topic-container { /* New container for the main topic */
+             padding: 25px 25px 20px 25px; /* Padding around the topic */
+             border-bottom: 1px dashed #eee; /* Separator line */
+        }
+
+        .focus-topic { /* Replaces question-content */
+            font-size: 1.5rem; /* Larger font for the topic */
+            font-weight: 600; /* Bolder */
+            margin-bottom: 0; /* Remove margin, handled by container padding */
+            line-height: 1.4;
+            color: #2c3e50; /* Dark blue-grey for topic */
+        }
+
+        /* Styling for terminology within topic/details */
+        .english-abbr {
+            color: #8e44ad; /* Purple for abbreviations */
+            font-weight: 600;
+        }
+        .english-fullname {
+            color: #c0392b; /* Darker red for full names/concepts */
+            font-weight: 500;
+        }
+
+
+        /* Details Section Styling (Replaces Explanation) */
+        .focus-details-container { /* Renamed */
+            padding: 20px 25px 25px 25px; /* Padding for details */
+            /* background-color: #fdfefe; */ /* Optional subtle background, removing for cleaner look */
+        }
+        .details-header { /* Renamed */
+            font-weight: bold;
+            margin-bottom: 15px; /* Space below header */
+            color: #34495e;
+            font-size: 1.2rem; /* Slightly larger details header */
+            /* text-transform: uppercase; */ /* Optional styling */
+            letter-spacing: 0.5px; /* Optional spacing */
+            /* border-bottom: 2px solid #5dade2; */ /* Optional underline */
+            /* display: inline-block; */ /* If using underline */
+            /* padding-bottom: 5px; */ /* If using underline */
+        }
+        .details-content { /* Renamed */
+            line-height: 1.75; /* Increased line height for readability */
+            color: #444;
+            font-size: 1.05rem; /* Slightly larger detail text */
+        }
+        .details-content ul { /* Style lists if used in details */
+             padding-left: 25px;
+             margin-top: 10px;
+             margin-bottom: 10px;
+        }
+         .details-content li {
+             margin-bottom: 8px; /* Space between list items */
+         }
+
+        /* Controls Section Styling (Adjusted for Focus Points) */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 15px;
+            background-color: #fdfdfd;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+        .filter-container, .search-container, .star-filter-container { /* Removed .toggle-explanations */
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            min-width: 200px;
+        }
+         .search-container { flex-grow: 2; }
+        .filter-label, .search-label, .star-filter-label {
+            font-weight: 600;
+            margin-right: 10px;
+            white-space: nowrap;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        select, input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+            flex-grow: 1;
+            font-size: 0.95rem;
+            background-color: white;
+        }
+         input[type="text"] { min-width: 180px; }
+        button {
+            padding: 10px 18px;
+            background-color: #5dade2; /* Lighter blue buttons */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.2s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-left: 8px;
+            white-space: nowrap;
+        }
+        button:hover {
+            background-color: #3498db; /* Darker blue hover */
+        }
+
+        /* RWD Adjustments */
+        @media (max-width: 992px) {
+             .controls { flex-direction: column; align-items: stretch; }
+            .filter-container, .search-container, .star-filter-container { width: 100%; flex-grow: 0; }
+             select, input[type="text"] { width: 100%; }
+             button { margin-left: 0; margin-top: 5px; }
+             .search-container button { margin-left: 8px; margin-top: 0; }
+             #searchInput { width: calc(100% - 90px); }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .header-container { padding: 25px 15px; margin: -15px -15px 20px -15px; }
+            .categories-grid { grid-template-columns: 1fr; }
+            .focus-card { padding: 0; } /* Ensure no padding on card itself */
+             .focus-header, .focus-topic-container, .focus-details-container { padding-left: 20px; padding-right: 20px; } /* Adjust inner padding */
+            h1 { font-size: 1.8rem; }
+            .header-container h1 { font-size: 2rem; }
+            .focus-topic { font-size: 1.3rem; }
+            .details-header { font-size: 1.1rem; }
+            .details-content { font-size: 1rem; }
+        }
+
+        /* Back to Top Button & Progress Bar (No changes needed) */
+        .back-to-top {
+            position: fixed; bottom: 25px; right: 25px; background-color: #5dade2; color: white;
+            width: 45px; height: 45px; border-radius: 50%; display: none; justify-content: center;
+            align-items: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, opacity 0.3s, transform 0.3s; z-index: 1000;
+            opacity: 0.8; font-size: 1.2rem;
+        }
+        .back-to-top:hover { background-color: #3498db; opacity: 1; transform: scale(1.1); }
+        .progress-container {
+            width: 100%; height: 5px; background-color: #e8f0f5; position: fixed;
+            top: 0; left: 0; z-index: 1001;
+        }
+        .progress-bar {
+            height: 5px; background: linear-gradient(90deg, #5dade2, #85c1e9); /* Adjusted gradient */
+            width: 0%; border-radius: 0 2px 2px 0; transition: width 0.1s linear;
+        }
+         #noResultsMessage {
+             text-align: center; padding: 20px; color: #777; display: none; font-style: italic;
+         }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <div class="header-container">
+            <h1>iPAS 資訊安全工程師 考試重點</h1> <!-- Updated Title -->
+            <div>IS131 存取控制與身份認證</div> <!-- Updated Subtitle -->
+        </div>
+
+        <div class="controls">
+             <div class="filter-container">
+                 <!-- Updated Label -->
+                <label for="categoryFilter" class="filter-label">篩選主題：</label>
+                <select id="categoryFilter"> <!-- Updated ID -->
+                    <option value="all">全部主題</option>
+                     <option value="1">存取控制基本原則 (IAAA, PoLP, SoD)</option>
+                     <option value="2">身份認證要素與技術</option>
+                     <option value="3">多因子認證與單一登入</option>
+                     <option value="4">生物辨識技術與評估</option>
+                     <option value="5">存取控制模型 (DAC, MAC, RBAC 等)</option>
+                     <option value="6">帳號與密碼管理</option>
+                     <option value="7">特權存取管理 (PAM)</option>
+                     <option value="8">遠端認證協定 (RADIUS, TACACS+)</option>
+                </select>
+            </div>
+
+            <div class="star-filter-container">
+                <label for="starFilter" class="star-filter-label">重要性：</label>
+                <select id="starFilter">
+                    <option value="all">全部重要性</option>
+                    <option value="5">★★★★★</option>
+                    <option value="4">★★★★</option>
+                    <option value="3">★★★</option>
+                    <option value="2">★★</option>
+                    <option value="1">★</option>
+                </select>
+            </div>
+
+            <div class="search-container">
+                <label for="searchInput" class="search-label">搜尋：</label>
+                <input type="text" id="searchInput" placeholder="輸入關鍵字...">
+                <button id="searchButton">搜尋</button>
+            </div>
+            <!-- Removed Toggle Explanations Button -->
+        </div>
+
+        <div class="categories-container"> <!-- Renamed -->
+            <div class="categories-title">主題分類</div> <!-- Updated Title -->
+            <div class="categories-grid" id="categoriesGrid"> <!-- Renamed ID -->
+                <!-- Renamed classes and updated filter function call -->
+                <div class="category-item" onclick="filterByCategory(1)">
+                    <div class="category-number">1</div>
+                    <div class="category-text">存取控制基本原則 (IAAA, PoLP, SoD)</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(2)">
+                    <div class="category-number">2</div>
+                    <div class="category-text">身份認證要素與技術</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(3)">
+                    <div class="category-number">3</div>
+                    <div class="category-text">多因子認證與單一登入</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(4)">
+                    <div class="category-number">4</div>
+                    <div class="category-text">生物辨識技術與評估</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(5)">
+                    <div class="category-number">5</div>
+                    <div class="category-text">存取控制模型 (DAC, MAC, RBAC 等)</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(6)">
+                    <div class="category-number">6</div>
+                    <div class="category-text">帳號與密碼管理</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(7)">
+                    <div class="category-number">7</div>
+                    <div class="category-text">特權存取管理 (PAM)</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(8)">
+                    <div class="category-number">8</div>
+                    <div class="category-text">遠端認證協定 (RADIUS, TACACS+)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="focus-points-container" id="focusPointsContainer"> <!-- Renamed -->
+
+            <!-- Focus Point 1 -->
+            <div class="focus-card" data-category="1" data-stars="5">
+                <div class="focus-header">
+                    <div class="focus-id">#1</div>
+                    <div class="focus-importance">★★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                       <span style="color: blue; font-weight: bold;">存取控制</span> (<span class="english-fullname">Access Control</span>) 與 <span class="english-abbr">IAAA</span> 模型
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">存取控制</span>是資訊安全的核心機制，旨在<span style="background-color: #ffff0030;">確保只有經過授權的使用者才能存取特定的資源</span>。它通常涉及以下四個要素，合稱 <span class="english-abbr">IAAA</span> 模型：
+                        <ul>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">身份識別</b> (<span class="english-fullname">Identification</span>)</span>：使用者聲明自己是誰（例如：輸入帳號）。</li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">身份認證</b> / <b style="color: blue;">鑑別</b> (<span class="english-fullname">Authentication</span>)</span>：<span style="background-color: #ffff0030;">驗證</span>使用者聲明的身份是否屬實（例如：輸入密碼、指紋辨識）。</li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">授權</b> (<span class="english-fullname">Authorization</span>)</span>：根據已驗證的身份，<span style="background-color: #ffff0030;">決定</span>使用者可以執行哪些操作或存取哪些資源（例如：讀取權限、寫入權限）。</li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">紀錄</b> / <b style="color: blue;">可歸責性</b> (<span class="english-fullname">Accounting</span> / <span class="english-fullname">Accountability</span>)</span>：<span style="background-color: #ffff0030;">追蹤</span>使用者的活動，以便進行稽核和究責（例如：登入紀錄、操作紀錄）。<span style="background-color: #ffff0030;">可歸責性</span>確保使用者的行為可以被追溯到個人。</li>
+                        </ul>
+                        <span class="english-abbr">AAA</span> 通常指 <span class="english-fullname">Authentication</span>, <span class="english-fullname">Authorization</span>, and <span class="english-fullname">Accounting</span>，是<span style="color: blue; font-weight: bold;">網路存取控制</span>的常見框架。<span style="background-color: #ffff0030;">可用性 (<span class="english-fullname">Availability</span>)</span> 是資安三要素之一，但<span style="background-color: #ffff0030;">不屬於</span> <span class="english-abbr">AAA</span> 機制的核心組成。
+                         (資料來源：108初級-管理概論 Q29, 109初級-管理概論 Q31, 109初級-管理概論 Q33, 111初級-管理概論 Q28, 112初級-管理概論 Q29, 113管理 Q35)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 2 -->
+            <div class="focus-card" data-category="1" data-stars="5">
+                <div class="focus-header">
+                    <div class="focus-id">#2</div>
+                    <div class="focus-importance">★★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">存取控制基本原則</span>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心原則</div>
+                    <div class="details-content">
+                        實施<span style="color: blue; font-weight: bold;">存取控制</span>時應遵循以下重要原則：
+                        <ul>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">最小權限原則</b> (<span class="english-fullname">Principle of Least Privilege</span>, <span class="english-abbr">PoLP</span>)</span>：使用者或程式<span style="background-color: #ffff0030;">僅應被授予完成其任務所必需的最低權限</span>。這是最基本的存取控制要求。</li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">僅知原則</b> (<span class="english-fullname">Need-to-Know Principle</span>)</span>：使用者<span style="background-color: #ffff0030;">只能存取執行其職責所必需的資訊</span>，即使他們擁有存取其他資訊的技術權限。</li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">職務區隔</b> (<span class="english-fullname">Segregation of Duties</span> / <span class="english-fullname">Separation of Duties</span>, <span class="english-abbr">SoD</span>)</span>：將<span style="background-color: #ffff0030;">關鍵任務或權限分配給不同的人</span>，以防止單一個人濫用權力或進行舞弊。例如，業務承辦人員不能同時擔任稽核人員。</li>
+                        </ul>
+                         (資料來源：109初級-管理概論 Q27, 109初級-管理概論 Q30, 109初級-管理概論 Q34, 110初級-管理概論 Q34, 113管理 Q31)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 3 -->
+            <div class="focus-card" data-category="2" data-stars="5">
+                <div class="focus-header">
+                    <div class="focus-id">#3</div>
+                    <div class="focus-importance">★★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">身份認證三要素</span>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">三種驗證方式</div>
+                    <div class="details-content">
+                        驗證使用者身份主要依賴以下三種類型的證據（要素）：
+                        <ul>
+                            <li><span style="background-color: #ffff0030;">所知之事 (<span class="english-fullname">Something you know</span>)</span>：使用者知道的秘密資訊，例如<span style="background-color: #ffff0030;">密碼、PIN碼、安全問題答案</span>。</li>
+                            <li><span style="background-color: #ffff0030;">所持之物 (<span class="english-fullname">Something you have</span>)</span>：使用者擁有的實體物品，例如<span style="background-color: #ffff0030;">智慧卡、金融卡、硬體權杖 (<span class="english-fullname">Token</span>)、手機 (接收<span class="english-abbr">OTP</span>)、自然人憑證 <span class="english-abbr">IC</span> 卡</span>。</li>
+                            <li><span style="background-color: #ffff0030;">所具之形 (<span class="english-fullname">Something you are</span>)</span>：使用者<span style="background-color: #ffff0030;">獨特的生物特徵</span>，例如<span style="background-color: #ffff0030;">指紋、臉部、虹膜、聲音模式、簽名</span>。</li>
+                        </ul>
+                        <span style="background-color: #ffff0030;">個人識別證</span> (<span class="english-fullname">ID Card</span>) 屬於「所持之物」。<span style="background-color: #ffff0030;">「所努力之事」</span>或<span style="background-color: #ffff0030;">「所謂何事」</span><span style="background-color: #ffff0030;">不是</span>身份驗證的要素。
+                        (資料來源：109初級-管理概論 Q29, 109初級-管理概論 Q26, 112初級-管理概論 Q32)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 4 -->
+            <div class="focus-card" data-category="4" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#4</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">生物辨識</span> (<span class="english-fullname">Biometrics</span>) 評估指標
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">評估要素</div>
+                    <div class="details-content">
+                        評估<span style="color: blue; font-weight: bold;">生物辨識</span>系統效能時，常用以下指標：
+                        <ul>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">錯誤接受率</b> (<span class="english-abbr">FAR</span>, <span class="english-fullname">False Acceptance Rate</span> / <span class="english-fullname">Type II error</span>)</span>：<span style="background-color: #ffff0030;">錯誤地接受</span>非法使用者（認錯人）的機率。</li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">錯誤拒絕率</b> (<span class="english-abbr">FRR</span>, <span class="english-fullname">False Rejection Rate</span> / <span class="english-fullname">Type I error</span>)</span>：<span style="background-color: #ffff0030;">錯誤地拒絕</span>合法使用者（認不得）的機率。</li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">交叉錯誤率</b> (<span class="english-abbr">CER</span>, <span class="english-fullname">Crossover Error Rate</span>)</span>：當 <span class="english-abbr">FAR</span> 和 <span class="english-abbr">FRR</span> 相等時的錯誤率，<span style="background-color: #ffff0030;">CER 越低表示系統辨識效能越好</span>。</li>
+                        </ul>
+                         <span style="color: blue; font-weight: bold;">正確拒絕率</span> (<span class="english-abbr">TRR</span>, <span class="english-fullname">True Rejection Rate</span>) <span style="background-color: #ffff0030;">不是</span>常用來比較設備優劣性的主要指標。<br>
+                         為了提高安全性（降低誤放非法使用者的風險），通常會<span style="background-color: #ffff0030;">提高 <span class="english-abbr">FRR</span>（寧可錯殺一百，不可放過一人）</span>，但這會降低使用便利性。反之，降低 <span class="english-abbr">FRR</span> 則可能提高 <span class="english-abbr">FAR</span>。
+                         (資料來源：109初級-管理概論 Q30, 110初級-管理概論 Q30, 108初級-管理概論 Q23)
+                    </div>
+                    <div class="details-header">靜態與動態特徵</div>
+                    <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">生物辨識</span>可分為：
+                        <ul>
+                             <li><span style="background-color: #ffff0030;">靜態特徵</span>：生理上固有的特徵，如<span style="background-color: #ffff0030;">指紋、掌紋、臉部、虹膜、視網膜</span>。</li>
+                             <li><span style="background-color: #ffff0030;">動態特徵</span>：行為模式相關的特徵，如<span style="background-color: #ffff0030;">聲音模式、簽名、打字節奏</span>。</li>
+                        </ul>
+                         (資料來源：110初級-管理概論 Q31, 111初級-管理概論 Q11)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 5 -->
+            <div class="focus-card" data-category="3" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#5</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">多因子認證</span> (<span class="english-abbr">MFA</span>) 與<span style="color: blue; font-weight: bold;">雙因素認證</span> (<span class="english-abbr">2FA</span>)
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">多因子認證</span> (<span class="english-abbr">MFA</span>, <span class="english-fullname">Multi-Factor Authentication</span>) 是指使用<span style="background-color: #ffff0030;">兩種或以上不同類型</span>的認證要素來驗證使用者身份。
+                        <span style="color: blue; font-weight: bold;">雙因素認證</span> (<span class="english-abbr">2FA</span>, <span class="english-fullname">Two-Factor Authentication</span>) 是 <span class="english-abbr">MFA</span> 的一種，特指使用<span style="background-color: #ffff0030;">剛好兩種</span>不同類型的認證要素。<br>
+                        例如：
+                        <ul>
+                            <li>密碼 (所知) + 手機驗證碼 (所持) = <span class="english-abbr">2FA</span></li>
+                            <li>自然人憑證 <span class="english-abbr">IC</span> 卡 (所持) + 指紋 (所具) = <span class="english-abbr">2FA</span></li>
+                             <li><span style="background-color: #ffff0030;">RFID 感應卡 (所持) + 自然人憑證 IC 卡 (所持) = 單一因素認證</span> (因為兩者皆為所持之物)</li>
+                        </ul>
+                         (資料來源：111初級-管理概論 Q31, 112初級-管理概論 Q38)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 6 -->
+            <div class="focus-card" data-category="3" data-stars="3">
+                 <div class="focus-header">
+                    <div class="focus-id">#6</div>
+                    <div class="focus-importance">★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">單一登入</span> (<span class="english-abbr">SSO</span>, <span class="english-fullname">Single Sign-On</span>)
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">單一登入</span> (<span class="english-abbr">SSO</span>) 允許使用者<span style="background-color: #ffff0030;">使用一組憑證登入多個相關但獨立的軟體系統</span>。其特點包括：
+                        <ul>
+                            <li><span style="background-color: #ffff0030;">集中權限控管</span></li>
+                            <li>降低使用者需要記憶多組帳號密碼的困擾</li>
+                            <li>減少重複輸入密碼的程序</li>
+                            <li>提升使用者體驗</li>
+                        </ul>
+                         <span style="background-color: #ffff0030;">簡訊認證 (<span class="english-fullname">SMS Authentication</span>)</span> 是一種身份驗證方式，<span style="background-color: #ffff0030;">並非</span> <span class="english-abbr">SSO</span> 的固有特點。
+                         (資料來源：110初級-管理概論 Q33)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 7 -->
+            <div class="focus-card" data-category="5" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#7</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">存取控制模型</span>比較
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">模型種類與特性</div>
+                    <div class="details-content">
+                        常見的<span style="color: blue; font-weight: bold;">存取控制模型</span>包括：
+                        <ul>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">任意存取控制</b> (<span class="english-abbr">DAC</span>, <span class="english-fullname">Discretionary Access Control</span>)</span>：資源<span style="background-color: #ffff0030;">擁有者</span>可以自行決定誰可以存取其資源及存取權限。彈性高，但管理較分散。例如：檔案系統權限。</li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">強制存取控制</b> (<span class="english-abbr">MAC</span>, <span class="english-fullname">Mandatory Access Control</span>)</span>：由<span style="background-color: #ffff0030;">系統</span>根據預先定義的安全政策（如安全標籤）強制執行存取權限，使用者或擁有者<span style="background-color: #ffff0030;">無法</span>自行更改。安全性高，但缺乏彈性。例如：<span class="english-fullname">SELinux</span>。</li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">角色為基礎存取控制</b> (<span class="english-abbr">RBAC</span>, <span class="english-fullname">Role-Based Access Control</span>)</span>：根據使用者的<span style="background-color: #ffff0030;">角色</span>分配權限，相同角色的使用者擁有相同權限。易於管理，特別適用於大型組織。</li>
+                             <li><span style="background-color: #ffff0030;"><b style="color: blue;">規則為基礎存取控制</b> (<span class="english-abbr">RuBAC</span> / <span class="english-abbr">RBAC</span>, <span class="english-fullname">Rule-Based Access Control</span>)</span>：依據<span style="background-color: #ffff0030;">一組規則</span>來決定是否授予存取權限，常用於防火牆。</li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">屬性為基礎存取控制</b> (<span class="english-abbr">ABAC</span>, <span class="english-fullname">Attribute-Based Access Control</span>)</span>：根據使用者屬性、資源屬性、環境條件等多種<span style="background-color: #ffff0030;">屬性</span>動態決定存取權限。最靈活但也最複雜。</li>
+                         </ul>
+                         銀行櫃檯出納員的存取控制最適合用 <span style="color: blue; font-weight: bold;">角色為基礎存取控制</span> (<span class="english-abbr">RBAC</span>)。系統管理者統一指定使用者對資源的權限存取策略屬於 <span style="color: blue; font-weight: bold;">強制存取控制</span> (<span class="english-abbr">MAC</span>)。
+                         (資料來源：108初級-管理概論 Q21, 108初級-管理概論 Q31, 109初級-管理概論 Q32, 110初級-管理概論 Q26, 110初級-管理概論 Q34, 112初級-管理概論 Q27, 113管理 Q26)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 8 -->
+            <div class="focus-card" data-category="6" data-stars="3">
+                 <div class="focus-header">
+                    <div class="focus-id">#8</div>
+                    <div class="focus-importance">★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">帳號與密碼管理</span>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">管理實務</div>
+                    <div class="details-content">
+                        <ul>
+                             <li><span style="background-color: #ffff0030;">密碼原則</span>：應強制要求密碼複雜度（包含數字、大小寫字母、特殊符號）與長度，並定期更換密碼，避免使用與帳號相關或容易猜測的密碼。</li>
+                             <li><span style="background-color: #ffff0030;">帳號生命週期</span>：應建立帳號申請、審核、開通、停用、刪除的流程。</li>
+                             <li><span style="background-color: #ffff0030;">權限審查</span>：應定期審查使用者帳號及其權限，移除不再需要的帳號或權限。</li>
+                             <li><span style="background-color: #ffff0030;">預設帳號</span>：應避免使用系統預設帳號，或至少更改預設密碼。</li>
+                             <li><span style="background-color: #ffff0030;">密碼儲存</span>：系統不應以明文儲存密碼，應使用加鹽雜湊 (<span class="english-fullname">Salted Hashing</span>) 等方式保護。</li>
+                         </ul>
+                         (資料來源：109初級-管理概論 Q27, 109初級-技術概論 Q17, 108初級-管理概論 Q20, 108初級-管理概論 Q28, 109初級-管理概論 Q20, 113管理 Q29)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 9 -->
+             <div class="focus-card" data-category="7" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#9</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">特權帳號管理</span> (<span class="english-abbr">PAM</span>)
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">管理重點</div>
+                    <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">特權帳號</span>（如系統管理員 <span class="english-fullname">Administrator</span>, <span class="english-fullname">root</span>）擁有較高權限，其管理需特別謹慎：
+                        <ul>
+                            <li><span style="background-color: #ffff0030;">限制使用</span>：避免日常操作使用特權帳號，應使用一般帳號，僅在必要時提升權限。</li>
+                            <li><span style="background-color: #ffff0030;">定期審查</span>：定期檢視特權帳號的<span style="background-color: #ffff0030;">執行紀錄</span>、<span style="background-color: #ffff0030;">人員及其權限</span>。</li>
+                            <li><span style="background-color: #ffff0030;">密碼管理</span>：特權帳號密碼應更複雜、更換頻率更高，<span style="background-color: #ffff0030;">不應使用系統預設帳號或密碼</span>。</li>
+                            <li><span style="background-color: #ffff0030;">避免共用</span>：避免多人共用同一特權帳號，以利追究責任。</li>
+                             <li><span style="background-color: #ffff0030;">稽核紀錄</span>：詳細記錄特權帳號的操作活動。</li>
+                             <li><span style="background-color: #ffff0030;">人員離職</span>：當特權帳號使用者離職時，應<span style="background-color: #ffff0030;">立即停用或刪除</span>其帳號，並審查相關系統帳號。</li>
+                        </ul>
+                        使用 <span class="english-fullname">Runas</span>/<span class="english-fullname">sudo</span> 命令或 <span class="english-abbr">UAC</span> (<span class="english-fullname">User Account Control</span>) 機制有助於落實最小權限原則。
+                         (資料來源：109初級-管理概論 Q28, 109初級-管理概論 Q36, 108初級-管理概論 Q21, 108初級-管理概論 Q24, 113管理 Q27)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 10 -->
+            <div class="focus-card" data-category="8" data-stars="3">
+                 <div class="focus-header">
+                    <div class="focus-id">#10</div>
+                    <div class="focus-importance">★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        遠端認證協定 - <span class="english-abbr">RADIUS</span> vs <span class="english-abbr">TACACS+</span>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">協定比較</div>
+                    <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">RADIUS</span> (<span class="english-fullname">Remote Authentication Dial-In User Service</span>) 和 <span style="color: blue; font-weight: bold;">TACACS+</span> (<span class="english-fullname">Terminal Access Controller Access-Control System Plus</span>) 是常用的<span style="background-color: #ffff0030;">集中式遠端使用者認證協定</span> (<span class="english-abbr">AAA</span> 協定)。
+                        <ul>
+                            <li><span class="english-abbr">RADIUS</span>：
+                                <ul>
+                                    <li>結合了<span style="background-color: #ffff0030;">身份認證</span>和<span style="background-color: #ffff0030;">授權</span>步驟。</li>
+                                    <li>主要使用 <span class="english-abbr">UDP</span> 協定。</li>
+                                    <li>僅加密<span style="background-color: #ffff0030;">密碼</span>欄位。</li>
+                                </ul>
+                            </li>
+                             <li><span class="english-abbr">TACACS+</span>：
+                                <ul>
+                                    <li>將<span style="background-color: #ffff0030;">身份認證</span>、<span style="background-color: #ffff0030;">授權</span>、<span style="background-color: #ffff0030;">紀錄</span> (<span class="english-abbr">AAA</span>) 分開處理。</li>
+                                    <li>主要使用 <span class="english-abbr">TCP</span> 協定，更可靠。</li>
+                                     <li>加密<span style="background-color: #ffff0030;">整個封包內容</span> (除了標頭)，安全性較高。</li>
+                                    <li>提供更精細的<span style="background-color: #ffff0030;">指令級授權</span>。</li>
+                                </ul>
+                            </li>
+                        </ul>
+                         <span class="english-abbr">RADIUS</span> 屬於 <span class="english-abbr">AAA</span> 三種服務的網路傳輸協議。
+                        (資料來源：110初級-管理概論 Q32)
+                    </div>
+                </div>
+            </div>
+
+
+             <!-- Placeholder for No Results -->
+             <div id="noResultsMessage">沒有找到符合條件的重點。</div>
+
+        </div><!-- end focus-points-container -->
+
+        <div class="back-to-top" id="backToTop">↑</div>
+    </div>
+
+    <script>
+        // Progress bar (no changes needed)
+        const progressBar = document.getElementById("progressBar");
+        window.onscroll = function() { updateProgressBar(); toggleBackToTopButton(); };
+        function updateProgressBar() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (height > 0) ? (winScroll / height) * 100 : 0;
+            progressBar.style.width = scrolled + "%";
+        }
+
+        // Back to top button (no changes needed)
+        const backToTopButton = document.getElementById("backToTop");
+        function toggleBackToTopButton() {
+             backToTopButton.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "flex" : "none";
+        }
+        backToTopButton.addEventListener("click", () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+        // Filter by category (Updated function name and logic)
+        function filterByCategory(categoryNumber) {
+            // Ensure categoryNumber is treated as a string for comparison, except for 'all'
+             const valueToSet = categoryNumber === 'all' ? 'all' : String(categoryNumber);
+             document.getElementById('categoryFilter').value = valueToSet;
+             document.getElementById('searchInput').value = ''; // Clear search on filter click
+             filterFocusPoints(); // Call updated filter function
+        }
+
+        // Event listeners for filters and search (Updated IDs/functions)
+        document.getElementById("categoryFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("starFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("searchButton").addEventListener("click", searchFocusPoints); // Updated function call
+        document.getElementById("searchInput").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                searchFocusPoints(); // Updated function call
+            }
+        });
+
+        const noResultsMessage = document.getElementById('noResultsMessage');
+
+        // Combined filter function (Updated variable/class names)
+        function filterFocusPoints() {
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+            let points = document.querySelectorAll(".focus-card"); // Target .focus-card
+            let anyVisible = false;
+
+            points.forEach(function(point) {
+                // Updated dataset attribute name
+                const pointCategory = point.dataset.category;
+                const pointStars = point.dataset.stars;
+
+                const matchesCategory = (category === "all" || pointCategory === category);
+                const matchesStars = (stars === "all" || pointStars === stars);
+
+                if (matchesCategory && matchesStars) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                 // Updated message text
+                 noResultsMessage.textContent = '沒有找到符合篩選條件的重點。';
+             }
+        }
+
+        // Search function (Updated variable/class names)
+        function searchFocusPoints() {
+            let searchText = document.getElementById("searchInput").value.toLowerCase().trim();
+            let points = document.querySelectorAll(".focus-card"); // Target .focus-card
+            let anyVisible = false;
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+
+            points.forEach(function(point) {
+                // Check filters first
+                 const pointCategory = point.dataset.category;
+                 const pointStars = point.dataset.stars;
+                 const matchesCategory = (category === "all" || pointCategory === category);
+                 const matchesStars = (stars === "all" || pointStars === stars);
+                let visibleBasedOnFilter = matchesCategory && matchesStars;
+
+                // Check search text
+                let pointText = point.textContent.toLowerCase();
+                let matchesSearch = (searchText === "" || pointText.includes(searchText));
+
+                // Show if matches filters AND search (or if search is empty)
+                if (visibleBasedOnFilter && matchesSearch) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 if (searchText !== "") {
+                      noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                      // Updated message text
+                      noResultsMessage.textContent = '沒有找到符合目前篩選及搜尋條件的重點。';
+                 } else {
+                     // If search is empty, rely on filter results
+                     filterFocusPoints();
+                 }
+             }
+        }
+
+        // Removed Toggle Explanations Logic
+
+         // Initial setup
+         toggleBackToTopButton();
+         updateProgressBar();
+         filterFocusPoints(); // Apply default filters on load
+
+    </script>
+</body>
+</html>

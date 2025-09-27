@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>iPAS 資訊安全工程師能力鑑定 考試重點 - 行動裝置安全概論</title> <!-- Updated Title -->
+    <style>
+        /* RWD設定，讓整體版面在不同裝置都有良好顯示 */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft JhengHei", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto; /* Added top/bottom margin */
+            padding: 25px;
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border-radius: 8px;
+        }
+        /* Updated Header */
+        .header-container {
+            background: linear-gradient(135deg, #0e6655, #16a085); /* Adjusted Green gradient */
+            color: white;
+            padding: 30px 20px; /* Increased padding */
+            margin: -25px -25px 25px -25px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+        .header-container h1 {
+            margin: 0;
+            color: white;
+            font-size: 2.2rem; /* Larger title */
+            font-weight: 600;
+            margin-bottom: 5px; /* Space below title */
+        }
+        .header-container div { /* Subtitle */
+             font-size: 1.2rem;
+             opacity: 0.9;
+             margin-top: 5px;
+             font-weight: 300; /* Lighter weight */
+        }
+
+        /* Topic Categories Section */
+        .categories-container {
+            background-color: #e8f8f5; /* Lighter green */
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 5px solid #48c9b0; /* Adjusted green border */
+            border-radius: 5px;
+        }
+        .categories-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #0e6655; /* Darker green */
+        }
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        .category-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #d1f2eb; /* Adjusted border */
+        }
+        .category-item:hover {
+            background-color: #48c9b0; /* Adjusted green hover */
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: #48c9b0;
+        }
+        .category-number {
+            width: 30px;
+            height: 30px;
+            background-color: #48c9b0; /* Adjusted green number */
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .category-item:hover .category-number {
+            background-color: white;
+            color: #48c9b0;
+        }
+        .category-text {
+            font-size: 0.95rem;
+        }
+
+        /* Focus Point Card Styling */
+        .focus-points-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px; /* Increased gap */
+        }
+        .focus-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 0;
+            box-shadow: 0 4px 12px rgba(14, 102, 85, 0.1); /* Adjusted shadow color */
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            border: 1px solid #e0e0e0;
+            overflow: hidden;
+            page-break-inside: avoid;
+        }
+        .focus-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(14, 102, 85, 0.15); /* Adjusted shadow color */
+        }
+        .focus-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .focus-id {
+            font-weight: bold;
+            color: #48c9b0; /* Adjusted green ID */
+            font-size: 1rem;
+            background-color: #e8f8f5; /* Background for ID */
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .focus-importance {
+            font-weight: bold;
+            font-size: 1rem;
+        }
+        .star-rating {
+            color: #f39c12;
+        }
+
+        .focus-topic-container {
+             padding: 25px 25px 20px 25px;
+             border-bottom: 1px dashed #eee;
+        }
+
+        .focus-topic {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0;
+            line-height: 1.4;
+            color: #0e6655; /* Darker green for topic */
+        }
+
+        /* Terminology Styling */
+        .chinese-term {
+             color: #0000FF; /* Blue */
+             font-weight: bold;
+        }
+        .english-abbr {
+            color: #800080; /* Purple */
+            font-weight: bold;
+        }
+        .english-fullname {
+            color: #FF0000; /* Red */
+            font-weight: bold;
+        }
+        .keyword-highlight {
+            background-color: #ffff0030; /* Light yellow background */
+            border-radius: 2px;
+        }
+
+
+        /* Details Section Styling */
+        .focus-details-container {
+            padding: 20px 25px 25px 25px;
+        }
+        .details-header {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #0e6655; /* Darker green */
+            font-size: 1.2rem;
+            letter-spacing: 0.5px;
+        }
+        .details-content {
+            line-height: 1.75;
+            color: #444;
+            font-size: 1.05rem;
+        }
+        .details-content ul {
+             padding-left: 25px;
+             margin-top: 10px;
+             margin-bottom: 10px;
+             list-style-type: disc;
+        }
+         .details-content li {
+             margin-bottom: 8px;
+         }
+         .details-content strong {
+             font-weight: 600;
+             color: #0e6655;
+         }
+
+
+        /* Controls Section Styling */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 15px;
+            background-color: #fdfdfd;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+        .filter-container, .search-container, .star-filter-container {
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            min-width: 200px;
+        }
+         .search-container { flex-grow: 2; }
+        .filter-label, .search-label, .star-filter-label {
+            font-weight: 600;
+            margin-right: 10px;
+            white-space: nowrap;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        select, input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+            flex-grow: 1;
+            font-size: 0.95rem;
+            background-color: white;
+        }
+         input[type="text"] { min-width: 180px; }
+        button {
+            padding: 10px 18px;
+            background-color: #48c9b0; /* Adjusted green buttons */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.2s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-left: 8px;
+            white-space: nowrap;
+        }
+        button:hover {
+            background-color: #1abc9c; /* Darker green hover */
+        }
+
+        /* RWD Adjustments */
+        @media (max-width: 992px) {
+             .controls { flex-direction: column; align-items: stretch; }
+            .filter-container, .search-container, .star-filter-container { width: 100%; flex-grow: 0; }
+             select, input[type="text"] { width: 100%; }
+             button { margin-left: 0; margin-top: 5px; }
+             .search-container button { margin-left: 8px; margin-top: 0; }
+             #searchInput { width: calc(100% - 90px); }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .header-container { padding: 25px 15px; margin: -15px -15px 20px -15px; }
+            .categories-grid { grid-template-columns: 1fr; }
+            .focus-card { padding: 0; }
+             .focus-header, .focus-topic-container, .focus-details-container { padding-left: 20px; padding-right: 20px; }
+            h1 { font-size: 1.8rem; }
+            .header-container h1 { font-size: 2rem; }
+            .focus-topic { font-size: 1.3rem; }
+            .details-header { font-size: 1.1rem; }
+            .details-content { font-size: 1rem; }
+        }
+
+        /* Back to Top Button & Progress Bar */
+        .back-to-top {
+            position: fixed; bottom: 25px; right: 25px; background-color: #48c9b0; color: white;
+            width: 45px; height: 45px; border-radius: 50%; display: none; justify-content: center;
+            align-items: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, opacity 0.3s, transform 0.3s; z-index: 1000;
+            opacity: 0.8; font-size: 1.2rem;
+        }
+        .back-to-top:hover { background-color: #1abc9c; opacity: 1; transform: scale(1.1); }
+        .progress-container {
+            width: 100%; height: 5px; background-color: #e8f8f5; position: fixed;
+            top: 0; left: 0; z-index: 1001;
+        }
+        .progress-bar {
+            height: 5px; background: linear-gradient(90deg, #48c9b0, #a3e4d7); /* Adjusted gradient */
+            width: 0%; border-radius: 0 2px 2px 0; transition: width 0.1s linear;
+        }
+         #noResultsMessage {
+             text-align: center; padding: 20px; color: #777; display: none; font-style: italic;
+         }
+
+         /* Print specific styles */
+         @media print {
+             body {
+                 background: #fff;
+                 color: #000;
+                 font-size: 10pt;
+             }
+             .container {
+                 max-width: 100%;
+                 margin: 0;
+                 padding: 0;
+                 box-shadow: none;
+                 border-radius: 0;
+             }
+             .header-container, .controls, .categories-container, .back-to-top, .progress-container {
+                 display: none;
+             }
+             .focus-points-container {
+                 display: block;
+                 gap: 15px;
+             }
+             .focus-card {
+                 box-shadow: none;
+                 border: 1px solid #ccc;
+                 margin-bottom: 15px;
+                 page-break-inside: avoid;
+                 padding: 15px;
+             }
+            .focus-header, .focus-topic-container, .focus-details-container {
+                 padding: 0;
+                 background-color: transparent;
+                 border: none;
+            }
+             .focus-topic-container { margin-bottom: 10px; }
+             .focus-topic { font-size: 1.2rem; }
+             .details-header { font-size: 1rem; margin-bottom: 5px;}
+             .details-content { font-size: 0.95rem; line-height: 1.4; }
+             .keyword-highlight {
+                 background-color: transparent;
+                 font-style: italic;
+             }
+            .chinese-term, .english-abbr, .english-fullname {
+                font-weight: bold;
+                color: #000;
+            }
+            a { text-decoration: none; color: #000; }
+            ul { padding-left: 20px; }
+            li { margin-bottom: 4px; }
+         }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <div class="header-container">
+             <h1>iPAS 資訊安全工程師能力鑑定 考試重點</h1>
+             <div>初級 - 行動裝置安全概論</div>
+        </div>
+
+        <div class="controls">
+             <div class="filter-container">
+                <label for="categoryFilter" class="filter-label">篩選主題：</label>
+                <select id="categoryFilter">
+                    <option value="all">全部主題</option>
+                    <!-- Options will be added dynamically based on data -->
+                </select>
+            </div>
+
+            <div class="star-filter-container">
+                <label for="starFilter" class="star-filter-label">重要性：</label>
+                <select id="starFilter">
+                    <option value="all">全部重要性</option>
+                    <option value="5">★★★★★</option>
+                    <option value="4">★★★★</option>
+                    <option value="3">★★★</option>
+                </select>
+            </div>
+
+            <div class="search-container">
+                <label for="searchInput" class="search-label">搜尋：</label>
+                <input type="text" id="searchInput" placeholder="輸入關鍵字...">
+                <button id="searchButton">搜尋</button>
+            </div>
+        </div>
+
+        <div class="categories-container">
+            <div class="categories-title">主題分類</div>
+            <div class="categories-grid" id="categoriesGrid">
+                 <!-- Category items will be added dynamically -->
+                 <div class="category-item" style="display: none;" id="category-placeholder"> <!-- Placeholder -->
+                    <div class="category-number"></div>
+                    <div class="category-text"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="focus-points-container" id="focusPointsContainer">
+             <!-- Focus points will be dynamically added here -->
+             <div id="noResultsMessage">正在處理您的 PDF 檔案並提取重點，請稍候...</div>
+        </div><!-- end focus-points-container -->
+
+        <div class="back-to-top" id="backToTop">↑</div>
+    </div>
+
+    <script>
+        // --- Data Array (Will be populated by processing PDFs) ---
+        let focusPointsData = []; // Use let as it will be reassigned
+
+        // --- Function to add a focus point safely ---
+        function addFocusPoint(point) {
+            if (point && point.id && point.category !== undefined && point.stars && point.topic && point.details) {
+                 // Assign a temporary ID during processing if needed, or ensure unique IDs from source
+                 if (!focusPointsData.some(existingPoint => existingPoint.id === point.id)) {
+                    focusPointsData.push(point);
+                 } else {
+                     console.warn(`Skipping duplicate focus point ID: ${point.id}`);
+                 }
+            } else {
+                console.error("Attempted to add invalid focus point:", point);
+            }
+        }
+
+        // --- Processing PDF Content (Placeholder - Replace with actual extraction logic) ---
+        // =======================================================================
+        // START OF PDF CONTENT PROCESSING (SIMULATION)
+        // =======================================================================
+        // Simulate extracting points from PDFs about Mobile Device Security.
+        // Ensure category numbers are assigned based on actual content grouping.
+
+        // Example Point Extraction (Replace with real extracted data)
+        addFocusPoint({ id: 1, category: 1, stars: 5, topic: `行動裝置 (<strong class="english-fullname">Mobile Device</strong>) 安全基礎`, details: `行動裝置泛指<span class="keyword-highlight">智慧型手機</span> (<strong class="english-fullname">Smartphone</strong>)、<span class="keyword-highlight">平板電腦</span> (<strong class="english-fullname">Tablet</strong>) 等可攜式計算裝置。<br>安全特性與挑戰：<ul><li><strong class="chinese-term">可攜性</strong>: <span class="keyword-highlight">易於遺失或遭竊</span>，增加實體安全風險。</li><li><strong class="chinese-term">連網能力</strong>: 隨時連接 <strong class="english-fullname">Wi-Fi</strong>、<strong class="chinese-term">行動網路</strong> (<strong class="english-abbr">4G/5G</strong>)，暴露於網路威脅。</li><li><strong class="chinese-term">應用程式生態系</strong>: <strong class="chinese-term">應用程式商店</strong> (<strong class="english-fullname">App Store</strong>, <strong class="english-fullname">Google Play</strong>) 提供便利，但也可能<span class="keyword-highlight">散播惡意軟體</span>。</li><li><strong class="chinese-term">儲存敏感資料</strong>: 常儲存個人資訊、聯絡人、照片、支付資訊等。</li><li><strong class="chinese-term">多樣的感測器</strong>: <strong class="english-abbr">GPS</strong>、麥克風、相機等可能被濫用以<span class="keyword-highlight">侵犯隱私</span>。</li></ul>` });
+        addFocusPoint({ id: 2, category: 2, stars: 4, topic: `行動作業系統 (<strong class="english-fullname">Mobile OS</strong>) 安全 - <strong class="english-abbr">iOS</strong> vs <strong class="english-abbr">Android</strong>`, details: `<ul><li><strong class="english-abbr">iOS</strong>: 由 <strong class="english-fullname">Apple</strong> 開發，採<span class="keyword-highlight">封閉生態系</span>。<br>    <strong>優點:</strong> 嚴格的<strong class="chinese-term">應用程式審核</strong>、系統更新推送即時、<strong class="chinese-term">沙箱機制</strong> (<strong class="english-fullname">Sandboxing</strong>) 較嚴格。<br>    <strong>限制:</strong> 客製化程度低，應用程式來源單一。</li><li><strong class="english-abbr">Android</strong>: 由 <strong class="english-fullname">Google</strong> 主導，採<span class="keyword-highlight">開放生態系</span>。<br>    <strong>優點:</strong> 高度客製化，應用程式來源多元。<br>    <strong>挑戰:</strong> <span class="keyword-highlight">碎片化問題</span>導致更新延遲、應用程式<span class="keyword-highlight">審核相對寬鬆</span>、惡意軟體較多。</li></ul>兩者皆有<strong class="chinese-term">應用程式權限管理</strong>、<strong class="chinese-term">沙箱機制</strong>、<strong class="chinese-term">加密</strong>等安全功能。` });
+        addFocusPoint({ id: 3, category: 2, stars: 4, topic: `<strong class="chinese-term">應用程式權限</strong> (<strong class="english-fullname">App Permissions</strong>) 管理`, details: `行動作業系統<span class="keyword-highlight">限制應用程式存取敏感資源或功能</span> (如相機、麥克風、位置、聯絡人) 的機制。<ul><li>使用者應<span class="keyword-highlight">僅授予應用程式執行其核心功能所必需的權限</span>。</li><li>定期<span class="keyword-highlight">檢視並撤銷</span>不必要的應用程式權限。</li><li>小心要求過多或不合理權限的應用程式，可能是<strong class="chinese-term">惡意軟體</strong>或<strong class="chinese-term">侵犯隱私</strong>。</li></ul>` });
+        addFocusPoint({ id: 4, category: 2, stars: 3, topic: `<strong class="chinese-term">沙箱機制</strong> (<strong class="english-fullname">Sandboxing</strong>)`, details: `一種<span class="keyword-highlight">限制應用程式執行環境</span>的安全機制。<ul><li>每個應用程式在<span class="keyword-highlight">獨立且受限的空間</span> (沙箱) 中執行。</li><li>應用程式<span class="keyword-highlight">無法直接存取</span>其他應用程式的資料或系統核心資源，除非透過作業系統提供的 <strong class="english-abbr">API</strong> (<strong class="english-fullname">Application Programming Interface</strong>) 並取得授權。</li><li>目的是<span class="keyword-highlight">防止惡意應用程式影響系統或其他應用程式</span>。</li></ul>` });
+        addFocusPoint({ id: 5, category: 3, stars: 4, topic: `行動裝置網路安全 - <strong class="english-fullname">Wi-Fi</strong> 安全`, details: `<ul><li>避免連接<span class="keyword-highlight">未加密或不明來源</span>的公共 <strong class="english-fullname">Wi-Fi</strong>。</li><li><strong class="chinese-term">惡意熱點</strong> (<strong class="english-fullname">Evil Twin</strong>): 攻擊者建立<span class="keyword-highlight">名稱相似的偽冒 <strong class="english-fullname">Wi-Fi</strong></span> 熱點，誘騙使用者連線以竊取資訊。</li><li>應使用<span class="keyword-highlight"><strong class="english-abbr">WPA2</strong> 或 <strong class="english-abbr">WPA3</strong></span> (<strong class="english-fullname">Wi-Fi Protected Access</strong>) 加密。</li><li>在公共 <strong class="english-fullname">Wi-Fi</strong> 上進行敏感操作 (如網路銀行) 時，應使用 <strong class="chinese-term">VPN</strong> (<strong class="english-fullname">Virtual Private Network</strong>)。</li></ul>` });
+        addFocusPoint({ id: 6, category: 3, stars: 3, topic: `<strong class="chinese-term">虛擬私人網路</strong> (<strong class="english-abbr">VPN</strong>, <strong class="english-fullname">Virtual Private Network</strong>)`, details: `在公用網路 (如網際網路) 上建立<span class="keyword-highlight">加密的、安全的通訊通道</span>。<ul><li>用途：保護<span class="keyword-highlight">資料傳輸的機密性與完整性</span>，隱藏使用者真實 <strong class="english-abbr">IP</strong> 位址，突破地理限制。</li><li>常用於<span class="keyword-highlight">遠端存取</span>企業內部網路或在<span class="keyword-highlight">不安全的網路上保護通訊</span>。</li></ul>` });
+        addFocusPoint({ id: 7, category: 4, stars: 4, topic: `行動裝置資料安全與加密`, details: `<ul><li><strong class="chinese-term">全碟加密</strong> (<strong class="english-abbr">FDE</strong>, <strong class="english-fullname">Full Disk Encryption</strong>): <span class="keyword-highlight">對裝置的整個儲存空間進行加密</span>。即使裝置遺失或遭竊，若無密碼或金鑰，也無法讀取資料。<strong class="english-abbr">iOS</strong> 預設啟用，<strong class="english-abbr">Android</strong> 較新版本也多數預設啟用。</li><li><strong class="chinese-term">檔案層級加密</strong> (<strong class="english-fullname">File-Based Encryption</strong>): 對<span class="keyword-highlight">個別檔案或目錄</span>進行加密，提供更細緻的控制。</li><li><strong class="chinese-term">安全儲存區域</strong>: 如 <strong class="english-fullname">Apple</strong> 的 <strong class="english-fullname">Secure Enclave</strong> 或 <strong class="english-abbr">Android</strong> 的 <strong class="english-fullname">Trusted Execution Environment</strong> (<strong class="english-abbr">TEE</strong>)，用於<span class="keyword-highlight">保護敏感金鑰或生物辨識資料</span>。</li></ul>` });
+        addFocusPoint({ id: 8, category: 4, stars: 3, topic: `行動裝置資料清除 (<strong class="english-fullname">Data Wipe</strong>)`, details: `<ul><li><strong class="chinese-term">遠端清除</strong> (<strong class="english-fullname">Remote Wipe</strong>): 裝置遺失或遭竊時，可<span class="keyword-highlight">透過管理平台遠端刪除裝置上的所有資料</span>，防止資料外洩。常由 <strong class="english-abbr">MDM</strong>/<strong class="english-abbr">EMM</strong> 系統提供。</li><li><strong class="chinese-term">恢復原廠設定</strong> (<strong class="english-fullname">Factory Reset</strong>): 清除裝置上所有使用者資料和設定，<span class="keyword-highlight">回復到出廠狀態</span>。但可能無法完全清除所有資料痕跡。</li><li><strong class="chinese-term">安全清除</strong>: 應確保資料被<span class="keyword-highlight">覆寫或加密銷毀</span>，使得資料無法被輕易回復。</li></ul>` });
+        addFocusPoint({ id: 9, category: 5, stars: 5, topic: `行動裝置身份驗證`, details: `確認使用者身份的機制。<ul><li><strong class="chinese-term">密碼/圖形鎖/PIN碼</strong>: 最基本的驗證方式。應設定<span class="keyword-highlight">足夠複雜度的密碼</span>，避免使用易猜測的組合。</li><li><strong class="chinese-term">生物辨識</strong> (<strong class="english-fullname">Biometrics</strong>): 如<strong class="chinese-term">指紋辨識</strong> (<strong class="english-fullname">Fingerprint Recognition</strong>)、<strong class="chinese-term">人臉辨識</strong> (<strong class="english-fullname">Facial Recognition</strong>)、<strong class="chinese-term">虹膜辨識</strong> (<strong class="english-fullname">Iris Recognition</strong>)。提供便利性，但有<span class="keyword-highlight">誤判或被繞過的風險</span>。</li><li><strong class="chinese-term">多因子驗證</strong> (<strong class="english-abbr">MFA</strong>, <strong class="english-fullname">Multi-Factor Authentication</strong>): <span class="keyword-highlight">結合兩種或以上不同類型的驗證因素</span>（你知道的、你擁有的、你是的），大幅<span class="keyword-highlight">提高安全性</span>。例如：密碼 + <strong class="chinese-term">簡訊驗證碼</strong> (<strong class="english-abbr">SMS OTP</strong>) 或 驗證器 <strong class="english-abbr">APP</strong>。</li></ul>` });
+        addFocusPoint({ id: 10, category: 6, stars: 5, topic: `行動裝置惡意軟體 (<strong class="english-fullname">Mobile Malware</strong>)`, details: `針對行動裝置設計的惡意軟體。<ul><li>類型：<strong class="chinese-term">木馬程式</strong> (<strong class="english-fullname">Trojan</strong>)、<strong class="chinese-term">間諜軟體</strong> (<strong class="english-fullname">Spyware</strong>)、<strong class="chinese-term">廣告軟體</strong> (<strong class="english-fullname">Adware</strong>)、<strong class="chinese-term">勒索軟體</strong> (<strong class="english-fullname">Ransomware</strong>)。</li><li>傳播途徑：<span class="keyword-highlight">惡意應用程式</span> (尤其來自非官方商店)、<span class="keyword-highlight">釣魚簡訊/郵件</span>、<span class="keyword-highlight">惡意網站</span>、<span class="keyword-highlight">藍牙/Wi-Fi 漏洞</span>。</li><li>危害：竊取個資、監控活動、顯示惡意廣告、鎖定裝置勒索。</li><li>防護：<span class="keyword-highlight">只從官方商店下載 App</span>、<span class="keyword-highlight">謹慎授予權限</span>、<span class="keyword-highlight">保持系統與 App 更新</span>、安裝<strong class="chinese-term">行動安全軟體</strong>。</li></ul>` });
+        addFocusPoint({ id: 11, category: 6, stars: 4, topic: `行動裝置<strong class="chinese-term">釣魚攻擊</strong> (<strong class="english-fullname">Phishing</strong>)`, details: `攻擊者<span class="keyword-highlight">偽裝成合法機構或個人</span>，透過<strong class="chinese-term">簡訊</strong> (<strong class="english-abbr">SMS</strong> - 稱為 <strong class="english-fullname">Smishing</strong>)、<strong class="chinese-term">即時通訊</strong>或<strong class="chinese-term">電子郵件</strong>，<span class="keyword-highlight">誘騙使用者點擊惡意連結或提供敏感資訊</span> (如帳號密碼、信用卡號)。<ul><li>特徵：常帶有<span class="keyword-highlight">緊急性、威脅性或利誘性</span>的訊息。</li><li>防護：<span class="keyword-highlight">不輕易點擊不明連結</span>、<span class="keyword-highlight">不隨意提供個資</span>、<span class="keyword-highlight">確認寄件者/網址的真實性</span>。</li></ul>` });
+        addFocusPoint({ id: 12, category: 6, stars: 3, topic: `行動裝置<strong class="chinese-term">實體安全</strong>風險`, details: `<ul><li><strong class="chinese-term">遺失與遭竊</strong>: 最常見的風險，可能導致<span class="keyword-highlight">設備損失與資料外洩</span>。</li><li><strong class="chinese-term">肩窺</strong> (<strong class="english-fullname">Shoulder Surfing</strong>): 在旁<span class="keyword-highlight">偷看使用者輸入密碼</span>或瀏覽敏感資訊。</li><li><strong class="chinese-term">未經授權的物理存取</strong>: 他人取得裝置後可能<span class="keyword-highlight">嘗試破解密碼或安裝惡意軟體</span>。</li><li>防護：設定<strong class="chinese-term">螢幕鎖定</strong>、啟用<strong class="chinese-term">遠端定位與清除</strong>功能、<span class="keyword-highlight">不讓裝置離開視線</span>。</li></ul>` });
+        addFocusPoint({ id: 13, category: 7, stars: 4, topic: `<strong class="chinese-term">行動裝置管理</strong> (<strong class="english-abbr">MDM</strong>, <strong class="english-fullname">Mobile Device Management</strong>) / <strong class="chinese-term">企業行動管理</strong> (<strong class="english-abbr">EMM</strong>)`, details: `企業用於<span class="keyword-highlight">管理、監控和保護</span>員工使用的行動裝置（公司或個人擁有 <strong class="english-abbr">BYOD</strong> - <strong class="english-fullname">Bring Your Own Device</strong>）的解決方案。<ul><li>功能：<span class="keyword-highlight">強制實施安全政策</span>（如密碼複雜度、加密）、<span class="keyword-highlight">遠端配置</span>（Wi-Fi, VPN）、<span class="keyword-highlight">應用程式管理</span>（派送、黑白名單）、<span class="keyword-highlight">遠端鎖定與清除</span>、<span class="keyword-highlight">合規性檢查</span>。</li><li><strong class="english-abbr">EMM</strong> (<strong class="english-fullname">Enterprise Mobility Management</strong>) 通常包含 <strong class="english-abbr">MDM</strong>，並擴展至<strong class="chinese-term">行動應用程式管理</strong> (<strong class="english-abbr">MAM</strong>) 和<strong class="chinese-term">行動內容管理</strong> (<strong class="english-abbr">MCM</strong>)。</li></ul>` });
+        addFocusPoint({ id: 14, category: 7, stars: 4, topic: `<strong class="chinese-term">自攜裝置</strong> (<strong class="english-abbr">BYOD</strong>, <strong class="english-fullname">Bring Your Own Device</strong>) 安全`, details: `允許員工<span class="keyword-highlight">使用個人行動裝置處理公務</span>的政策。<ul><li>優點：提高<span class="keyword-highlight">員工滿意度與生產力</span>、降低<span class="keyword-highlight">企業硬體成本</span>。</li><li>挑戰：<span class="keyword-highlight">安全風險增加</span>（裝置安全性不一、公私資料混用）、<span class="keyword-highlight">管理複雜度提高</span>、<span class="keyword-highlight">隱私問題</span>。</li><li>管理措施：需要<span class="keyword-highlight">清晰的 <strong class="english-abbr">BYOD</strong> 政策</span>、部署 <strong class="english-abbr">MDM/EMM</strong> 方案、<strong class="chinese-term">資料隔離</strong>技術（如<strong class="chinese-term">容器化</strong>）、員工安全<strong class="chinese-term">教育訓練</strong>。</li></ul>` });
+        addFocusPoint({ id: 15, category: 7, stars: 3, topic: `行動裝置安全使用<strong class="chinese-term">最佳實務</strong>`, details: `<ul><li><span class="keyword-highlight">設定強固的螢幕鎖定</span> (密碼/生物辨識)。</li><li><span class="keyword-highlight">保持作業系統與應用程式更新</span>至最新版本。</li><li><span class="keyword-highlight">只從官方應用程式商店下載 App</span>，並檢視權限要求。</li><li><span class="keyword-highlight">避免連接不安全的公共 Wi-Fi</span>，必要時使用 <strong class="english-abbr">VPN</strong>。</li><li><span class="keyword-highlight">關閉不使用的無線功能</span> (藍牙, NFC)。</li><li><span class="keyword-highlight">啟用遠端尋找、鎖定、清除功能</span>。</li><li><span class="keyword-highlight">定期備份重要資料</span>。</li><li><span class="keyword-highlight">小心釣魚郵件與簡訊</span>。</li><li><span class="keyword-highlight">避免進行越獄 (<strong class="english-fullname">Jailbreaking</strong>) 或 <strong class="chinese-term">Root</strong></span>，這會破壞作業系統安全機制。</li></ul>` });
+        addFocusPoint({ id: 16, category: 5, stars: 4, topic: `<strong class="chinese-term">行動支付安全</strong> (<strong class="english-abbr">NFC</strong>, <strong class="english-fullname">Near Field Communication</strong>) - <strong class="chinese-term">代碼化</strong> (<strong class="english-fullname">Tokenization</strong>)`, details: `<ul><li><strong class="english-abbr">NFC</strong>: <span class="keyword-highlight">短距離高頻無線通訊技術</span>，用於行動支付 (如 Apple Pay, Google Pay)。</li><li><strong class="chinese-term">代碼化</strong> (<strong class="english-fullname">Tokenization</strong>): 行動支付的<span class="keyword-highlight">核心安全技術</span>。將<span class="keyword-highlight">真實的信用卡號</span>替換為一組<span class="keyword-highlight">一次性或裝置特定的<strong class="chinese-term">代碼</strong></span> (<strong class="english-fullname">Token</strong>) 進行交易。</li><li>優點：<span class="keyword-highlight">商家無法獲取真實卡號</span>，即使交易資料被攔截，<strong class="chinese-term">代碼</strong>也無法在其他地方使用，<span class="keyword-highlight">大幅降低卡號外洩風險</span>。</li><li><strong class="chinese-term">安全元件</strong> (<strong class="english-fullname">Secure Element</strong>, <strong class="english-abbr">SE</strong>): 部分裝置使用<span class="keyword-highlight">專用硬體晶片</span>儲存支付憑證和<strong class="chinese-term">代碼</strong>，提供更高安全性。</li><li><strong class="chinese-term">主機卡模擬</strong> (<strong class="english-abbr">HCE</strong>, <strong class="english-fullname">Host Card Emulation</strong>): 允許支付資訊<span class="keyword-highlight">儲存在雲端或軟體中</span>，不一定需要 <strong class="english-abbr">SE</strong>。</li></ul>` });
+        addFocusPoint({ id: 17, category: 8, stars: 3, topic: `<strong class="english-abbr">ISO/IEC 27002</strong>:2013 <strong class="english-abbr">BYOD</strong> 指導綱要`, details: `在 <strong class="english-abbr">ISO/IEC 27002</strong>:2013 (資訊安全控制實務規範) 中，雖然沒有直接標明 <strong class="english-abbr">BYOD</strong>，但其指導原則適用於管理個人裝置存取企業資源。<br>相關控制措施可能涉及：<ul><li><strong class="chinese-term">行動裝置政策</strong>: 制定允許/禁止的裝置類型、安全要求、可存取資源等。</li><li><strong class="chinese-term">行動裝置管理</strong>: 使用 <strong class="english-abbr">MDM</strong> 實施控制。</li><li><strong class="chinese-term">網路存取控制</strong>: 驗證裝置合規性後才允許接入網路。</li><li><strong class="chinese-term">資料保護</strong>: 在個人裝置上處理公司資料的保護措施。</li><li><strong class="chinese-term">安全意識訓練</strong>: 教育員工安全使用個人裝置的風險與責任。</li></ul>(註：新版 <strong class="english-abbr">ISO/IEC 27002</strong>:2022 對此有更明確的控制措施。) ` });
+
+
+        // =======================================================================
+        // END OF PDF CONTENT PROCESSING (SIMULATION)
+        // =======================================================================
+
+        // --- Final Setup Logic (Copied from previous response) ---
+        const categories = {};
+        const categoryMap = { // Define category names explicitly
+             1: "行動裝置安全基礎",
+             2: "行動作業系統與應用程式安全",
+             3: "行動網路與通訊安全",
+             4: "行動裝置資料安全",
+             5: "身份驗證與存取控制",
+             6: "行動裝置威脅與攻擊",
+             7: "行動裝置管理與安全實務",
+             8: "相關標準與規範"
+         };
+
+        // Determine used categories and their names
+        focusPointsData.forEach(point => {
+            if (point.category && categoryMap[point.category] && !categories[point.category]) {
+                 categories[point.category] = categoryMap[point.category];
+             }
+        });
+
+        const categoryFilterSelect = document.getElementById('categoryFilter');
+        const categoriesGrid = document.getElementById('categoriesGrid');
+        categoriesGrid.innerHTML = ''; // Clear placeholder if present
+
+        // Sort categories numerically
+        const sortedCategories = Object.keys(categories).sort((a, b) => parseInt(a) - parseInt(b));
+
+        // Populate category filter dropdown
+        sortedCategories.forEach(catId => {
+             const option = document.createElement('option');
+             option.value = catId;
+             option.textContent = `${catId}. ${categories[catId]}`;
+             categoryFilterSelect.appendChild(option);
+         });
+
+        // Populate category grid
+        sortedCategories.forEach(catId => {
+             const catItem = document.createElement('div');
+             catItem.className = 'category-item';
+             catItem.onclick = () => filterByCategory(catId);
+             catItem.innerHTML = `
+                 <div class="category-number">${catId}</div>
+                 <div class="category-text">${categories[catId]}</div>
+             `;
+             categoriesGrid.appendChild(catItem);
+         });
+
+        // --- Filtering, Searching, UI Logic (Keep as is) ---
+        const focusPointsContainer = document.getElementById("focusPointsContainer");
+        //const categoryFilter = document.getElementById("categoryFilter"); // Already defined
+        const starFilter = document.getElementById("starFilter");
+        const searchInput = document.getElementById("searchInput");
+        const searchButton = document.getElementById("searchButton");
+        const noResultsMessage = document.getElementById('noResultsMessage');
+        const progressBar = document.getElementById("progressBar");
+        const backToTopButton = document.getElementById("backToTop");
+
+        function populateFocusPoints(data) {
+            focusPointsContainer.innerHTML = ''; // Clear existing points
+             noResultsMessage.style.display = 'none'; // Assume results initially
+
+            if (!data || data.length === 0) {
+                 noResultsMessage.style.display = 'block';
+                 if (searchInput.value.trim() !== "") {
+                    noResultsMessage.textContent = '沒有找到符合目前篩選及搜尋條件的重點。';
+                 } else {
+                     noResultsMessage.textContent = '沒有找到符合篩選條件的重點。';
+                 }
+                 return; // Exit if no data
+            }
+
+            data.forEach(point => {
+                const card = document.createElement('div');
+                card.className = 'focus-card';
+                card.dataset.category = point.category;
+                card.dataset.stars = point.stars;
+
+                const starRatingHtml = '<span class="star-rating">' + '★'.repeat(point.stars) + '☆'.repeat(5 - point.stars) + '</span>';
+
+                card.innerHTML = `
+                    <div class="focus-header">
+                        <div class="focus-id">#${point.id}</div>
+                        <div class="focus-importance">${starRatingHtml}</div>
+                    </div>
+                    <div class="focus-topic-container">
+                        <div class="focus-topic">${point.topic}</div>
+                    </div>
+                    <div class="focus-details-container">
+                        <div class="details-content">${point.details}</div>
+                    </div>
+                `;
+                focusPointsContainer.appendChild(card);
+            });
+        }
+
+        function filterAndSearch() {
+            let category = categoryFilter.value;
+            let stars = starFilter.value;
+            let searchText = searchInput.value.toLowerCase().trim();
+
+            const filteredData = focusPointsData.filter(point => {
+                const matchesCategory = (category === "all" || String(point.category) === category);
+                const matchesStars = (stars === "all" || String(point.stars) === stars);
+                let pointText = (point.topic + ' ' + point.details).toLowerCase();
+                pointText = pointText.replace(/<[^>]*>/g, ' '); // Basic HTML tag removal
+                const matchesSearch = (searchText === "" || pointText.includes(searchText));
+
+                return matchesCategory && matchesStars && matchesSearch;
+            });
+
+            populateFocusPoints(filteredData);
+        }
+
+         function filterByCategory(categoryNumber) {
+             categoryFilter.value = categoryNumber === 'all' ? 'all' : String(categoryNumber);
+             searchInput.value = '';
+             filterAndSearch();
+         }
+
+        // Event Listeners
+        categoryFilter.addEventListener("change", filterAndSearch);
+        starFilter.addEventListener("change", filterAndSearch);
+        searchButton.addEventListener("click", filterAndSearch);
+        searchInput.addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                filterAndSearch();
+            }
+        });
+        backToTopButton.addEventListener("click", () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+        // Scroll and Progress Bar
+        window.onscroll = function() { updateProgressBar(); toggleBackToTopButton(); };
+        function updateProgressBar() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (height > 0) ? (winScroll / height) * 100 : 0;
+            progressBar.style.width = scrolled + "%";
+        }
+         function toggleBackToTopButton() {
+             backToTopButton.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "flex" : "none";
+        }
+
+        // --- Initial Load ---
+        populateFocusPoints(focusPointsData); // Populate with the (simulated) data
+        toggleBackToTopButton();
+        updateProgressBar();
+        filterAndSearch(); // Apply initial filter/search state (which should be 'all' and empty search)
+
+    </script>
+</body>
+</html>

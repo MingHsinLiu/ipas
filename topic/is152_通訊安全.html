@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>iPAS 資訊安全工程師 考試重點整理 - IS152 通訊安全</title> <!-- Changed Title -->
+    <style>
+        /* RWD設定，讓整體版面在不同裝置都有良好顯示 */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft JhengHei", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto; /* Added top/bottom margin */
+            padding: 25px;
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border-radius: 8px;
+        }
+        /* Updated Header */
+        .header-container {
+            background: linear-gradient(135deg, #2c3e50, #34495e); /* Darker gradient */
+            color: white;
+            padding: 30px 20px; /* Increased padding */
+            margin: -25px -25px 25px -25px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+        .header-container h1 {
+            margin: 0;
+            color: white;
+            font-size: 2.2rem; /* Larger title */
+            font-weight: 600;
+            margin-bottom: 5px; /* Space below title */
+        }
+        .header-container div { /* Subtitle */
+             font-size: 1.2rem;
+             opacity: 0.9;
+             margin-top: 5px;
+             font-weight: 300; /* Lighter weight */
+        }
+
+        /* Topic Categories Section (Renamed from Directions) */
+        .categories-container { /* Renamed */
+            background-color: #e8f0f5; /* Slightly different blue */
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 5px solid #5dade2; /* Lighter blue border */
+            border-radius: 5px;
+        }
+        .categories-title { /* Renamed */
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .categories-grid { /* Renamed */
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        .category-item { /* Renamed */
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #d6e0ea; /* Border matching background */
+        }
+        .category-item:hover {
+            background-color: #5dade2; /* Lighter blue hover */
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: #5dade2;
+        }
+        .category-number { /* Renamed */
+            width: 30px;
+            height: 30px;
+            background-color: #5dade2; /* Lighter blue number */
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .category-item:hover .category-number {
+            background-color: white;
+            color: #5dade2;
+        }
+        .category-text { /* Renamed */
+            font-size: 0.95rem;
+        }
+
+        /* Focus Point Card Styling (Replaces Question Card) */
+        .focus-points-container { /* Renamed */
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px; /* Increased gap */
+        }
+        .focus-card { /* Renamed */
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 0; /* Remove padding here, apply to inner elements */
+            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.1); /* Slightly stronger shadow */
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            border: 1px solid #e0e0e0;
+            overflow: hidden; /* Ensure inner elements respect border radius */
+        }
+        .focus-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(44, 62, 80, 0.15);
+        }
+        .focus-header { /* Renamed */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px; /* Padding inside header */
+            background-color: #f8f9fa; /* Light header background */
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .focus-id { /* Renamed */
+            font-weight: bold;
+            color: #5dade2; /* Lighter blue ID */
+            font-size: 1rem;
+            background-color: #e8f0f5; /* Background for ID */
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .focus-importance { /* Renamed */
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .focus-topic-container { /* New container for the main topic */
+             padding: 25px 25px 20px 25px; /* Padding around the topic */
+             border-bottom: 1px dashed #eee; /* Separator line */
+        }
+
+        .focus-topic { /* Replaces question-content */
+            font-size: 1.5rem; /* Larger font for the topic */
+            font-weight: 600; /* Bolder */
+            margin-bottom: 0; /* Remove margin, handled by container padding */
+            line-height: 1.4;
+            color: #2c3e50; /* Dark blue-grey for topic */
+        }
+
+        /* Styling for terminology within topic/details */
+        .term-cn { /* Chinese Term */
+            color: rgb(0, 0, 255); /* Corrected to Blue */
+            font-weight: bold;
+        }
+        .term-abbr { /* English Abbreviation */
+            color: purple;
+            font-weight: bold;
+        }
+        .term-eng { /* English Full Name */
+            color: red;
+            font-weight: bold;
+        }
+        .keyword-highlight {
+             background-color: #ffff0030; /* Faint yellow background */
+        }
+
+
+        /* Details Section Styling (Replaces Explanation) */
+        .focus-details-container { /* Renamed */
+            padding: 20px 25px 25px 25px; /* Padding for details */
+        }
+        .details-header { /* Renamed */
+            font-weight: bold;
+            margin-bottom: 15px; /* Space below header */
+            color: #34495e;
+            font-size: 1.2rem; /* Slightly larger details header */
+            letter-spacing: 0.5px; /* Optional spacing */
+        }
+        .details-content { /* Renamed */
+            line-height: 1.75; /* Increased line height for readability */
+            color: #444;
+            font-size: 1.05rem; /* Slightly larger detail text */
+        }
+        .details-content ul { /* Style lists if used in details */
+             padding-left: 25px;
+             margin-top: 10px;
+             margin-bottom: 10px;
+        }
+         .details-content li {
+             margin-bottom: 8px; /* Space between list items */
+         }
+
+        /* Controls Section Styling (Adjusted for Focus Points) */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 15px;
+            background-color: #fdfdfd;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+        .filter-container, .search-container, .star-filter-container { /* Removed .toggle-explanations */
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            min-width: 200px;
+        }
+         .search-container { flex-grow: 2; }
+        .filter-label, .search-label, .star-filter-label {
+            font-weight: 600;
+            margin-right: 10px;
+            white-space: nowrap;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        select, input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+            flex-grow: 1;
+            font-size: 0.95rem;
+            background-color: white;
+        }
+         input[type="text"] { min-width: 180px; }
+        button {
+            padding: 10px 18px;
+            background-color: #5dade2; /* Lighter blue buttons */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.2s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-left: 8px;
+            white-space: nowrap;
+        }
+        button:hover {
+            background-color: #3498db; /* Darker blue hover */
+        }
+
+        /* RWD Adjustments */
+        @media (max-width: 992px) {
+             .controls { flex-direction: column; align-items: stretch; }
+            .filter-container, .search-container, .star-filter-container { width: 100%; flex-grow: 0; }
+             select, input[type="text"] { width: 100%; }
+             button { margin-left: 0; margin-top: 5px; }
+             .search-container button { margin-left: 8px; margin-top: 0; }
+             #searchInput { width: calc(100% - 90px); }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .header-container { padding: 25px 15px; margin: -15px -15px 20px -15px; }
+            .categories-grid { grid-template-columns: 1fr; }
+            .focus-card { padding: 0; } /* Ensure no padding on card itself */
+             .focus-header, .focus-topic-container, .focus-details-container { padding-left: 20px; padding-right: 20px; } /* Adjust inner padding */
+            h1 { font-size: 1.8rem; }
+            .header-container h1 { font-size: 2rem; }
+            .focus-topic { font-size: 1.3rem; }
+            .details-header { font-size: 1.1rem; }
+            .details-content { font-size: 1rem; }
+        }
+
+        /* Back to Top Button & Progress Bar (No changes needed) */
+        .back-to-top {
+            position: fixed; bottom: 25px; right: 25px; background-color: #5dade2; color: white;
+            width: 45px; height: 45px; border-radius: 50%; display: none; justify-content: center;
+            align-items: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, opacity 0.3s, transform 0.3s; z-index: 1000;
+            opacity: 0.8; font-size: 1.2rem;
+        }
+        .back-to-top:hover { background-color: #3498db; opacity: 1; transform: scale(1.1); }
+        .progress-container {
+            width: 100%; height: 5px; background-color: #e8f0f5; position: fixed;
+            top: 0; left: 0; z-index: 1001;
+        }
+        .progress-bar {
+            height: 5px; background: linear-gradient(90deg, #5dade2, #85c1e9); /* Adjusted gradient */
+            width: 0%; border-radius: 0 2px 2px 0; transition: width 0.1s linear;
+        }
+         #noResultsMessage {
+             text-align: center; padding: 20px; color: #777; display: none; font-style: italic;
+         }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <div class="header-container">
+            <h1>iPAS 資訊安全工程師 考試重點</h1> <!-- Updated Title -->
+            <div>IS152 通訊安全</div> <!-- Updated Subtitle -->
+        </div>
+
+        <div class="controls">
+             <div class="filter-container">
+                 <!-- Updated Label -->
+                <label for="categoryFilter" class="filter-label">篩選主題：</label>
+                <select id="categoryFilter"> <!-- Updated ID and options based on actual content -->
+                    <option value="all">全部主題</option>
+                    <option value="1">加密協定 (SSL/TLS, HTTPS, SSH)</option>
+                    <option value="2">VPN 與通道技術</option>
+                    <option value="3">IPSec 安全</option>
+                    <option value="4">身份驗證與憑證</option>
+                    <option value="5">電子郵件安全</option>
+                    <option value="6">通訊安全威脅</option>
+                </select>
+            </div>
+
+            <div class="star-filter-container">
+                <label for="starFilter" class="star-filter-label">重要性：</label>
+                <select id="starFilter">
+                    <option value="all">全部重要性</option>
+                    <option value="5">★★★★★</option>
+                    <option value="4">★★★★</option>
+                    <option value="3">★★★</option>
+                    <option value="2">★★</option>
+                    <option value="1">★</option>
+                </select>
+            </div>
+
+            <div class="search-container">
+                <label for="searchInput" class="search-label">搜尋：</label>
+                <input type="text" id="searchInput" placeholder="輸入關鍵字...">
+                <button id="searchButton">搜尋</button>
+            </div>
+            <!-- Removed Toggle Explanations Button -->
+        </div>
+
+        <div class="categories-container"> <!-- Renamed -->
+            <div class="categories-title">主題分類</div> <!-- Updated Title -->
+            <div class="categories-grid" id="categoriesGrid"> <!-- Renamed ID and categories based on actual content -->
+                <div class="category-item" onclick="filterByCategory(1)">
+                    <div class="category-number">1</div>
+                    <div class="category-text">加密協定 (SSL/TLS, HTTPS, SSH)</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(2)">
+                    <div class="category-number">2</div>
+                    <div class="category-text">VPN 與通道技術</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(3)">
+                    <div class="category-number">3</div>
+                    <div class="category-text">IPSec 安全</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(4)">
+                    <div class="category-number">4</div>
+                    <div class="category-text">身份驗證與憑證</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(5)">
+                    <div class="category-number">5</div>
+                    <div class="category-text">電子郵件安全</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(6)">
+                    <div class="category-number">6</div>
+                    <div class="category-text">通訊安全威脅</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="focus-points-container" id="focusPointsContainer"> <!-- Renamed -->
+
+            <!-- Focus Point: Secure Transmission Protocols -->
+            <div class="focus-card" data-category="1" data-stars="5">
+                <div class="focus-header"><div class="focus-id">#1</div><div class="focus-importance">★★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="term-cn">安全傳輸協定</span> (<span class="term-eng">Secure Transmission Protocols</span>)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        為了保護通訊過程中的資料安全，有多種<span class="keyword-highlight">加密傳輸協定</span>被廣泛使用：
+                        <ul>
+                            <li><strong class="term-abbr">SSH</strong> (<span class="term-eng">Secure Shell</span>)：主要用於<span class="keyword-highlight">遠端登入</span>和<span class="keyword-highlight">命令執行</span>，提供加密的通道。</li>
+                            <li><strong class="term-abbr">HTTPS</strong> (<span class="term-eng">HyperText Transfer Protocol Secure</span>)：是 <strong class="term-abbr">HTTP</strong> 的安全版本，透過 <strong class="term-abbr">SSL/TLS</strong> 加密網頁瀏覽流量。</li>
+                            <li><strong class="term-abbr">SSL/TLS</strong> (<span class="term-eng">Secure Sockets Layer / Transport Layer Security</span>)：是為網路通訊提供<span class="keyword-highlight">安全及資料完整性</span>的一種安全協定。<strong class="term-abbr">TLS</strong> 是 <strong class="term-abbr">SSL</strong> 的後繼者，目前應使用 <strong class="term-abbr">TLS 1.2</strong> 或更高版本。</li>
+                        </ul>
+                        相對地，以下協定本身<span class="keyword-highlight">不提供</span>加密傳輸：
+                        <ul>
+                            <li><strong class="term-abbr">HTTP</strong> (<span class="term-eng">HyperText Transfer Protocol</span>)</li>
+                            <li><strong class="term-abbr">FTP</strong> (<span class="term-eng">File Transfer Protocol</span>)</li>
+                            <li><strong class="term-abbr">SMTP</strong> (<span class="term-eng">Simple Mail Transfer Protocol</span>)</li>
+                            <li><strong class="term-abbr">Telnet</strong></li>
+                        </ul>
+                        <strong class="term-abbr">https</strong> 是較安全的加密傳送協定。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point: VPN Tunneling -->
+            <div class="focus-card" data-category="2" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#2</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="term-cn">VPN 通道技術</span> (<span class="term-eng">VPN Tunneling Technology</span>)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <strong class="term-cn">虛擬私有網路</strong> (<strong class="term-abbr">VPN</strong> - <span class="term-eng">Virtual Private Network</span>) 利用<strong class="term-cn">通道技術</strong> (<span class="term-eng">Tunneling</span>) 在公共網路上建立安全的連線。
+                        <ul>
+                            <li><span class="keyword-highlight">通道技術</span>是一種將一個網路協定的封包<span class="keyword-highlight">封裝</span>到另一個協定封包中的方法。</li>
+                            <li><strong class="term-abbr">VPN</strong> 通常會對封裝後的資料進行<span class="keyword-highlight">加密</span>，以確保傳輸過程中的<span class="keyword-highlight">機密性</span>和<span class="keyword-highlight">完整性</span>。</li>
+                            <li>常見 <strong class="term-abbr">VPN</strong> 協定包括 <strong class="term-abbr">IPSec</strong>、<strong class="term-abbr">SSL/TLS VPN</strong> (如 OpenVPN)、<strong class="term-abbr">PPTP</strong> (<span class="term-eng">Point-to-Point Tunneling Protocol</span>) 等。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point: IPSec -->
+             <div class="focus-card" data-category="3" data-stars="4">
+                 <div class="focus-header"><div class="focus-id">#3</div><div class="focus-importance">★★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><strong class="term-abbr">IPSec</strong> (<span class="term-eng">Internet Protocol Security</span>) <span class="term-cn">安全協定</span></div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         <strong class="term-abbr">IPSec</strong> 是一套用於保護 <strong class="term-abbr">IP</strong> 通訊的協定，運作在<span class="keyword-highlight">網路層</span> (<span class="term-eng">Network Layer</span>)。
+                         <ul>
+                             <li>提供<strong class="term-cn">資料加密</strong>、<strong class="term-cn">資料完整性</strong>和<strong class="term-cn">身份認證</strong>。</li>
+                             <li><span class="term-cn">兩種主要模式</span>：
+                                 <ul>
+                                     <li><strong class="term-cn">傳輸模式</strong> (<span class="term-eng">Transport Mode</span>)：僅加密和/或驗證 <strong class="term-abbr">IP</strong> 封包的<span class="keyword-highlight">資料部分</span> (<span class="term-eng">Payload</span>)，<span class="keyword-highlight">不保護 IP 標頭</span>。適用於端對端通訊。</li>
+                                     <li><strong class="term-cn">通道模式</strong> (<span class="term-eng">Tunnel Mode</span>)：將<span class="keyword-highlight">整個原始 IP 封包</span>（包括標頭和資料）進行加密和/或驗證，然後再封裝到一個<span class="keyword-highlight">新的 IP 封包</span>中。適用於閘道對閘道 (<span class="term-eng">Gateway-to-Gateway</span>) 的 <strong class="term-abbr">VPN</strong>。</li>
+                                 </ul>
+                             </li>
+                              <li><strong class="term-abbr">IPSec</strong> <span class="keyword-highlight">不會</span>將整個封包（IP 標頭和資料本身）都進行加密保護，這取決於使用的模式和協定 (<strong class="term-abbr">AH</strong> 或 <strong class="term-abbr">ESP</strong>)。</li>
+                              <li><strong class="term-abbr">IPSec</strong> 重新封裝後的封包可以正確在網路上傳送，不會因為標頭更改而影響。</li>
+                         </ul>
+                          <span class="term-cn">金鑰管理</span>通常由 <strong class="term-abbr">IKE</strong> (<span class="term-eng">Internet Key Exchange</span>) 協定負責，<strong class="term-abbr">SKIP</strong> (<span class="term-eng">Simple Key-Management for Internet Protocol</span>) 是 <strong class="term-abbr">IKE</strong> 的前身。
+                     </div>
+                 </div>
+             </div>
+
+             <!-- Focus Point: Certificate Revocation -->
+             <div class="focus-card" data-category="4" data-stars="3">
+                 <div class="focus-header"><div class="focus-id">#4</div><div class="focus-importance">★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="term-cn">憑證廢止狀態查詢</span> (<span class="term-eng">Certificate Revocation Status Check</span>)</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         當公開金鑰憑證 (<span class="term-eng">Public Key Certificate</span>) 在有效期內因某些原因（如私鑰洩漏）需要被廢止時，需要機制來查詢憑證的有效狀態。
+                         <ul>
+                             <li><strong class="term-abbr">CRL</strong> (<span class="term-eng">Certificate Revocation List</span>)：由<strong class="term-cn">憑證頒發機構</strong> (<strong class="term-abbr">CA</strong> - <span class="term-eng">Certificate Authority</span>) 定期發布的<span class="keyword-highlight">已廢止憑證列表</span>。客戶端需要下載並檢查列表。</li>
+                             <li><strong class="term-abbr">OCSP</strong> (<span class="term-eng">Online Certificate Status Protocol</span>)：允許客戶端<span class="keyword-highlight">即時查詢</span>單一憑證狀態的協定。客戶端向 <strong class="term-abbr">OCSP</strong> 回應器 (<span class="term-eng">Responder</span>) 發送請求，回應器返回憑證狀態（有效、已廢止、未知）。<span class="keyword-highlight">效率通常優於 CRL</span>。</li>
+                         </ul>
+                         <strong class="term-abbr">OCRP</strong> (<span class="term-eng">Online Certificate Register Protocol</span> / <span class="term-eng">Online Certificate Revoke Protocol</span>) 和 <strong class="term-abbr">CTP</strong> (<span class="term-eng">Certificate Transmit Protocol</span>) 不是標準的憑證廢止查詢協定。
+                     </div>
+                 </div>
+             </div>
+
+              <!-- Focus Point: S/MIME -->
+              <div class="focus-card" data-category="5" data-stars="3">
+                  <div class="focus-header"><div class="focus-id">#5</div><div class="focus-importance">★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><strong class="term-abbr">S/MIME</strong> (<span class="term-eng">Secure/Multipurpose Internet Mail Extensions</span>) <span class="term-cn">電子郵件加密</span></div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         <strong class="term-abbr">S/MIME</strong> 是一種廣泛使用的標準，用於<span class="keyword-highlight">加密</span>和<span class="keyword-highlight">數位簽章</span>電子郵件，以確保郵件的<span class="keyword-highlight">機密性</span>、<span class="keyword-highlight">完整性</span>、<span class="keyword-highlight">身份驗證</span>和<span class="keyword-highlight">不可否認性</span>。
+                         <ul>
+                             <li>基於<span class="keyword-highlight">公開金鑰密碼學</span>和 <strong class="term-abbr">X.509</strong> 憑證。</li>
+                             <li>使用者需要有自己的<span class="keyword-highlight">金鑰對</span>（公鑰和私鑰）和<span class="keyword-highlight">數位憑證</span>。</li>
+                             <li><span class="keyword-highlight">憑證需要由可信任的<strong class="term-cn">憑證頒發機構</strong> (<strong class="term-abbr">CA</strong>) 簽發</span>，或是在組織內部自行管理 <strong class="term-abbr">CA</strong>。</li>
+                             <li>可以加密<span class="keyword-highlight">郵件本文</span>和<span class="keyword-highlight">附件</span>。</li>
+                             <li><strong class="term-abbr">S/MIME</strong> 是由 <strong class="term-abbr">IETF</strong> (<span class="term-eng">Internet Engineering Task Force</span>) 標準化的，而非 <strong class="term-abbr">RSA</strong> 公司提出（儘管 <strong class="term-abbr">RSA</strong> 技術可能被用於其中）。</li>
+                             <li>跨組織使用時，通常需要確保雙方信任相同的 <strong class="term-abbr">CA</strong> 或進行憑證交換。</li>
+                         </ul>
+                         題目中「只針對電子郵件訊息加密，不包含附件」和「S/MIME 是由美國 RSA 公司所提出」是<span class="keyword-highlight">錯誤的</span>。使用者不一定需要透過權威 CA 簽署，組織內部 CA 也可以。
+                     </div>
+                 </div>
+              </div>
+
+             <!-- Focus Point: Network Sniffing -->
+             <div class="focus-card" data-category="6" data-stars="3">
+                 <div class="focus-header"><div class="focus-id">#6</div><div class="focus-importance">★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="term-cn">網路嗅探</span> (<span class="term-eng">Network Sniffing</span>) <span class="term-cn">與加密</span></div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         <strong class="term-cn">網路嗅探</span>是指<span class="keyword-highlight">攔截</span>和<span class="keyword-highlight">分析</span>網路上傳輸的資料封包。攻擊者可以使用 <strong class="term-cn">Wireshark</strong> 等工具來執行此操作。
+                         <ul>
+                             <li>如果通訊<span class="keyword-highlight">未加密</span>（例如使用 <strong class="term-abbr">Telnet</strong>, <strong class="term-abbr">HTTP</strong>, <strong class="term-abbr">FTP</strong>），攻擊者可以直接讀取封包中的內容，包括<span class="keyword-highlight">帳號</span>、<span class="keyword-highlight">密碼</span>等敏感資訊。</li>
+                             <li>這主要影響資訊安全的<strong class="term-cn">機密性</strong> (<span class="term-eng">Confidentiality</span>)。</li>
+                             <li>使用<span class="keyword-highlight">加密協定</span>（如 <strong class="term-abbr">SSH</strong>, <strong class="term-abbr">HTTPS</strong>）可以有效防止網路嗅探竊取敏感資訊。</li>
+                         </ul>
+                         <strong class="term-abbr">Telnet</strong> 使用明文傳輸，其密碼封包<span class="keyword-highlight">容易被嗅探工具側錄</span>。
+                     </div>
+                 </div>
+             </div>
+
+             <!-- Placeholder for No Results -->
+             <div id="noResultsMessage">沒有找到符合條件的重點。</div>
+
+        </div><!-- end focus-points-container -->
+
+        <div class="back-to-top" id="backToTop">↑</div>
+    </div>
+
+    <script>
+        // Progress bar (no changes needed)
+        const progressBar = document.getElementById("progressBar");
+        window.onscroll = function() { updateProgressBar(); toggleBackToTopButton(); };
+        function updateProgressBar() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (height > 0) ? (winScroll / height) * 100 : 0;
+            progressBar.style.width = scrolled + "%";
+        }
+
+        // Back to top button (no changes needed)
+        const backToTopButton = document.getElementById("backToTop");
+        function toggleBackToTopButton() {
+             backToTopButton.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "flex" : "none";
+        }
+        backToTopButton.addEventListener("click", () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+        // Filter by category (Updated function name)
+        function filterByCategory(categoryNumber) {
+            document.getElementById('categoryFilter').value = categoryNumber === 'all' ? 'all' : String(categoryNumber);
+            document.getElementById('searchInput').value = ''; // Clear search on filter click
+            filterFocusPoints(); // Call updated filter function
+        }
+
+        // Event listeners for filters and search (Updated IDs/functions)
+        document.getElementById("categoryFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("starFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("searchButton").addEventListener("click", searchFocusPoints); // Updated function call
+        document.getElementById("searchInput").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                searchFocusPoints(); // Updated function call
+            }
+        });
+
+        const noResultsMessage = document.getElementById('noResultsMessage');
+
+        // Combined filter function (Updated variable/class names)
+        function filterFocusPoints() {
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+            let points = document.querySelectorAll(".focus-card"); // Target .focus-card
+            let anyVisible = false;
+
+            points.forEach(function(point) {
+                // Updated dataset attribute name
+                const matchesCategory = (category === "all" || point.dataset.category === category);
+                const matchesStars = (stars === "all" || point.dataset.stars === stars);
+
+                if (matchesCategory && matchesStars) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                 // Updated message text
+                 noResultsMessage.textContent = '沒有找到符合篩選條件的重點。';
+             }
+        }
+
+        // Search function (Updated variable/class names)
+        function searchFocusPoints() {
+            let searchText = document.getElementById("searchInput").value.toLowerCase().trim();
+            let points = document.querySelectorAll(".focus-card"); // Target .focus-card
+            let anyVisible = false;
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+
+            points.forEach(function(point) {
+                // Check filters first
+                const matchesCategory = (category === "all" || point.dataset.category === category);
+                const matchesStars = (stars === "all" || point.dataset.stars === stars);
+                let visibleBasedOnFilter = matchesCategory && matchesStars;
+
+                // Check search text
+                let pointText = point.textContent.toLowerCase();
+                let matchesSearch = (searchText === "" || pointText.includes(searchText));
+
+                // Show if matches filters AND search (or if search is empty)
+                if (visibleBasedOnFilter && matchesSearch) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 if (searchText !== "") {
+                      noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                      // Updated message text
+                      noResultsMessage.textContent = '沒有找到符合目前篩選及搜尋條件的重點。';
+                 } else {
+                     // If search is empty, rely on filter results
+                     filterFocusPoints();
+                 }
+             }
+        }
+
+        // Removed Toggle Explanations Logic
+
+         // Initial setup
+         toggleBackToTopButton();
+         updateProgressBar();
+         filterFocusPoints(); // Apply default filters on load
+
+    </script>
+</body>
+</html>

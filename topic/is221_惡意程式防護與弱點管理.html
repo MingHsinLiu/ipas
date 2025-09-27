@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>iPAS 資訊安全工程師 考試重點整理 - IS221 惡意程式防護與弱點管理</title> <!-- Changed Title -->
+    <style>
+        /* RWD設定，讓整體版面在不同裝置都有良好顯示 */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft JhengHei", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto; /* Added top/bottom margin */
+            padding: 25px;
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border-radius: 8px;
+        }
+        /* Updated Header */
+        .header-container {
+            background: linear-gradient(135deg, #2c3e50, #34495e); /* Darker gradient */
+            color: white;
+            padding: 30px 20px; /* Increased padding */
+            margin: -25px -25px 25px -25px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+        .header-container h1 {
+            margin: 0;
+            color: white;
+            font-size: 2.2rem; /* Larger title */
+            font-weight: 600;
+            margin-bottom: 5px; /* Space below title */
+        }
+        .header-container div { /* Subtitle */
+             font-size: 1.2rem;
+             opacity: 0.9;
+             margin-top: 5px;
+             font-weight: 300; /* Lighter weight */
+        }
+
+        /* Topic Categories Section (Renamed from Directions) */
+        .categories-container { /* Renamed */
+            background-color: #e8f0f5; /* Slightly different blue */
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 5px solid #5dade2; /* Lighter blue border */
+            border-radius: 5px;
+        }
+        .categories-title { /* Renamed */
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .categories-grid { /* Renamed */
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        .category-item { /* Renamed */
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #d6e0ea; /* Border matching background */
+        }
+        .category-item:hover {
+            background-color: #5dade2; /* Lighter blue hover */
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: #5dade2;
+        }
+        .category-number { /* Renamed */
+            width: 30px;
+            height: 30px;
+            background-color: #5dade2; /* Lighter blue number */
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .category-item:hover .category-number {
+            background-color: white;
+            color: #5dade2;
+        }
+        .category-text { /* Renamed */
+            font-size: 0.95rem;
+        }
+
+        /* Focus Point Card Styling (Replaces Question Card) */
+        .focus-points-container { /* Renamed */
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px; /* Increased gap */
+        }
+        .focus-card { /* Renamed */
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 0; /* Remove padding here, apply to inner elements */
+            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.1); /* Slightly stronger shadow */
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            border: 1px solid #e0e0e0;
+            overflow: hidden; /* Ensure inner elements respect border radius */
+        }
+        .focus-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(44, 62, 80, 0.15);
+        }
+        .focus-header { /* Renamed */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px; /* Padding inside header */
+            background-color: #f8f9fa; /* Light header background */
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .focus-id { /* Renamed */
+            font-weight: bold;
+            color: #5dade2; /* Lighter blue ID */
+            font-size: 1rem;
+            background-color: #e8f0f5; /* Background for ID */
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .focus-importance { /* Renamed */
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .focus-topic-container { /* New container for the main topic */
+             padding: 25px 25px 20px 25px; /* Padding around the topic */
+             border-bottom: 1px dashed #eee; /* Separator line */
+        }
+
+        .focus-topic { /* Replaces question-content */
+            font-size: 1.5rem; /* Larger font for the topic */
+            font-weight: 600; /* Bolder */
+            margin-bottom: 0; /* Remove margin, handled by container padding */
+            line-height: 1.4;
+            color: #2c3e50; /* Dark blue-grey for topic */
+        }
+
+        /* Styling for terminology within topic/details */
+        .term-cn { /* Chinese Term */
+            color: rgb(0, 0, 255); /* Corrected to Blue */
+            font-weight: bold;
+        }
+        .term-abbr { /* English Abbreviation */
+            color: purple;
+            font-weight: bold;
+        }
+        .term-eng { /* English Full Name */
+            color: red;
+            font-weight: bold;
+        }
+        .keyword-highlight {
+             background-color: #ffff0030; /* Faint yellow background */
+        }
+
+
+        /* Details Section Styling (Replaces Explanation) */
+        .focus-details-container { /* Renamed */
+            padding: 20px 25px 25px 25px; /* Padding for details */
+        }
+        .details-header { /* Renamed */
+            font-weight: bold;
+            margin-bottom: 15px; /* Space below header */
+            color: #34495e;
+            font-size: 1.2rem; /* Slightly larger details header */
+            letter-spacing: 0.5px; /* Optional spacing */
+        }
+        .details-content { /* Renamed */
+            line-height: 1.75; /* Increased line height for readability */
+            color: #444;
+            font-size: 1.05rem; /* Slightly larger detail text */
+        }
+        .details-content ul { /* Style lists if used in details */
+             padding-left: 25px;
+             margin-top: 10px;
+             margin-bottom: 10px;
+        }
+         .details-content li {
+             margin-bottom: 8px; /* Space between list items */
+         }
+        .source-annotation {
+            font-size: 0.85rem;
+            color: #777;
+            margin-top: 15px;
+            display: block;
+            text-align: right;
+        }
+
+
+        /* Controls Section Styling (Adjusted for Focus Points) */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 15px;
+            background-color: #fdfdfd;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+        .filter-container, .search-container, .star-filter-container { /* Removed .toggle-explanations */
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            min-width: 200px;
+        }
+         .search-container { flex-grow: 2; }
+        .filter-label, .search-label, .star-filter-label {
+            font-weight: 600;
+            margin-right: 10px;
+            white-space: nowrap;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        select, input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+            flex-grow: 1;
+            font-size: 0.95rem;
+            background-color: white;
+        }
+         input[type="text"] { min-width: 180px; }
+        button {
+            padding: 10px 18px;
+            background-color: #5dade2; /* Lighter blue buttons */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.2s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-left: 8px;
+            white-space: nowrap;
+        }
+        button:hover {
+            background-color: #3498db; /* Darker blue hover */
+        }
+
+        /* RWD Adjustments */
+        @media (max-width: 992px) {
+             .controls { flex-direction: column; align-items: stretch; }
+            .filter-container, .search-container, .star-filter-container { width: 100%; flex-grow: 0; }
+             select, input[type="text"] { width: 100%; }
+             button { margin-left: 0; margin-top: 5px; }
+             .search-container button { margin-left: 8px; margin-top: 0; }
+             #searchInput { width: calc(100% - 90px); }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .header-container { padding: 25px 15px; margin: -15px -15px 20px -15px; }
+            .categories-grid { grid-template-columns: 1fr; }
+            .focus-card { padding: 0; } /* Ensure no padding on card itself */
+             .focus-header, .focus-topic-container, .focus-details-container { padding-left: 20px; padding-right: 20px; } /* Adjust inner padding */
+            h1 { font-size: 1.8rem; }
+            .header-container h1 { font-size: 2rem; }
+            .focus-topic { font-size: 1.3rem; }
+            .details-header { font-size: 1.1rem; }
+            .details-content { font-size: 1rem; }
+        }
+
+        /* Back to Top Button & Progress Bar (No changes needed) */
+        .back-to-top {
+            position: fixed; bottom: 25px; right: 25px; background-color: #5dade2; color: white;
+            width: 45px; height: 45px; border-radius: 50%; display: none; justify-content: center;
+            align-items: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, opacity 0.3s, transform 0.3s; z-index: 1000;
+            opacity: 0.8; font-size: 1.2rem;
+        }
+        .back-to-top:hover { background-color: #3498db; opacity: 1; transform: scale(1.1); }
+        .progress-container {
+            width: 100%; height: 5px; background-color: #e8f0f5; position: fixed;
+            top: 0; left: 0; z-index: 1001;
+        }
+        .progress-bar {
+            height: 5px; background: linear-gradient(90deg, #5dade2, #85c1e9); /* Adjusted gradient */
+            width: 0%; border-radius: 0 2px 2px 0; transition: width 0.1s linear;
+        }
+         #noResultsMessage {
+             text-align: center; padding: 20px; color: #777; display: none; font-style: italic;
+         }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <div class="header-container">
+            <h1>iPAS 資訊安全工程師 考試重點</h1> <!-- Updated Title -->
+            <div>IS221 惡意程式防護與弱點管理</div> <!-- Updated Subtitle -->
+        </div>
+
+        <div class="controls">
+             <div class="filter-container">
+                 <!-- Updated Label -->
+                <label for="categoryFilter" class="filter-label">篩選主題：</label>
+                <select id="categoryFilter"> <!-- Updated ID and options based on actual content -->
+                    <option value="all">全部主題</option>
+                    <option value="1">惡意程式類型與行為</option>
+                    <option value="2">防毒軟體與偵測技術</option>
+                    <option value="3">弱點管理與掃描</option>
+                    <option value="4">滲透測試與安全評估</option>
+                    <option value="5">Honeypot 與誘捕技術</option>
+                </select>
+            </div>
+
+            <div class="star-filter-container">
+                <label for="starFilter" class="star-filter-label">重要性：</label>
+                <select id="starFilter">
+                    <option value="all">全部重要性</option>
+                    <option value="5">★★★★★</option>
+                    <option value="4">★★★★</option>
+                    <option value="3">★★★</option>
+                    <option value="2">★★</option>
+                    <option value="1">★</option>
+                </select>
+            </div>
+
+            <div class="search-container">
+                <label for="searchInput" class="search-label">搜尋：</label>
+                <input type="text" id="searchInput" placeholder="輸入關鍵字...">
+                <button id="searchButton">搜尋</button>
+            </div>
+            <!-- Removed Toggle Explanations Button -->
+        </div>
+
+        <div class="categories-container"> <!-- Renamed -->
+            <div class="categories-title">主題分類</div> <!-- Updated Title -->
+            <div class="categories-grid" id="categoriesGrid"> <!-- Renamed ID and categories based on actual content -->
+                 <div class="category-item" onclick="filterByCategory(1)">
+                    <div class="category-number">1</div>
+                    <div class="category-text">惡意程式類型與行為</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(2)">
+                    <div class="category-number">2</div>
+                    <div class="category-text">防毒軟體與偵測技術</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(3)">
+                    <div class="category-number">3</div>
+                    <div class="category-text">弱點管理與掃描</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(4)">
+                    <div class="category-number">4</div>
+                    <div class="category-text">滲透測試與安全評估</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(5)">
+                    <div class="category-number">5</div>
+                    <div class="category-text">Honeypot 與誘捕技術</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="focus-points-container" id="focusPointsContainer"> <!-- Renamed -->
+
+             <!-- Focus Point: Malware Types -->
+             <div class="focus-card" data-category="1" data-stars="5">
+                 <div class="focus-header"><div class="focus-id">#1</div><div class="focus-importance">★★★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><strong class="term-cn">惡意程式類型與行為</strong> (<span class="term-eng">Malware Types and Behaviors</span>)</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         <ul>
+                             <li><strong class="term-cn">病毒</strong> (<span class="term-eng">Virus</span>)：<span class="keyword-highlight">寄生</span>於其他程式/檔案，需使用者觸發，具<span class="keyword-highlight">感染</span>、<span class="keyword-highlight">潛伏</span>、<span class="keyword-highlight">破壞</span>特性。</li>
+                             <li><strong class="term-cn">蠕蟲</strong> (<span class="term-eng">Worm</span>)：<span class="keyword-highlight">獨立</span>程式，<span class="keyword-highlight">自我複製</span>並利用網路<span class="keyword-highlight">主動傳播</span>。</li>
+                             <li><strong class="term-cn">木馬程式</strong> (<span class="term-eng">Trojan Horse</span>)：<span class="keyword-highlight">偽裝</span>成合法程式，執行惡意行為（如建立<strong class="term-cn">後門</strong>）。</li>
+                             <li><strong class="term-cn">勒索軟體</strong> (<span class="term-eng">Ransomware</span>)：<span class="keyword-highlight">加密</span>使用者檔案，要求支付<strong class="term-cn">贖金</strong>才能解密。</li>
+                             <li><strong class="term-cn">多態病毒</strong> (<span class="term-eng">Polymorphism Virus</span>)：每次感染/複製時會<span class="keyword-highlight">改變自身程式碼</span>，躲避偵測。</li>
+                         </ul>
+                         病毒<span class="keyword-highlight">需要</span>透過使用者操作傳播，蠕蟲則會<span class="keyword-highlight">自行</span>擴散。<span class="source-annotation">(資料來源：111初級-技術概論 Q13, 110初級-技術概論 Q14, 109初級-技術概論 Q32, 108初級-技術概論 Q13, 108初級-技術概論 Q31, 112初級-技術概論 Q32)</span>
+                     </div>
+                 </div>
+             </div>
+
+            <!-- Focus Point: Antivirus Detection Methods -->
+            <div class="focus-card" data-category="2" data-stars="4">
+                 <div class="focus-header"><div class="focus-id">#2</div><div class="focus-importance">★★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><strong class="term-cn">防毒軟體偵測技術</strong> (<span class="term-eng">Antivirus Detection Techniques</span>)</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         <strong class="term-cn">防毒軟體</strong>主要使用以下技術來偵測惡意程式：
+                         <ul>
+                             <li><strong class="term-cn">特徵碼比對</strong> (<span class="term-eng">Signature-based Detection</span>)：將檔案或程式碼與已知的<span class="keyword-highlight">惡意程式特徵碼資料庫</span>進行比對。優點是準確率高、誤判率低；缺點是<span class="keyword-highlight">無法偵測未知</span>或變種的惡意程式。</li>
+                             <li><strong class="term-cn">啟發式掃描</strong> (<span class="term-eng">Heuristic Scanning</span>)：分析檔案的<span class="keyword-highlight">行為、結構或指令</span>，判斷其是否具有惡意程式的<span class="keyword-highlight">可疑特徵</span>。優點是<span class="keyword-highlight">能偵測未知病毒</span>；缺點是<span class="keyword-highlight">誤判率較高</span>。</li>
+                             <li><strong class="term-cn">行為偵測</strong> (<span class="term-eng">Behavioral Detection</span>)：監控程式執行時的行為，如修改系統檔案、網路連線等，判斷是否為惡意行為。</li>
+                             <li><strong class="term-cn">沙箱</strong> (<span class="term-eng">Sandboxing</span>)：在隔離的環境中執行可疑程式，觀察其行為。</li>
+                         </ul>
+                         <strong class="term-cn">啟發式掃描</strong>的主要優點在於<span class="keyword-highlight">偵測全新病毒</span>的能力。<span class="source-annotation">(資料來源：108初級-技術概論 Q33, 110初級-技術概論(11月) Q28)</span>
+                     </div>
+                 </div>
+             </div>
+
+            <!-- Focus Point: Vulnerability Types (Zero-Day) -->
+            <div class="focus-card" data-category="3" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#3</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><strong class="term-cn">零時差漏洞</strong> (<span class="term-eng">Zero-Day Vulnerability</span>)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <strong class="term-cn">零時差漏洞</strong>是指已經被發現或被利用，但軟體開發商<span class="keyword-highlight">尚未發布修補程式</span>的安全漏洞。<br>
+                        <ul>
+                            <li>由於<span class="keyword-highlight">沒有官方補丁</span>，系統管理員<span class="keyword-highlight">無法立即修補</span>，導致系統處於高風險狀態。</li>
+                            <li><strong class="term-cn">弱點掃描工具</strong>通常基於已知的漏洞資料庫，因此<span class="keyword-highlight">難以偵測</span>到未知的零時差漏洞。</li>
+                            <li>防禦<strong class="term-cn">零時差攻擊</strong>需要更進階的技術，如<strong class="term-abbr">IPS</strong>、行為偵測、沙箱等。</li>
+                        </ul><span class="source-annotation">(資料來源：110初級-技術概論 Q28, 108初級-技術概論 Q30)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point: Vulnerability Scanning -->
+            <div class="focus-card" data-category="3" data-stars="4">
+                 <div class="focus-header"><div class="focus-id">#4</div><div class="focus-importance">★★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><strong class="term-cn">弱點掃描</strong> (<span class="term-eng">Vulnerability Scanning</span>)</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         <strong class="term-cn">弱點掃描</strong>是一種<span class="keyword-highlight">自動化</span>的過程，用於識別電腦系統、網路或應用程式中<span class="keyword-highlight">已知的安全漏洞</span>。<br>
+                         <ul>
+                             <li>使用工具（如 <strong class="term-abbr">Nessus</strong>, <strong class="term-abbr">OpenVAS</strong>）掃描目標，並將其與<span class="keyword-highlight">已知的漏洞資料庫</span>進行比對。</li>
+                             <li>有助於找出系統設定錯誤、缺少修補程式、預設密碼等問題。</li>
+                             <li><span class="keyword-highlight">無法偵測零時差漏洞</span>。</li>
+                             <li>掃描過程本身<span class="keyword-highlight">可能觸發 <strong class="term-abbr">IDS/IPS</strong></span> 的警報。</li>
+                             <li>屬於<strong class="term-cn">主動防禦</span>的一環，用於<span class="keyword-highlight">事前</span>發現問題。</li>
+                         </ul><span class="source-annotation">(資料來源：110初級-技術概論 Q29)</span>
+                     </div>
+                 </div>
+             </div>
+
+            <!-- Focus Point: Penetration Testing -->
+            <div class="focus-card" data-category="4" data-stars="4">
+                 <div class="focus-header"><div class="focus-id">#5</div><div class="focus-importance">★★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><strong class="term-cn">滲透測試</strong> (<span class="term-eng">Penetration Testing</span> / <span class="term-eng">Pentest</span>)</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         <strong class="term-cn">滲透測試</strong>是由<span class="keyword-highlight">授權的</span>安全專家<span class="keyword-highlight">模擬駭客</span>的攻擊方法和技術，對目標系統、網路或應用程式進行<span class="keyword-highlight">實際攻擊測試</span>，以評估其安全性並找出可被利用的漏洞。<br>
+                         與弱點掃描的區別：
+                         <ul>
+                             <li>弱點掃描：<span class="keyword-highlight">自動化</span>，找出<span class="keyword-highlight">已知</span>漏洞列表。</li>
+                             <li>滲透測試：<span class="keyword-highlight">手動</span>為主，<span class="keyword-highlight">實際利用</span>漏洞，評估實際風險，可能發現未知漏洞或邏輯缺陷。</li>
+                         </ul>
+                         測試類型：
+                         <ul>
+                             <li><strong class="term-cn">黑箱測試</strong> (<span class="term-eng">Black-Box Testing</span>)：測試人員<span class="keyword-highlight">沒有</span>目標系統的內部知識。</li>
+                             <li><strong class="term-cn">白箱測試</strong> (<span class="term-eng">White-Box Testing</span>)：測試人員<span class="keyword-highlight">擁有</span>目標系統的完整知識（如原始碼、架構圖）。</li>
+                             <li><strong class="term-cn">灰箱測試</strong> (<span class="term-eng">Gray-Box Testing</span>)：測試人員擁有<span class="keyword-highlight">部分</span>目標系統的知識。</li>
+                         </ul>
+                         <strong class="term-cn">黑箱測試</strong>更容易鑑別出<span class="keyword-highlight">軟體部署後</span>的問題，但較難發現邏輯性缺失。<span class="source-annotation">(資料來源：110初級-技術概論 Q24, 109初級-技術概論 Q28, 109初級-管理概論 Q44, 108初級-技術概論 Q40)</span>
+                     </div>
+                 </div>
+             </div>
+
+              <!-- Focus Point: Honeypot -->
+            <div class="focus-card" data-category="5" data-stars="3">
+                 <div class="focus-header"><div class="focus-id">#6</div><div class="focus-importance">★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><strong class="term-cn">蜜罐</strong> (<span class="term-eng">Honeypot</span>)</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         <strong class="term-cn">蜜罐</strong>是一種安全機制，它設置一個<span class="keyword-highlight">看似有價值但實際上是陷阱</span>的系統或資源（<strong class="term-cn">誘餌系統</strong>），用來<span class="keyword-highlight">誘騙</span>、<span class="keyword-highlight">偵測</span>、<span class="keyword-highlight">轉移</span>或<span class="keyword-highlight">分析</span>未經授權的存取行為（攻擊者）。<br>
+                         目的：
+                         <ul>
+                             <li><span class="keyword-highlight">偵測與警示</span>：任何對蜜罐的存取通常都是可疑的，可觸發警報。</li>
+                             <li><span class="keyword-highlight">收集情資</span>：分析攻擊者的手法、工具和意圖。</li>
+                             <li><span class="keyword-highlight">延遲與轉移</span>：將攻擊者引導到蜜罐，遠離真正有價值的系統。</li>
+                         </ul>
+                         <strong class="term-cn">蜜罐</strong><span class="keyword-highlight">不會</span>設置在正式的產品運作環境中，而是作為一個獨立的誘捕系統。<span class="source-annotation">(資料來源：110初級-技術概論 Q15, 109初級-管理概論(11月) Q45, 108初級-技術概論 Q40)</span>
+                     </div>
+                 </div>
+             </div>
+
+             <!-- Placeholder for No Results -->
+             <div id="noResultsMessage">沒有找到符合條件的重點。</div>
+
+        </div><!-- end focus-points-container -->
+
+        <div class="back-to-top" id="backToTop">↑</div>
+    </div>
+
+    <script>
+        // Progress bar (no changes needed)
+        const progressBar = document.getElementById("progressBar");
+        window.onscroll = function() { updateProgressBar(); toggleBackToTopButton(); };
+        function updateProgressBar() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (height > 0) ? (winScroll / height) * 100 : 0;
+            progressBar.style.width = scrolled + "%";
+        }
+
+        // Back to top button (no changes needed)
+        const backToTopButton = document.getElementById("backToTop");
+        function toggleBackToTopButton() {
+             backToTopButton.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "flex" : "none";
+        }
+        backToTopButton.addEventListener("click", () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+        // Filter by category (Updated function name)
+        function filterByCategory(categoryNumber) {
+            document.getElementById('categoryFilter').value = categoryNumber === 'all' ? 'all' : String(categoryNumber);
+            document.getElementById('searchInput').value = ''; // Clear search on filter click
+            filterFocusPoints(); // Call updated filter function
+        }
+
+        // Event listeners for filters and search (Updated IDs/functions)
+        document.getElementById("categoryFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("starFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("searchButton").addEventListener("click", searchFocusPoints); // Updated function call
+        document.getElementById("searchInput").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                searchFocusPoints(); // Updated function call
+            }
+        });
+
+        const noResultsMessage = document.getElementById('noResultsMessage');
+
+        // Combined filter function (Updated variable/class names)
+        function filterFocusPoints() {
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+            let points = document.querySelectorAll(".focus-card"); // Target .focus-card
+            let anyVisible = false;
+
+            points.forEach(function(point) {
+                // Updated dataset attribute name
+                const matchesCategory = (category === "all" || point.dataset.category === category);
+                const matchesStars = (stars === "all" || point.dataset.stars === stars);
+
+                if (matchesCategory && matchesStars) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                 // Updated message text
+                 noResultsMessage.textContent = '沒有找到符合篩選條件的重點。';
+             }
+        }
+
+        // Search function (Updated variable/class names)
+        function searchFocusPoints() {
+            let searchText = document.getElementById("searchInput").value.toLowerCase().trim();
+            let points = document.querySelectorAll(".focus-card"); // Target .focus-card
+            let anyVisible = false;
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+
+            points.forEach(function(point) {
+                // Check filters first
+                const matchesCategory = (category === "all" || point.dataset.category === category);
+                const matchesStars = (stars === "all" || point.dataset.stars === stars);
+                let visibleBasedOnFilter = matchesCategory && matchesStars;
+
+                // Check search text
+                let pointText = point.textContent.toLowerCase();
+                let matchesSearch = (searchText === "" || pointText.includes(searchText));
+
+                // Show if matches filters AND search (or if search is empty)
+                if (visibleBasedOnFilter && matchesSearch) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 if (searchText !== "") {
+                      noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                      // Updated message text
+                      noResultsMessage.textContent = '沒有找到符合目前篩選及搜尋條件的重點。';
+                 } else {
+                     // If search is empty, rely on filter results
+                     filterFocusPoints();
+                 }
+             }
+        }
+
+        // Removed Toggle Explanations Logic
+
+         // Initial setup
+         toggleBackToTopButton();
+         updateProgressBar();
+         filterFocusPoints(); // Apply default filters on load
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>iPAS 資訊安全工程師 考試重點整理 - IS141 事件與事故管理</title> <!-- Changed Title -->
+    <style>
+        /* RWD設定，讓整體版面在不同裝置都有良好顯示 */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft JhengHei", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto; /* Added top/bottom margin */
+            padding: 25px;
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border-radius: 8px;
+        }
+        /* Updated Header */
+        .header-container {
+            background: linear-gradient(135deg, #2c3e50, #34495e); /* Darker gradient */
+            color: white;
+            padding: 30px 20px; /* Increased padding */
+            margin: -25px -25px 25px -25px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+        .header-container h1 {
+            margin: 0;
+            color: white;
+            font-size: 2.2rem; /* Larger title */
+            font-weight: 600;
+            margin-bottom: 5px; /* Space below title */
+        }
+        .header-container div { /* Subtitle */
+             font-size: 1.2rem;
+             opacity: 0.9;
+             margin-top: 5px;
+             font-weight: 300; /* Lighter weight */
+        }
+
+        /* Topic Categories Section (Renamed from Directions) */
+        .categories-container { /* Renamed */
+            background-color: #e8f0f5; /* Slightly different blue */
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 5px solid #5dade2; /* Lighter blue border */
+            border-radius: 5px;
+        }
+        .categories-title { /* Renamed */
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .categories-grid { /* Renamed */
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        .category-item { /* Renamed */
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #d6e0ea; /* Border matching background */
+        }
+        .category-item:hover {
+            background-color: #5dade2; /* Lighter blue hover */
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: #5dade2;
+        }
+        .category-number { /* Renamed */
+            width: 30px;
+            height: 30px;
+            background-color: #5dade2; /* Lighter blue number */
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .category-item:hover .category-number {
+            background-color: white;
+            color: #5dade2;
+        }
+        .category-text { /* Renamed */
+            font-size: 0.95rem;
+        }
+
+        /* Focus Point Card Styling (Replaces Question Card) */
+        .focus-points-container { /* Renamed */
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px; /* Increased gap */
+        }
+        .focus-card { /* Renamed */
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 0; /* Remove padding here, apply to inner elements */
+            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.1); /* Slightly stronger shadow */
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            border: 1px solid #e0e0e0;
+            overflow: hidden; /* Ensure inner elements respect border radius */
+        }
+        .focus-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(44, 62, 80, 0.15);
+        }
+        .focus-header { /* Renamed */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px; /* Padding inside header */
+            background-color: #f8f9fa; /* Light header background */
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .focus-id { /* Renamed */
+            font-weight: bold;
+            color: #5dade2; /* Lighter blue ID */
+            font-size: 1rem;
+            background-color: #e8f0f5; /* Background for ID */
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .focus-importance { /* Renamed */
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .focus-topic-container { /* New container for the main topic */
+             padding: 25px 25px 20px 25px; /* Padding around the topic */
+             border-bottom: 1px dashed #eee; /* Separator line */
+        }
+
+        .focus-topic { /* Replaces question-content */
+            font-size: 1.5rem; /* Larger font for the topic */
+            font-weight: 600; /* Bolder */
+            margin-bottom: 0; /* Remove margin, handled by container padding */
+            line-height: 1.4;
+            color: #2c3e50; /* Dark blue-grey for topic */
+        }
+
+        /* Styling for terminology within topic/details */
+        .english-abbr {
+            color: #8e44ad; /* Purple for abbreviations */
+            font-weight: 600;
+        }
+        .english-fullname {
+            color: #c0392b; /* Darker red for full names/concepts */
+            font-weight: 500;
+        }
+
+
+        /* Details Section Styling (Replaces Explanation) */
+        .focus-details-container { /* Renamed */
+            padding: 20px 25px 25px 25px; /* Padding for details */
+            /* background-color: #fdfefe; */ /* Optional subtle background, removing for cleaner look */
+        }
+        .details-header { /* Renamed */
+            font-weight: bold;
+            margin-bottom: 15px; /* Space below header */
+            color: #34495e;
+            font-size: 1.2rem; /* Slightly larger details header */
+            /* text-transform: uppercase; */ /* Optional styling */
+            letter-spacing: 0.5px; /* Optional spacing */
+            /* border-bottom: 2px solid #5dade2; */ /* Optional underline */
+            /* display: inline-block; */ /* If using underline */
+            /* padding-bottom: 5px; */ /* If using underline */
+        }
+        .details-content { /* Renamed */
+            line-height: 1.75; /* Increased line height for readability */
+            color: #444;
+            font-size: 1.05rem; /* Slightly larger detail text */
+        }
+        .details-content ul { /* Style lists if used in details */
+             padding-left: 25px;
+             margin-top: 10px;
+             margin-bottom: 10px;
+        }
+         .details-content li {
+             margin-bottom: 8px; /* Space between list items */
+         }
+        .code {
+            font-family: Consolas, Monaco, monospace;
+            background-color: #eee;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.95em;
+        }
+
+
+        /* Controls Section Styling (Adjusted for Focus Points) */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 15px;
+            background-color: #fdfdfd;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+        .filter-container, .search-container, .star-filter-container { /* Removed .toggle-explanations */
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            min-width: 200px;
+        }
+         .search-container { flex-grow: 2; }
+        .filter-label, .search-label, .star-filter-label {
+            font-weight: 600;
+            margin-right: 10px;
+            white-space: nowrap;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        select, input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+            flex-grow: 1;
+            font-size: 0.95rem;
+            background-color: white;
+        }
+         input[type="text"] { min-width: 180px; }
+        button {
+            padding: 10px 18px;
+            background-color: #5dade2; /* Lighter blue buttons */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.2s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-left: 8px;
+            white-space: nowrap;
+        }
+        button:hover {
+            background-color: #3498db; /* Darker blue hover */
+        }
+
+        /* RWD Adjustments */
+        @media (max-width: 992px) {
+             .controls { flex-direction: column; align-items: stretch; }
+            .filter-container, .search-container, .star-filter-container { width: 100%; flex-grow: 0; }
+             select, input[type="text"] { width: 100%; }
+             button { margin-left: 0; margin-top: 5px; }
+             .search-container button { margin-left: 8px; margin-top: 0; }
+             #searchInput { width: calc(100% - 90px); }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .header-container { padding: 25px 15px; margin: -15px -15px 20px -15px; }
+            .categories-grid { grid-template-columns: 1fr; }
+            .focus-card { padding: 0; } /* Ensure no padding on card itself */
+             .focus-header, .focus-topic-container, .focus-details-container { padding-left: 20px; padding-right: 20px; } /* Adjust inner padding */
+            h1 { font-size: 1.8rem; }
+            .header-container h1 { font-size: 2rem; }
+            .focus-topic { font-size: 1.3rem; }
+            .details-header { font-size: 1.1rem; }
+            .details-content { font-size: 1rem; }
+        }
+
+        /* Back to Top Button & Progress Bar (No changes needed) */
+        .back-to-top {
+            position: fixed; bottom: 25px; right: 25px; background-color: #5dade2; color: white;
+            width: 45px; height: 45px; border-radius: 50%; display: none; justify-content: center;
+            align-items: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, opacity 0.3s, transform 0.3s; z-index: 1000;
+            opacity: 0.8; font-size: 1.2rem;
+        }
+        .back-to-top:hover { background-color: #3498db; opacity: 1; transform: scale(1.1); }
+        .progress-container {
+            width: 100%; height: 5px; background-color: #e8f0f5; position: fixed;
+            top: 0; left: 0; z-index: 1001;
+        }
+        .progress-bar {
+            height: 5px; background: linear-gradient(90deg, #5dade2, #85c1e9); /* Adjusted gradient */
+            width: 0%; border-radius: 0 2px 2px 0; transition: width 0.1s linear;
+        }
+         #noResultsMessage {
+             text-align: center; padding: 20px; color: #777; display: none; font-style: italic;
+         }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <div class="header-container">
+            <h1>iPAS 資訊安全工程師 考試重點</h1> <!-- Updated Title -->
+            <div>IS141 事件與事故管理</div> <!-- Updated Subtitle -->
+        </div>
+
+        <div class="controls">
+             <div class="filter-container">
+                 <!-- Updated Label -->
+                <label for="categoryFilter" class="filter-label">篩選主題：</label>
+                <select id="categoryFilter"> <!-- Updated ID -->
+                    <option value="all">全部主題</option>
+                    <option value="1">事件與事故基本概念</option>
+                    <option value="2">事故回應生命週期 - 準備</option>
+                    <option value="3">事故回應生命週期 - 偵測與分析</option>
+                    <option value="4">事故回應生命週期 - 遏制、根除與復原</option>
+                    <option value="5">事故回應生命週期 - 事後活動</option>
+                    <option value="6">事件/事故通報與分級</option>
+                    <option value="7">日誌管理與 SIEM</option>
+                    <option value="8">數位鑑識與證據保全</option>
+                 </select>
+            </div>
+
+            <div class="star-filter-container">
+                <label for="starFilter" class="star-filter-label">重要性：</label>
+                <select id="starFilter">
+                    <option value="all">全部重要性</option>
+                    <option value="5">★★★★★</option>
+                    <option value="4">★★★★</option>
+                    <option value="3">★★★</option>
+                    <option value="2">★★</option>
+                    <option value="1">★</option>
+                </select>
+            </div>
+
+            <div class="search-container">
+                <label for="searchInput" class="search-label">搜尋：</label>
+                <input type="text" id="searchInput" placeholder="輸入關鍵字...">
+                <button id="searchButton">搜尋</button>
+            </div>
+            <!-- Removed Toggle Explanations Button -->
+        </div>
+
+        <div class="categories-container"> <!-- Renamed -->
+            <div class="categories-title">主題分類</div> <!-- Updated Title -->
+            <div class="categories-grid" id="categoriesGrid"> <!-- Renamed ID -->
+                <!-- Renamed classes and updated filter function call -->
+                <div class="category-item" onclick="filterByCategory(1)">
+                    <div class="category-number">1</div>
+                    <div class="category-text">事件與事故基本概念</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(2)">
+                    <div class="category-number">2</div>
+                    <div class="category-text">事故回應生命週期 - 準備</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(3)">
+                    <div class="category-number">3</div>
+                    <div class="category-text">事故回應生命週期 - 偵測與分析</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(4)">
+                    <div class="category-number">4</div>
+                    <div class="category-text">事故回應生命週期 - 遏制、根除與復原</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(5)">
+                    <div class="category-number">5</div>
+                    <div class="category-text">事故回應生命週期 - 事後活動</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(6)">
+                    <div class="category-number">6</div>
+                    <div class="category-text">事件/事故通報與分級</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(7)">
+                    <div class="category-number">7</div>
+                    <div class="category-text">日誌管理與 SIEM</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(8)">
+                    <div class="category-number">8</div>
+                    <div class="category-text">數位鑑識與證據保全</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="focus-points-container" id="focusPointsContainer"> <!-- Renamed -->
+
+            <!-- Focus Point 1 -->
+            <div class="focus-card" data-category="1" data-stars="5">
+                <div class="focus-header">
+                    <div class="focus-id">#1</div>
+                    <div class="focus-importance">★★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">資訊安全事件</span> (<span class="english-fullname">Information Security Event</span>) vs <span style="color: blue; font-weight: bold;">資訊安全事故</span> (<span class="english-fullname">Information Security Incident</span>)
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">定義區別</div>
+                    <div class="details-content">
+                        <ul>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">資訊安全事件</b></span>：指系統、服務或網路狀態發生的任何可觀察到的情況，<span style="background-color: #ffff0030;">可能</span>表示違反了資訊安全政策、可接受的使用政策或標準安全實務，或<span style="background-color: #ffff0030;">可能</span>與安全相關的情況。它是一個<span style="background-color: #ffff0030;">潛在</span>的警訊。</li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">資訊安全事故</b></span>：指一個或一系列<span style="background-color: #ffff0030;">不期望或非預期</span>的資訊安全事件，具有相當高的機率<span style="background-color: #ffff0030;">危害</span>業務運作並<span style="background-color: #ffff0030;">威脅</span>資訊安全。事故是<span style="background-color: #ffff0030;">已確認</span>的、具有負面影響的事件。</li>
+                        </ul>
+                        簡單來說，<span style="background-color: #ffff0030;">事件是可能出問題的跡象，事故是確定已經出問題的情況</span>。例如，一次失敗的登入嘗試是事件，多次失敗後成功登入異常帳號則可能構成事故。<br>
+                        <span style="color: blue; font-weight: bold;">資安事故</span><span style="background-color: #ffff0030;">已經造成服務或營運中斷</span>，而<span style="color: blue; font-weight: bold;">資安事件</span>則是指<span style="background-color: #ffff0030;">極可能</span>造成服務或營運中斷。
+                        (資料來源：109初級-管理概論 Q43, 108初級-管理概論 Q39, 113管理 Q44)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 2 -->
+            <div class="focus-card" data-category="2" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#2</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">事故回應生命週期</span> - <span style="color: blue; font-weight: bold;">準備</span> (<span class="english-fullname">Preparation</span>)
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">主要活動</div>
+                    <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">準備</span>階段是事故回應的基礎，旨在建立處理事故的能力。主要活動包括：
+                        <ul>
+                            <li>制定<span style="background-color: #ffff0030;">事故回應計畫與政策</span>。</li>
+                            <li>建立<span style="background-color: #ffff0030;">事故回應團隊</span> (<span class="english-abbr">Incident Response Team, IRT / CSIRT</span>) 並明確職責。</li>
+                            <li>採購與準備<span style="background-color: #ffff0030;">必要的工具</span>（如：鑑識軟體、備份設備）。</li>
+                             <li>進行<span style="background-color: #ffff0030;">人員訓練與演練</span>。</li>
+                             <li>建立<span style="background-color: #ffff0030;">通報機制</span>與聯絡清單。</li>
+                         </ul>
+                         此階段<span style="background-color: #ffff0030;">不包含</span>實際的事故偵測或分析。
+                         (資料來源：NIST SP 800-61)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 3 -->
+             <div class="focus-card" data-category="3" data-stars="4">
+                 <div class="focus-header">
+                     <div class="focus-id">#3</div>
+                     <div class="focus-importance">★★★★</div>
+                 </div>
+                 <div class="focus-topic-container">
+                     <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">事故回應生命週期</span> - <span style="color: blue; font-weight: bold;">偵測與分析</span> (<span class="english-fullname">Detection and Analysis</span>)
+                     </div>
+                 </div>
+                 <div class="focus-details-container">
+                     <div class="details-header">主要活動</div>
+                     <div class="details-content">
+                         此階段旨在<span style="background-color: #ffff0030;">及早發現</span>潛在的資安事故並<span style="background-color: #ffff0030;">分析其性質與範圍</span>。主要活動包括：
+                         <ul>
+                             <li>監控各種來源的<span style="background-color: #ffff0030;">事件指標</span> (<span class="english-fullname">Indicators of Compromise, IoC</span>)，如：<span style="color: blue; font-weight: bold;">日誌</span>、警報、異常行為。</li>
+                             <li>分析事件數據，<span style="background-color: #ffff0030;">判斷是否構成事故</span>。</li>
+                             <li>確定事故的<span style="background-color: #ffff0030;">範圍、影響和嚴重性</span>。</li>
+                             <li>收集初步<span style="background-color: #ffff0030;">證據</span>。</li>
+                             <li>記錄所有發現與分析過程。</li>
+                         </ul>
+                         (資料來源：NIST SP 800-61)
+                     </div>
+                 </div>
+             </div>
+
+            <!-- Focus Point 4 -->
+             <div class="focus-card" data-category="4" data-stars="5">
+                 <div class="focus-header">
+                     <div class="focus-id">#4</div>
+                     <div class="focus-importance">★★★★★</div>
+                 </div>
+                 <div class="focus-topic-container">
+                     <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">事故回應生命週期</span> - <span style="color: blue; font-weight: bold;">遏制、根除與復原</span> (<span class="english-fullname">Containment, Eradication, and Recovery</span>)
+                     </div>
+                 </div>
+                 <div class="focus-details-container">
+                     <div class="details-header">主要活動</div>
+                     <div class="details-content">
+                        此階段是實際處理事故的核心環節：
+                         <ul>
+                             <li><span style="background-color: #ffff0030;"><b style="color: blue;">遏制</b> (<span class="english-fullname">Containment</span>)</span>：<span style="background-color: #ffff0030;">限制事故的擴散</span>，防止進一步損害。例如：<span style="background-color: #ffff0030;">隔離受感染的系統</span>、阻擋惡意 <span class="english-abbr">IP</span>。遏制是處理事故時<span style="background-color: #ffff0030;">最重要的目標</span>。</li>
+                             <li><span style="background-color: #ffff0030;"><b style="color: blue;">根除</b> (<span class="english-fullname">Eradication</span>)</span>：<span style="background-color: #ffff0030;">徹底清除</span>事故的根源。例如：刪除惡意軟體、修補漏洞。</li>
+                             <li><span style="background-color: #ffff0030;"><b style="color: blue;">復原</b> (<span class="english-fullname">Recovery</span>)</span>：將受影響的系統和服務<span style="background-color: #ffff0030;">恢復到正常運作狀態</span>。例如：從備份還原資料、重新安裝系統。</li>
+                         </ul>
+                         (資料來源：NIST SP 800-61, 110初級-管理概論 Q42)
+                     </div>
+                 </div>
+             </div>
+
+            <!-- Focus Point 5 -->
+            <div class="focus-card" data-category="5" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#5</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">事故回應生命週期</span> - <span style="color: blue; font-weight: bold;">事後活動</span> (<span class="english-fullname">Post-Incident Activity</span>)
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">主要活動</div>
+                    <div class="details-content">
+                        事故處理完成後，需要進行檢討與改善：
+                        <ul>
+                            <li><span style="background-color: #ffff0030;">撰寫事故報告</span>：詳細記錄事故處理過程、發現、影響與結果。</li>
+                            <li><span style="background-color: #ffff0030;">經驗學習</span> (<span class="english-fullname">Lessons Learned</span>)：<span style="background-color: #ffff0030;">檢討</span>事故處理過程中的優缺點，找出<span style="background-color: #ffff0030;">改進</span>之處。</li>
+                             <li><span style="background-color: #ffff0030;">更新應變計畫</span>：根據學習到的經驗修改事故回應計畫、政策與程序。</li>
+                             <li><span style="background-color: #ffff0030;">調整防護措施</span>：強化相關的安全控制措施。</li>
+                             <li><span style="background-color: #ffff0030;">證據保留</span>：妥善保存相關證據以供未來稽核或法律用途。</li>
+                        </ul>
+                        <span style="background-color: #ffff0030;">事故的事後檢討與改善非常重要</span>，目的是從經驗中學習，提升未來的應變能力。
+                        (資料來源：NIST SP 800-61, 111初級-管理概論 Q47)
+                     </div>
+                 </div>
+            </div>
+
+            <!-- Focus Point 6 -->
+             <div class="focus-card" data-category="6" data-stars="5">
+                 <div class="focus-header">
+                     <div class="focus-id">#6</div>
+                     <div class="focus-importance">★★★★★</div>
+                 </div>
+                 <div class="focus-topic-container">
+                     <div class="focus-topic">
+                         <span style="color: blue; font-weight: bold;">資通安全事件通報</span>與<span style="color: blue; font-weight: bold;">分級</span> (依<span style="color: blue; font-weight: bold;">資通安全管理法</span>)
+                     </div>
+                 </div>
+                 <div class="focus-details-container">
+                     <div class="details-header">通報時限與對象</div>
+                     <div class="details-content">
+                        依據<span style="color: blue; font-weight: bold;">資通安全管理法</span>及其子法「資通安全事件通報及應變辦法」：
+                        <ul>
+                             <li>公務機關或特定非公務機關應於<span style="background-color: #ffff0030;">知悉</span>資通安全事件後<span style="background-color: #ffff0030;">一小時內</span>，向<span style="background-color: #ffff0030;">主管機關</span>進行<span style="background-color: #ffff0030;">事件通報</span>。</li>
+                             <li>主管機關應於接獲通報後，依事件等級進行<span style="background-color: #ffff0030;">審核</span>：
+                                <ul>
+                                    <li>第一級或第二級事件：<span style="background-color: #ffff0030;">八小時內</span>完成。</li>
+                                    <li>第三級或第四級事件：<span style="background-color: #ffff0030;">二小時內</span>完成。</li>
+                                 </ul>
+                             </li>
+                            <li>事件通報<span style="background-color: #ffff0030;">不一定</span>需要以正式書面表單進行，視情況可先以電話等方式通報。</li>
+                            <li>通報內容<span style="background-color: #ffff0030;">不一定</span>需要包含嫌疑人身份。</li>
+                        </ul>
+                         (資料來源：109初級-管理概論 Q45, 111初級-管理概論 Q12, 113管理 Q9, 113管理 Q45)
+                     </div>
+                      <div class="details-header">事件分級與應變時限</div>
+                      <div class="details-content">
+                         資通安全事件依影響等級分為四級：
+                         <ul>
+                             <li><span style="background-color: #ffff0030;">第一級</span>：非核心業務輕微影響。</li>
+                             <li><span style="background-color: #ffff0030;">第二級</span>：非核心業務嚴重影響，或核心業務輕微影響。</li>
+                              <li><span style="background-color: #ffff0030;">第三級</span>：核心業務嚴重影響，或關鍵基礎設施(<span class="english-abbr">CI</span>)/公務機密輕微影響。</li>
+                              <li><span style="background-color: #ffff0030;">第四級</span>：關鍵基礎設施(<span class="english-abbr">CI</span>)/公務機密嚴重影響，或國家機密外洩。</li>
+                         </ul>
+                         損害控制或復原時限：
+                         <ul>
+                             <li>第一級、第二級：<span style="background-color: #ffff0030;">72小時內</span>完成。</li>
+                              <li>第三級、第四級：<span style="background-color: #ffff0030;">36小時內</span>完成。</li>
+                         </ul>
+                          <span style="background-color: #ffff0030;">1級事件不包括</span>：非核心業務系統且無系統或設備運作受影響。
+                         (資料來源：109初級-管理概論 Q42, 110初級-管理概論 Q9, 110初級-管理概論 Q45, 111初級-管理概論 Q36, 113管理 Q10)
+                     </div>
+                 </div>
+             </div>
+
+             <!-- Focus Point 7 -->
+             <div class="focus-card" data-category="7" data-stars="4">
+                 <div class="focus-header">
+                     <div class="focus-id">#7</div>
+                     <div class="focus-importance">★★★★</div>
+                 </div>
+                 <div class="focus-topic-container">
+                     <div class="focus-topic">
+                         <span style="color: blue; font-weight: bold;">日誌管理</span> (<span class="english-fullname">Log Management</span>) 與 <span class="english-abbr">SIEM</span>
+                     </div>
+                 </div>
+                 <div class="focus-details-container">
+                     <div class="details-header">日誌管理的重要性</div>
+                     <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">日誌</span> (<span class="english-fullname">Log</span>) / <span style="color: blue; font-weight: bold;">紀錄</span> (<span class="english-fullname">Record</span>) 是系統活動的<span style="background-color: #ffff0030;">軌跡</span>，對於事件調查、事故回應、效能監控、合規性稽核至關重要。
+                        <ul>
+                            <li><span style="background-color: #ffff0030;">日誌應受保護</span>：防止未經授權的存取、竄改或刪除。</li>
+                             <li><span style="background-color: #ffff0030;">日誌應定期檢視</span>：及時發現異常活動或潛在威脅。</li>
+                             <li><span style="background-color: #ffff0030;">日誌應適當保存</span>：符合法規要求和組織政策，並確保其<span style="background-color: #ffff0030;">不可否認性</span>。</li>
+                             <li><span style="background-color: #ffff0030;">時間同步</span>：所有系統的日誌時間應與標準時間同步，以便關聯分析。</li>
+                             <li><span style="background-color: #ffff0030;">日誌集中管理</span>：將來自不同系統的日誌集中存放與管理，便於分析。</li>
+                        </ul>
+                        系統日誌<span style="background-color: #ffff0030;">不應</span>開放給所有人查詢，需進行存取控制。<span style="background-color: #ffff0030;">定期檢視安全記錄檔</span>是<span style="color: blue; font-weight: bold;">偵測性</span> (<span class="english-fullname">Detective</span>) 控制措施，而非預防性 (<span class="english-fullname">Preventive</span>)。
+                         (資料來源：109技術-概論 Q41, 109技術-概論 Q43, 109技術-概論 Q39, 110技術-概論 Q17, 110初級-管理概論 Q26, 111初級-管理概論 Q41, 113技術-概論 Q43)
+                     </div>
+                      <div class="details-header">SIEM 系統</div>
+                     <div class="details-content">
+                         <span style="color: blue; font-weight: bold;">安全資訊與事件管理系統</span> (<span class="english-abbr">SIEM</span>, <span class="english-fullname">Security Information and Event Management</span>) 是一種<span style="background-color: #ffff0030;">集中收集、分析和管理</span>來自多種來源（如防火牆、<span class="english-abbr">IDS</span>、伺服器、應用程式）的日誌和事件數據的解決方案。
+                         <span style="english-abbr">SIEM</span> 的主要功能：
+                         <ul>
+                             <li><span style="background-color: #ffff0030;">日誌收集與儲存</span></li>
+                             <li><span style="background-color: #ffff0030;">事件關聯分析</span>：識別不同事件之間的關聯，發現潛在攻擊模式。</li>
+                             <li><span style="background-color: #ffff0030;">即時監控與警報</span>：偵測到可疑活動時發出警報。</li>
+                             <li><span style="background-color: #ffff0030;">儀表板與報表</span>：提供視覺化的安全狀態概覽與合規性報表。</li>
+                             <li><span style="background-color: #ffff0030;">威脅偵測與事故回應支援</span></li>
+                         </ul>
+                         (資料來源：109初級-管理概論 Q44, 113管理 Q43)
+                     </div>
+                 </div>
+             </div>
+
+            <!-- Focus Point 8 -->
+            <div class="focus-card" data-category="8" data-stars="3">
+                <div class="focus-header">
+                    <div class="focus-id">#8</div>
+                    <div class="focus-importance">★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">數位鑑識</span> (<span class="english-fullname">Digital Forensics</span>) 與<span style="color: blue; font-weight: bold;">證據保全</span>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心原則</div>
+                    <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">數位鑑識</span>是在調查資安事故時，<span style="background-color: #ffff0030;">收集、保存、分析和呈現</span>數位證據的過程。<br>
+                        關鍵原則：
+                        <ul>
+                            <li><span style="background-color: #ffff0030;">證據完整性</span>：確保證據從收集到提交法庭的過程中未被竄改。</li>
+                            <li><span style="background-color: #ffff0030;">證據保管鏈</span> (<span class="english-fullname">Chain of Custody</span>)：詳細記錄證據的<span style="background-color: #ffff0030;">接觸史</span>，包括誰在何時何地處理過證據。</li>
+                            <li><span style="background-color: #ffff0030;">最小化影響</span>：取證過程應盡量減少對原始系統的干擾。</li>
+                             <li><span style="background-color: #ffff0030;">記錄</span>：詳細記錄所有鑑識步驟和發現。</li>
+                        </ul>
+                         在事件應變時，應<span style="background-color: #ffff0030;">優先保全易失性證據</span>（如記憶體內容），再處理持久性證據（如硬碟資料）。<span style="background-color: #ffff0030;">主機與網路證據</span>是常見的搜集標的。<span style="background-color: #ffff0030;">不應</span>為求時效而直接在受感染主機上進行證據採樣，應先製作映像檔。
+                         (資料來源：111初級-管理概論 Q46)
+                    </div>
+                </div>
+            </div>
+
+
+             <!-- Placeholder for No Results -->
+             <div id="noResultsMessage">沒有找到符合條件的重點。</div>
+
+        </div><!-- end focus-points-container -->
+
+        <div class="back-to-top" id="backToTop">↑</div>
+    </div>
+
+    <script>
+        // Progress bar (no changes needed)
+        const progressBar = document.getElementById("progressBar");
+        window.onscroll = function() { updateProgressBar(); toggleBackToTopButton(); };
+        function updateProgressBar() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (height > 0) ? (winScroll / height) * 100 : 0;
+            progressBar.style.width = scrolled + "%";
+        }
+
+        // Back to top button (no changes needed)
+        const backToTopButton = document.getElementById("backToTop");
+        function toggleBackToTopButton() {
+             backToTopButton.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "flex" : "none";
+        }
+        backToTopButton.addEventListener("click", () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+        // Filter by category (Updated function name and logic)
+        function filterByCategory(categoryNumber) {
+            // Ensure categoryNumber is treated as a string for comparison, except for 'all'
+             const valueToSet = categoryNumber === 'all' ? 'all' : String(categoryNumber);
+             document.getElementById('categoryFilter').value = valueToSet;
+             document.getElementById('searchInput').value = ''; // Clear search on filter click
+             filterFocusPoints(); // Call updated filter function
+        }
+
+        // Event listeners for filters and search (Updated IDs/functions)
+        document.getElementById("categoryFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("starFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("searchButton").addEventListener("click", searchFocusPoints); // Updated function call
+        document.getElementById("searchInput").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                searchFocusPoints(); // Updated function call
+            }
+        });
+
+        const noResultsMessage = document.getElementById('noResultsMessage');
+
+        // Combined filter function (Updated variable/class names)
+        function filterFocusPoints() {
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+            let points = document.querySelectorAll(".focus-card"); // Target .focus-card
+            let anyVisible = false;
+
+            points.forEach(function(point) {
+                // Updated dataset attribute name
+                const pointCategory = point.dataset.category;
+                const pointStars = point.dataset.stars;
+
+                const matchesCategory = (category === "all" || pointCategory === category);
+                const matchesStars = (stars === "all" || pointStars === stars);
+
+                if (matchesCategory && matchesStars) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                 // Updated message text
+                 noResultsMessage.textContent = '沒有找到符合篩選條件的重點。';
+             }
+        }
+
+        // Search function (Updated variable/class names)
+        function searchFocusPoints() {
+            let searchText = document.getElementById("searchInput").value.toLowerCase().trim();
+            let points = document.querySelectorAll(".focus-card"); // Target .focus-card
+            let anyVisible = false;
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+
+            points.forEach(function(point) {
+                // Check filters first
+                 const pointCategory = point.dataset.category;
+                 const pointStars = point.dataset.stars;
+                 const matchesCategory = (category === "all" || pointCategory === category);
+                 const matchesStars = (stars === "all" || pointStars === stars);
+                let visibleBasedOnFilter = matchesCategory && matchesStars;
+
+                // Check search text
+                let pointText = point.textContent.toLowerCase();
+                let matchesSearch = (searchText === "" || pointText.includes(searchText));
+
+                // Show if matches filters AND search (or if search is empty)
+                if (visibleBasedOnFilter && matchesSearch) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 if (searchText !== "") {
+                      noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                      // Updated message text
+                      noResultsMessage.textContent = '沒有找到符合目前篩選及搜尋條件的重點。';
+                 } else {
+                     // If search is empty, rely on filter results
+                     filterFocusPoints();
+                 }
+             }
+        }
+
+        // Removed Toggle Explanations Logic
+
+         // Initial setup
+         toggleBackToTopButton();
+         updateProgressBar();
+         filterFocusPoints(); // Apply default filters on load
+
+    </script>
+</body>
+</html>

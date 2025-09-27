@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>iPAS 資訊安全工程師 考試重點整理 - IS121 資產分類分級與盤點</title> <!-- Changed Title -->
+    <style>
+        /* RWD設定，讓整體版面在不同裝置都有良好顯示 */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft JhengHei", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto; /* Added top/bottom margin */
+            padding: 25px;
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border-radius: 8px;
+        }
+        /* Updated Header */
+        .header-container {
+            background: linear-gradient(135deg, #2c3e50, #34495e); /* Darker gradient */
+            color: white;
+            padding: 30px 20px; /* Increased padding */
+            margin: -25px -25px 25px -25px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+        .header-container h1 {
+            margin: 0;
+            color: white;
+            font-size: 2.2rem; /* Larger title */
+            font-weight: 600;
+            margin-bottom: 5px; /* Space below title */
+        }
+        .header-container div { /* Subtitle */
+             font-size: 1.2rem;
+             opacity: 0.9;
+             margin-top: 5px;
+             font-weight: 300; /* Lighter weight */
+        }
+
+        /* Topic Categories Section (Renamed from Directions) */
+        .categories-container { /* Renamed */
+            background-color: #e8f0f5; /* Slightly different blue */
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 5px solid #5dade2; /* Lighter blue border */
+            border-radius: 5px;
+        }
+        .categories-title { /* Renamed */
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .categories-grid { /* Renamed */
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        .category-item { /* Renamed */
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #d6e0ea; /* Border matching background */
+        }
+        .category-item:hover {
+            background-color: #5dade2; /* Lighter blue hover */
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: #5dade2;
+        }
+        .category-number { /* Renamed */
+            width: 30px;
+            height: 30px;
+            background-color: #5dade2; /* Lighter blue number */
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .category-item:hover .category-number {
+            background-color: white;
+            color: #5dade2;
+        }
+        .category-text { /* Renamed */
+            font-size: 0.95rem;
+        }
+
+        /* Focus Point Card Styling (Replaces Question Card) */
+        .focus-points-container { /* Renamed */
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px; /* Increased gap */
+        }
+        .focus-card { /* Renamed */
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 0; /* Remove padding here, apply to inner elements */
+            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.1); /* Slightly stronger shadow */
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            border: 1px solid #e0e0e0;
+            overflow: hidden; /* Ensure inner elements respect border radius */
+        }
+        .focus-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(44, 62, 80, 0.15);
+        }
+        .focus-header { /* Renamed */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px; /* Padding inside header */
+            background-color: #f8f9fa; /* Light header background */
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .focus-id { /* Renamed */
+            font-weight: bold;
+            color: #5dade2; /* Lighter blue ID */
+            font-size: 1rem;
+            background-color: #e8f0f5; /* Background for ID */
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .focus-importance { /* Renamed */
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .focus-topic-container { /* New container for the main topic */
+             padding: 25px 25px 20px 25px; /* Padding around the topic */
+             border-bottom: 1px dashed #eee; /* Separator line */
+        }
+
+        .focus-topic { /* Replaces question-content */
+            font-size: 1.5rem; /* Larger font for the topic */
+            font-weight: 600; /* Bolder */
+            margin-bottom: 0; /* Remove margin, handled by container padding */
+            line-height: 1.4;
+            color: #2c3e50; /* Dark blue-grey for topic */
+        }
+
+        /* Styling for terminology within topic/details */
+        .english-abbr {
+            color: #8e44ad; /* Purple for abbreviations */
+            font-weight: 600;
+        }
+        .english-fullname {
+            color: #c0392b; /* Darker red for full names/concepts */
+            font-weight: 500;
+        }
+
+
+        /* Details Section Styling (Replaces Explanation) */
+        .focus-details-container { /* Renamed */
+            padding: 20px 25px 25px 25px; /* Padding for details */
+            /* background-color: #fdfefe; */ /* Optional subtle background, removing for cleaner look */
+        }
+        .details-header { /* Renamed */
+            font-weight: bold;
+            margin-bottom: 15px; /* Space below header */
+            color: #34495e;
+            font-size: 1.2rem; /* Slightly larger details header */
+            /* text-transform: uppercase; */ /* Optional styling */
+            letter-spacing: 0.5px; /* Optional spacing */
+            /* border-bottom: 2px solid #5dade2; */ /* Optional underline */
+            /* display: inline-block; */ /* If using underline */
+            /* padding-bottom: 5px; */ /* If using underline */
+        }
+        .details-content { /* Renamed */
+            line-height: 1.75; /* Increased line height for readability */
+            color: #444;
+            font-size: 1.05rem; /* Slightly larger detail text */
+        }
+        .details-content ul { /* Style lists if used in details */
+             padding-left: 25px;
+             margin-top: 10px;
+             margin-bottom: 10px;
+        }
+         .details-content li {
+             margin-bottom: 8px; /* Space between list items */
+         }
+
+        /* Controls Section Styling (Adjusted for Focus Points) */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 15px;
+            background-color: #fdfdfd;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+        .filter-container, .search-container, .star-filter-container { /* Removed .toggle-explanations */
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            min-width: 200px;
+        }
+         .search-container { flex-grow: 2; }
+        .filter-label, .search-label, .star-filter-label {
+            font-weight: 600;
+            margin-right: 10px;
+            white-space: nowrap;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        select, input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+            flex-grow: 1;
+            font-size: 0.95rem;
+            background-color: white;
+        }
+         input[type="text"] { min-width: 180px; }
+        button {
+            padding: 10px 18px;
+            background-color: #5dade2; /* Lighter blue buttons */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.2s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-left: 8px;
+            white-space: nowrap;
+        }
+        button:hover {
+            background-color: #3498db; /* Darker blue hover */
+        }
+
+        /* RWD Adjustments */
+        @media (max-width: 992px) {
+             .controls { flex-direction: column; align-items: stretch; }
+            .filter-container, .search-container, .star-filter-container { width: 100%; flex-grow: 0; }
+             select, input[type="text"] { width: 100%; }
+             button { margin-left: 0; margin-top: 5px; }
+             .search-container button { margin-left: 8px; margin-top: 0; }
+             #searchInput { width: calc(100% - 90px); }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .header-container { padding: 25px 15px; margin: -15px -15px 20px -15px; }
+            .categories-grid { grid-template-columns: 1fr; }
+            .focus-card { padding: 0; } /* Ensure no padding on card itself */
+             .focus-header, .focus-topic-container, .focus-details-container { padding-left: 20px; padding-right: 20px; } /* Adjust inner padding */
+            h1 { font-size: 1.8rem; }
+            .header-container h1 { font-size: 2rem; }
+            .focus-topic { font-size: 1.3rem; }
+            .details-header { font-size: 1.1rem; }
+            .details-content { font-size: 1rem; }
+        }
+
+        /* Back to Top Button & Progress Bar (No changes needed) */
+        .back-to-top {
+            position: fixed; bottom: 25px; right: 25px; background-color: #5dade2; color: white;
+            width: 45px; height: 45px; border-radius: 50%; display: none; justify-content: center;
+            align-items: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, opacity 0.3s, transform 0.3s; z-index: 1000;
+            opacity: 0.8; font-size: 1.2rem;
+        }
+        .back-to-top:hover { background-color: #3498db; opacity: 1; transform: scale(1.1); }
+        .progress-container {
+            width: 100%; height: 5px; background-color: #e8f0f5; position: fixed;
+            top: 0; left: 0; z-index: 1001;
+        }
+        .progress-bar {
+            height: 5px; background: linear-gradient(90deg, #5dade2, #85c1e9); /* Adjusted gradient */
+            width: 0%; border-radius: 0 2px 2px 0; transition: width 0.1s linear;
+        }
+         #noResultsMessage {
+             text-align: center; padding: 20px; color: #777; display: none; font-style: italic;
+         }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <div class="header-container">
+            <h1>iPAS 資訊安全工程師 考試重點</h1> <!-- Updated Title -->
+            <div>IS121 資產分類分級與盤點</div> <!-- Updated Subtitle -->
+        </div>
+
+        <div class="controls">
+             <div class="filter-container">
+                 <!-- Updated Label -->
+                <label for="categoryFilter" class="filter-label">篩選主題：</label>
+                <select id="categoryFilter"> <!-- Updated ID -->
+                    <option value="all">全部主題</option>
+                    <option value="1">資產定義與類型</option>
+                    <option value="2">資產盤點的目的與程序</option>
+                    <option value="3">資產清冊的建立與維護</option>
+                    <option value="4">資產分類與分級原則</option>
+                    <option value="5">資產價值評估</option>
+                    <option value="6">資產相關權責</option>
+                    <option value="7">特定資產類型</option>
+                </select>
+            </div>
+
+            <div class="star-filter-container">
+                <label for="starFilter" class="star-filter-label">重要性：</label>
+                <select id="starFilter">
+                    <option value="all">全部重要性</option>
+                    <option value="5">★★★★★</option>
+                    <option value="4">★★★★</option>
+                    <option value="3">★★★</option>
+                    <option value="2">★★</option>
+                    <option value="1">★</option>
+                </select>
+            </div>
+
+            <div class="search-container">
+                <label for="searchInput" class="search-label">搜尋：</label>
+                <input type="text" id="searchInput" placeholder="輸入關鍵字...">
+                <button id="searchButton">搜尋</button>
+            </div>
+            <!-- Removed Toggle Explanations Button -->
+        </div>
+
+        <div class="categories-container"> <!-- Renamed -->
+            <div class="categories-title">主題分類</div> <!-- Updated Title -->
+            <div class="categories-grid" id="categoriesGrid"> <!-- Renamed ID -->
+                <!-- Renamed classes and updated filter function call -->
+                <div class="category-item" onclick="filterByCategory(1)">
+                    <div class="category-number">1</div>
+                    <div class="category-text">資產定義與類型</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(2)">
+                    <div class="category-number">2</div>
+                    <div class="category-text">資產盤點的目的與程序</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(3)">
+                    <div class="category-number">3</div>
+                    <div class="category-text">資產清冊的建立與維護</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(4)">
+                    <div class="category-number">4</div>
+                    <div class="category-text">資產分類與分級原則</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(5)">
+                    <div class="category-number">5</div>
+                    <div class="category-text">資產價值評估</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(6)">
+                    <div class="category-number">6</div>
+                    <div class="category-text">資產相關權責</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(7)">
+                    <div class="category-number">7</div>
+                    <div class="category-text">特定資產類型</div>
+                </div>                
+            </div>
+        </div>
+
+        <div class="focus-points-container" id="focusPointsContainer"> <!-- Renamed -->
+
+            <!-- Focus Point 1 -->
+            <div class="focus-card" data-category="1" data-stars="5">
+                <div class="focus-header">
+                    <div class="focus-id">#1</div>
+                    <div class="focus-importance">★★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">資訊資產</span> (<span class="english-fullname">Information Asset</span>) 定義與類型
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">資產</span>指的是<span style="background-color: #ffff0030;">任何對組織有價值的事物</span>。<span style="color: blue; font-weight: bold;">資訊資產</span>則是指與「資訊」及其處理、儲存或傳輸流程有直接關聯，且對組織具有價值或影響的事物。
+                        資產包含<span style="background-color: #ffff0030;">有形</span>（如：硬體、文件）和<span style="background-color: #ffff0030;">無形</span>（如：軟體、資料、商譽）的事物。
+                        <span style="background-color: #ffff0030;">資訊本身</span>也是一種資產，可以以多種形式存在。
+                        (資料來源：110初級-管理概論 Q14)
+                    </div>
+                    <div class="details-header">常見資產類型</div>
+                    <div class="details-content">
+                        常見的<span style="color: blue; font-weight: bold;">資訊資產</span>類型包括：
+                        <ul>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">資訊</b></span>：資料庫、文件檔案、系統文件、研究資料、使用者手冊、訓練教材、操作程序、支援程序、業務持續計畫、備援安排、歸檔資訊等。</li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">軟體</b></span>：應用程式軟體、系統軟體、開發工具及公用程式等。</li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">硬體</b></span>：處理器、監視器、筆記型電腦、行動裝置、週邊設備、網路設備等。</li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">服務</b></span>：計算及通訊服務、一般公用服務（如：暖氣、照明、電力、空調）等。</li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">人員</b></span>：人員及其資格、技能與經驗等。</li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">無形資產</b></span>：組織的聲譽及形象（例如：<span style="color: blue; font-weight: bold;">商譽</span>）。</li>
+                        </ul>
+                        <span style="background-color: #ffff0030;">辦公桌椅</span>等非直接涉及資訊處理的物品，<span style="background-color: #ffff0030;">不屬於</span>資訊資產。
+                        (資料來源：110初級-管理概論 Q14, 110初級-管理概論 Q20, 108初級-管理概論 Q10)
+                     </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 2 -->
+            <div class="focus-card" data-category="2" data-stars="5">
+                <div class="focus-header">
+                    <div class="focus-id">#2</div>
+                    <div class="focus-importance">★★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">資產盤點</span> (<span class="english-fullname">Asset Inventory</span>) 目的
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">主要目的</div>
+                    <div class="details-content">
+                        進行<span style="color: blue; font-weight: bold;">資產盤點</span>的主要目的包括：
+                        <ul>
+                             <li><span style="background-color: #ffff0030;">識別和管理資訊資產</span>：釐清組織擁有什麼資產、資產在哪裡、由誰負責。</li>
+                             <li><span style="background-color: #ffff0030;">掌握資產現況</span>：了解資產狀態（是否正常運作、是否需更新）、保管人是否有變動。</li>
+                             <li><span style="background-color: #ffff0030;">支援風險評估與管理</span>：識別潛在風險，採取控制措施。</li>
+                             <li>資源最佳化：避免閒置或重複投資，確保有效利用。</li>
+                             <li>符合法規遵循：滿足相關法規和標準要求。</li>
+                             <li>支援決策：為資安策略、預算編列提供依據。</li>
+                        </ul>
+                        <span style="background-color: #ffff0030;">銷售資訊資產</span>或<span style="background-color: #ffff0030;">增加資產價值</span>並非盤點的主要目的。
+                        (資料來源：109初級-管理概論 Q8, 112初級-管理概論 Q14, 113管理 Q14)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 3 -->
+            <div class="focus-card" data-category="2" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#3</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">資產盤點</span> (<span class="english-fullname">Asset Inventory</span>) 時機與程序
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">盤點時機</div>
+                    <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">資產盤點</span>應<span style="background-color: #ffff0030;">定期進行</span>，通常<span style="background-color: #ffff0030;">每年至少一次</span>，以確保資訊的準確性。此外，當發生<span style="background-color: #ffff0030;">重大變更</span>時（如新系統上線、組織架構調整、重大資安事件後）也應進行盤點。<br>
+                        盤點並非只在資產報廢時才進行。
+                        (資料來源：109初級-管理概論 Q8, 112初級-管理概論 Q15, 113管理 Q17)
+                    </div>
+                    <div class="details-header">盤點程序</div>
+                     <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">資產盤點</span><span style="background-color: #ffff0030;">程序可由組織個別業務活動流程開始</span>，不一定需要從特定類別資產（如資訊類、軟體類或硬體類）開始。盤點應考量<span style="background-color: #ffff0030;">全面性</span>，並確認資產的<span style="background-color: #ffff0030;">使用狀況</span>與<span style="background-color: #ffff0030;">可用性</span>。
+                        (資料來源：112初級-管理概論 Q17, 112初級-管理概論 Q18)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 4 -->
+            <div class="focus-card" data-category="3" data-stars="5">
+                <div class="focus-header">
+                    <div class="focus-id">#4</div>
+                    <div class="focus-importance">★★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">資產清冊</span> (<span class="english-fullname">Asset Register</span>)
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">目的與建立</div>
+                    <div class="details-content">
+                        建立<span style="color: blue; font-weight: bold;">資產清冊</span>是進行<span style="color: blue; font-weight: bold;">資產管理</span>時應<span style="background-color: #ffff0030;">優先</span>進行的工作，目的是為了<span style="background-color: #ffff0030;">適切地保護資產</span>。
+                        (資料來源：110初級-管理概論 Q15, 111初級-管理概論 Q20)
+                    </div>
+                     <div class="details-header">內容項目</div>
+                     <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">資產清冊</span>應包含識別資產及管理所需的資訊，例如：
+                        <ul>
+                            <li><span style="background-color: #ffff0030;">資產名稱</span></li>
+                            <li><span style="background-color: #ffff0030;">資產類型</span></li>
+                            <li>資產標籤/編號</li>
+                            <li>位置</li>
+                            <li><span style="background-color: #ffff0030;">權責單位</span> (擁有者、保管者)</li>
+                            <li><span style="background-color: #ffff0030;">資產價值</span> (重要性、敏感性)</li>
+                            <li><span style="background-color: #ffff0030;">分類分級</span></li>
+                         </ul>
+                         清冊應<span style="background-color: #ffff0030;">文件化</span>並<span style="background-color: #ffff0030;">定期維護</span>。<span style="background-color: #ffff0030;">不一定需要標示資產購置時的成本和費用</span>。<span style="background-color: #ffff0030;">可移除式媒體</span>（如 USB）也應登載於清冊中以利追蹤。<span style="background-color: #ffff0030;">財產報廢</span>並非資產清冊可用來支援的項目。
+                         (資料來源：109初級-管理概論 Q15, 110初級-管理概論 Q15, 110初級-管理概論 Q19, 113管理 Q15)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 5 -->
+            <div class="focus-card" data-category="4" data-stars="5">
+                <div class="focus-header">
+                    <div class="focus-id">#5</div>
+                    <div class="focus-importance">★★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">資產分類</span>與<span style="color: blue; font-weight: bold;">分級</span> (<span class="english-fullname">Asset Classification and Grading</span>)
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">分類目的與原則</div>
+                    <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">資產分類</span>是依據資產的<span style="background-color: #ffff0030;">類型</span>進行歸類，例如區分為資訊、軟體、硬體、服務、人員等類別。目的是為了方便管理和套用適當的控制措施。<br>
+                        分類方式<span style="background-color: #ffff0030;">沒有固定標準</span>，各組織可依自身環境和運作需求自行設計。<span style="color: blue; font-weight: bold;">企業資源規劃</span> (<span class="english-abbr">ERP</span>, <span class="english-fullname">Enterprise Resource Planning</span>) 系統通常歸類為<span style="background-color: #ffff0030;">軟體資產</span>。
+                        (資料來源：110初級-管理概論 Q15, 112初級-管理概論 Q19, 112初級-管理概論 Q20)
+                    </div>
+                     <div class="details-header">分級目的與基準</div>
+                     <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">資產分級</span>是依據資產對組織的<span style="background-color: #ffff0030;">重要性</span>和<span style="background-color: #ffff0030;">敏感性</span>，賦予不同的保護等級。主要目的是<span style="background-color: #ffff0030;">確保重要的資訊受到適切等級的保護</span>。<br>
+                        分級基準通常考量：
+                        <ul>
+                            <li><span style="background-color: #ffff0030;">機密性</span> (<span class="english-abbr">Confidentiality</span>)</li>
+                            <li><span style="background-color: #ffff0030;">完整性</span> (<span class="english-abbr">Integrity</span>)</li>
+                            <li><span style="background-color: #ffff0030;">可用性</span> (<span class="english-abbr">Availability</span>)</li>
+                             <li>法規遵循要求</li>
+                        </ul>
+                        分級結果有助於<span style="background-color: #ffff0030;">風險評估</span>和控制措施的選擇。分級結果<span style="background-color: #ffff0030;">不需考慮產業別差異</span>，但應反映資產對業務流程的重要性。<span style="background-color: #ffff0030;">分級後應進行適當標示</span>。
+                        (資料來源：109初級-管理概論 Q9, 109初級-管理概論 Q14, 109初級-管理概論 Q21, 110初級-管理概論 Q17, 110初級-管理概論 Q21, 111初級-管理概論 Q23, 111初級-管理概論 Q24, 111初級-管理概論 Q30, 113管理 Q16, 113管理 Q19)
+                    </div>
+                     <div class="details-header">分級與保護</div>
+                     <div class="details-content">
+                         <span style="background-color: #ffff0030;">資產分級的主要目的</span>是協助組織定義資產對組織的重要性，以便投入<span style="background-color: #ffff0030;">適切的保護資源</span>。例如，機密等級高的資料（如人事資料）需要比公開資料（如公司官網）投入更多的保護措施。不同價值的資產<span style="background-color: #ffff0030;">不應</span>投入相同的保護資源。
+                         (資料來源：109初級-管理概論 Q21, 110初級-管理概論 Q17, 111初級-管理概論 Q24)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 6 -->
+             <div class="focus-card" data-category="5" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#6</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                         <span style="color: blue; font-weight: bold;">資產價值評估</span> (<span class="english-fullname">Asset Valuation</span>)
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                     <div class="details-header">評估面向</div>
+                     <div class="details-content">
+                        評估<span style="color: blue; font-weight: bold;">資訊資產價值</span>時，主要考量其<span style="background-color: #ffff0030;">機密性、完整性、可用性</span>對組織營運的影響程度，而非僅看採購金額或折舊。<span style="color: blue; font-weight: bold;">機敏性</span> (<span class="english-fullname">Sensitivity</span>) 是最適合納入評估的面向之一。<br>
+                        資產的價值<span style="background-color: #ffff0030;">取決於其重要程度與敏感程度</span>，<span style="background-color: #ffff0030;">而非購入價格</span>。
+                        (資料來源：108初級-管理概論 Q12, 109初級-管理概論 Q9, 109初級-管理概論 Q19, 109初級-管理概論 Q14, 111初級-管理概論 Q23, 113管理 Q16)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 7 -->
+             <div class="focus-card" data-category="6" data-stars="5">
+                <div class="focus-header">
+                    <div class="focus-id">#7</div>
+                    <div class="focus-importance">★★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">資產權責</span> (<span class="english-fullname">Asset Responsibility</span>)
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                     <div class="details-header">主要角色</div>
+                     <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">資訊資產</span>的管理涉及不同角色：
+                        <ul>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">資產擁有者</b> (<span class="english-fullname">Asset Owner</span>)</span>：通常是<span style="background-color: #ffff0030;">部門主管或業務負責人</span>，對資產的<span style="background-color: #ffff0030;">整體管理</span>（分類、分級、風險處理）負最終責任，<span style="background-color: #ffff0030;">但不一定擁有資產的財產權</span>。他們負責決定誰可以使用資產以及如何使用。</li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">資產保管者</b> (<span class="english-fullname">Asset Custodian</span>)</span>：通常是 <span class="english-abbr">IT</span> 部門或系統管理人員，負責資產的<span style="background-color: #ffff0030;">日常維護、操作與安全保護</span>，執行擁有者制定的政策。</li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">資產使用者</b> (<span class="english-fullname">Asset User</span>)</span>：組織內<span style="background-color: #ffff0030;">所有需要存取和使用資產的人員</span>，有責任遵守使用規定。</li>
+                         </ul>
+                         擁有者負責<span style="background-color: #ffff0030;">確保資產已盤點造冊</span>、<span style="background-color: #ffff0030;">適切分級並受保護</span>，以及在<span style="background-color: #ffff0030;">刪除或銷毀時確保適當處置</span>。但<span style="background-color: #ffff0030;">例行維運工作不一定需要擁有者親自完成</span>。
+                         (資料來源：108初級-管理概論 Q11, 109初級-管理概論 Q13, 110初級-管理概論 Q16, 110初級-管理概論 Q19, 111管理 Q34)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 8 -->
+             <div class="focus-card" data-category="7" data-stars="3">
+                <div class="focus-header">
+                    <div class="focus-id">#8</div>
+                    <div class="focus-importance">★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        特定<span style="color: blue; font-weight: bold;">資產類型</span>考量
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                     <div class="details-header">服務資產</div>
+                     <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">服務資產</span> (<span class="english-fullname">Service Asset</span>) 指對業務運營提供支援的服務，例如<span style="background-color: #ffff0030;">電力供應</span>、網路服務、空調等。<span style="background-color: #ffff0030;">電力</span>被歸類為服務資產。
+                         (資料來源：109初級-管理概論 Q20, 111初級-管理概論 Q50)
+                    </div>
+                     <div class="details-header">雲端服務資產</div>
+                     <div class="details-content">
+                        租賃的<span style="color: blue; font-weight: bold;">雲端服務系統</span>雖然未列為會計科目資產，但其上儲存的<span style="background-color: #ffff0030;">資料</span>屬於企業組織的資產，系統本身也屬於需識別的<span style="color: blue; font-weight: bold;">服務資產</span>，皆應納入<span style="color: blue; font-weight: bold;">資產盤點</span>與管理的範圍。
+                        (資料來源：108初級-管理概論 Q14)
+                    </div>
+                    <div class="details-header">人員資產</div>
+                     <div class="details-content">
+                         <span style="color: blue; font-weight: bold;">人員</span>及其技能、經驗也被視為組織的重要資產，應納入<span style="color: blue; font-weight: bold;">資產盤點</span>與管理。委外廠商人員<span style="background-color: #ffff0030;">不屬於</span>組織內部人員資產。
+                        (資料來源：112初級-管理概論 Q18)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Placeholder for No Results -->
+             <div id="noResultsMessage">沒有找到符合條件的重點。</div>
+
+        </div><!-- end focus-points-container -->
+
+        <div class="back-to-top" id="backToTop">↑</div>
+    </div>
+
+    <script>
+        // Progress bar (no changes needed)
+        const progressBar = document.getElementById("progressBar");
+        window.onscroll = function() { updateProgressBar(); toggleBackToTopButton(); };
+        function updateProgressBar() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (height > 0) ? (winScroll / height) * 100 : 0;
+            progressBar.style.width = scrolled + "%";
+        }
+
+        // Back to top button (no changes needed)
+        const backToTopButton = document.getElementById("backToTop");
+        function toggleBackToTopButton() {
+             backToTopButton.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "flex" : "none";
+        }
+        backToTopButton.addEventListener("click", () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+        // Filter by category (Updated function name and logic)
+        function filterByCategory(categoryNumber) {
+            // Ensure categoryNumber is treated as a string for comparison, except for 'all'
+             const valueToSet = categoryNumber === 'all' ? 'all' : String(categoryNumber);
+             document.getElementById('categoryFilter').value = valueToSet;
+             document.getElementById('searchInput').value = ''; // Clear search on filter click
+             filterFocusPoints(); // Call updated filter function
+        }
+
+        // Event listeners for filters and search (Updated IDs/functions)
+        document.getElementById("categoryFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("starFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("searchButton").addEventListener("click", searchFocusPoints); // Updated function call
+        document.getElementById("searchInput").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                searchFocusPoints(); // Updated function call
+            }
+        });
+
+        const noResultsMessage = document.getElementById('noResultsMessage');
+
+        // Combined filter function (Updated variable/class names)
+        function filterFocusPoints() {
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+            let points = document.querySelectorAll(".focus-card"); // Target .focus-card
+            let anyVisible = false;
+
+            points.forEach(function(point) {
+                // Updated dataset attribute name
+                const pointCategory = point.dataset.category;
+                const pointStars = point.dataset.stars;
+
+                const matchesCategory = (category === "all" || pointCategory === category);
+                const matchesStars = (stars === "all" || pointStars === stars);
+
+                if (matchesCategory && matchesStars) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                 // Updated message text
+                 noResultsMessage.textContent = '沒有找到符合篩選條件的重點。';
+             }
+        }
+
+        // Search function (Updated variable/class names)
+        function searchFocusPoints() {
+            let searchText = document.getElementById("searchInput").value.toLowerCase().trim();
+            let points = document.querySelectorAll(".focus-card"); // Target .focus-card
+            let anyVisible = false;
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+
+            points.forEach(function(point) {
+                // Check filters first
+                 const pointCategory = point.dataset.category;
+                 const pointStars = point.dataset.stars;
+                 const matchesCategory = (category === "all" || pointCategory === category);
+                 const matchesStars = (stars === "all" || pointStars === stars);
+                let visibleBasedOnFilter = matchesCategory && matchesStars;
+
+                // Check search text
+                let pointText = point.textContent.toLowerCase();
+                let matchesSearch = (searchText === "" || pointText.includes(searchText));
+
+                // Show if matches filters AND search (or if search is empty)
+                if (visibleBasedOnFilter && matchesSearch) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 if (searchText !== "") {
+                      noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                      // Updated message text
+                      noResultsMessage.textContent = '沒有找到符合目前篩選及搜尋條件的重點。';
+                 } else {
+                     // If search is empty, rely on filter results
+                     filterFocusPoints();
+                 }
+             }
+        }
+
+        // Removed Toggle Explanations Logic
+
+         // Initial setup
+         toggleBackToTopButton();
+         updateProgressBar();
+         filterFocusPoints(); // Apply default filters on load
+
+    </script>
+</body>
+</html>

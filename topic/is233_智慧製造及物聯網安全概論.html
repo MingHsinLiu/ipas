@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>iPAS 資訊安全工程師能力鑑定 考試重點 - 智慧製造及物聯網安全概論</title> <!-- Updated Title -->
+    <style>
+        /* RWD設定，讓整體版面在不同裝置都有良好顯示 */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft JhengHei", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto; /* Added top/bottom margin */
+            padding: 25px;
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border-radius: 8px;
+        }
+        /* Updated Header */
+        .header-container {
+            background: linear-gradient(135deg, #1a5276, #2874a6); /* Adjusted Darker blue gradient */
+            color: white;
+            padding: 30px 20px; /* Increased padding */
+            margin: -25px -25px 25px -25px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+        .header-container h1 {
+            margin: 0;
+            color: white;
+            font-size: 2.2rem; /* Larger title */
+            font-weight: 600;
+            margin-bottom: 5px; /* Space below title */
+        }
+        .header-container div { /* Subtitle */
+             font-size: 1.2rem;
+             opacity: 0.9;
+             margin-top: 5px;
+             font-weight: 300; /* Lighter weight */
+        }
+
+        /* Topic Categories Section */
+        .categories-container {
+            background-color: #eaf2f8; /* Lighter blue for categories background */
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 5px solid #5499c7; /* Adjusted blue border */
+            border-radius: 5px;
+        }
+        .categories-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #1a5276; /* Darker blue for title */
+        }
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        .category-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #d4e6f1; /* Adjusted border */
+        }
+        .category-item:hover {
+            background-color: #5499c7; /* Adjusted blue hover */
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: #5499c7;
+        }
+        .category-number {
+            width: 30px;
+            height: 30px;
+            background-color: #5499c7; /* Adjusted blue number */
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .category-item:hover .category-number {
+            background-color: white;
+            color: #5499c7;
+        }
+        .category-text {
+            font-size: 0.95rem;
+        }
+
+        /* Focus Point Card Styling */
+        .focus-points-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px; /* Increased gap */
+        }
+        .focus-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 0;
+            box-shadow: 0 4px 12px rgba(26, 82, 118, 0.1); /* Adjusted shadow color */
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            border: 1px solid #e0e0e0;
+            overflow: hidden;
+            page-break-inside: avoid;
+        }
+        .focus-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(26, 82, 118, 0.15); /* Adjusted shadow color */
+        }
+        .focus-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .focus-id {
+            font-weight: bold;
+            color: #5499c7; /* Adjusted blue ID */
+            font-size: 1rem;
+            background-color: #eaf2f8; /* Background for ID */
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .focus-importance {
+            font-weight: bold;
+            font-size: 1rem;
+        }
+        .star-rating {
+            color: #f39c12;
+        }
+
+        .focus-topic-container {
+             padding: 25px 25px 20px 25px;
+             border-bottom: 1px dashed #eee;
+        }
+
+        .focus-topic {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0;
+            line-height: 1.4;
+            color: #1a5276; /* Darker blue for topic */
+        }
+
+        /* Terminology Styling */
+        .chinese-term {
+             color: #0000FF; /* Blue */
+             font-weight: bold;
+        }
+        .english-abbr {
+            color: #800080; /* Purple */
+            font-weight: bold;
+        }
+        .english-fullname {
+            color: #FF0000; /* Red */
+            font-weight: bold;
+        }
+        .keyword-highlight {
+            background-color: #ffff0030; /* Light yellow background */
+            border-radius: 2px;
+        }
+        .data-source { /* Style for the source attribution */
+            font-size: 0.8rem;
+            color: #666;
+            display: block; /* Ensure it's on a new line */
+            margin-top: 10px; /* Add some space above */
+            text-align: right;
+        }
+
+
+        /* Details Section Styling */
+        .focus-details-container {
+            padding: 20px 25px 25px 25px;
+        }
+        .details-header {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #1a5276; /* Darker blue */
+            font-size: 1.2rem;
+            letter-spacing: 0.5px;
+        }
+        .details-content {
+            line-height: 1.75;
+            color: #444;
+            font-size: 1.05rem;
+        }
+        .details-content ul {
+             padding-left: 25px;
+             margin-top: 10px;
+             margin-bottom: 10px;
+             list-style-type: disc;
+        }
+         .details-content li {
+             margin-bottom: 8px;
+         }
+         .details-content strong {
+             font-weight: 600;
+             color: #1a5276;
+         }
+
+
+        /* Controls Section Styling */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 15px;
+            background-color: #fdfdfd;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+        .filter-container, .search-container, .star-filter-container {
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            min-width: 200px;
+        }
+         .search-container { flex-grow: 2; }
+        .filter-label, .search-label, .star-filter-label {
+            font-weight: 600;
+            margin-right: 10px;
+            white-space: nowrap;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        select, input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+            flex-grow: 1;
+            font-size: 0.95rem;
+            background-color: white;
+        }
+         input[type="text"] { min-width: 180px; }
+        button {
+            padding: 10px 18px;
+            background-color: #5499c7; /* Adjusted blue buttons */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.2s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-left: 8px;
+            white-space: nowrap;
+        }
+        button:hover {
+            background-color: #2e86c1; /* Darker blue hover */
+        }
+
+        /* RWD Adjustments */
+        @media (max-width: 992px) {
+             .controls { flex-direction: column; align-items: stretch; }
+            .filter-container, .search-container, .star-filter-container { width: 100%; flex-grow: 0; }
+             select, input[type="text"] { width: 100%; }
+             button { margin-left: 0; margin-top: 5px; }
+             .search-container button { margin-left: 8px; margin-top: 0; }
+             #searchInput { width: calc(100% - 90px); }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .header-container { padding: 25px 15px; margin: -15px -15px 20px -15px; }
+            .categories-grid { grid-template-columns: 1fr; }
+            .focus-card { padding: 0; }
+             .focus-header, .focus-topic-container, .focus-details-container { padding-left: 20px; padding-right: 20px; }
+            h1 { font-size: 1.8rem; }
+            .header-container h1 { font-size: 2rem; }
+            .focus-topic { font-size: 1.3rem; }
+            .details-header { font-size: 1.1rem; }
+            .details-content { font-size: 1rem; }
+        }
+
+        /* Back to Top Button & Progress Bar */
+        .back-to-top {
+            position: fixed; bottom: 25px; right: 25px; background-color: #5499c7; color: white;
+            width: 45px; height: 45px; border-radius: 50%; display: none; justify-content: center;
+            align-items: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, opacity 0.3s, transform 0.3s; z-index: 1000;
+            opacity: 0.8; font-size: 1.2rem;
+        }
+        .back-to-top:hover { background-color: #2e86c1; opacity: 1; transform: scale(1.1); }
+        .progress-container {
+            width: 100%; height: 5px; background-color: #eaf2f8; position: fixed;
+            top: 0; left: 0; z-index: 1001;
+        }
+        .progress-bar {
+            height: 5px; background: linear-gradient(90deg, #5499c7, #aed6f1); /* Adjusted gradient */
+            width: 0%; border-radius: 0 2px 2px 0; transition: width 0.1s linear;
+        }
+         #noResultsMessage {
+             text-align: center; padding: 20px; color: #777; display: none; font-style: italic;
+         }
+
+         /* Print specific styles */
+         @media print {
+             body {
+                 background: #fff;
+                 color: #000;
+                 font-size: 10pt;
+             }
+             .container {
+                 max-width: 100%;
+                 margin: 0;
+                 padding: 0;
+                 box-shadow: none;
+                 border-radius: 0;
+             }
+             .header-container, .controls, .categories-container, .back-to-top, .progress-container {
+                 display: none;
+             }
+             .focus-points-container {
+                 display: block;
+                 gap: 15px;
+             }
+             .focus-card {
+                 box-shadow: none;
+                 border: 1px solid #ccc;
+                 margin-bottom: 15px;
+                 page-break-inside: avoid;
+                 padding: 15px;
+             }
+            .focus-header, .focus-topic-container, .focus-details-container {
+                 padding: 0;
+                 background-color: transparent;
+                 border: none;
+            }
+             .focus-topic-container { margin-bottom: 10px; }
+             .focus-topic { font-size: 1.2rem; }
+             .details-header { font-size: 1rem; margin-bottom: 5px;}
+             .details-content { font-size: 0.95rem; line-height: 1.4; }
+             .keyword-highlight {
+                 background-color: transparent;
+                 font-style: italic;
+             }
+            .chinese-term, .english-abbr, .english-fullname {
+                font-weight: bold;
+                color: #000;
+            }
+             .data-source {
+                 font-size: 0.7rem;
+                 color: #333;
+             }
+            a { text-decoration: none; color: #000; }
+            ul { padding-left: 20px; }
+            li { margin-bottom: 4px; }
+         }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <div class="header-container">
+             <h1>iPAS 資訊安全工程師能力鑑定 考試重點</h1>
+             <div>初級 - 智慧製造及物聯網安全概論</div>
+        </div>
+
+        <div class="controls">
+             <div class="filter-container">
+                <label for="categoryFilter" class="filter-label">篩選主題：</label>
+                <select id="categoryFilter">
+                    <option value="all">全部主題</option>
+                    <!-- Options will be added dynamically based on data -->
+                </select>
+            </div>
+
+            <div class="star-filter-container">
+                <label for="starFilter" class="star-filter-label">重要性：</label>
+                <select id="starFilter">
+                    <option value="all">全部重要性</option>
+                    <option value="5">★★★★★</option>
+                    <option value="4">★★★★</option>
+                    <option value="3">★★★</option>
+                </select>
+            </div>
+
+            <div class="search-container">
+                <label for="searchInput" class="search-label">搜尋：</label>
+                <input type="text" id="searchInput" placeholder="輸入關鍵字...">
+                <button id="searchButton">搜尋</button>
+            </div>
+        </div>
+
+        <div class="categories-container">
+            <div class="categories-title">主題分類</div>
+            <div class="categories-grid" id="categoriesGrid">
+                 <!-- Category items will be added dynamically -->
+                 <div class="category-item" style="display: none;" id="category-placeholder"> <!-- Placeholder -->
+                    <div class="category-number"></div>
+                    <div class="category-text"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="focus-points-container" id="focusPointsContainer">
+             <!-- Focus points will be dynamically added here -->
+             <div id="noResultsMessage">正在處理您的 PDF 檔案並提取重點，請稍候...</div>
+        </div><!-- end focus-points-container -->
+
+        <div class="back-to-top" id="backToTop">↑</div>
+    </div>
+
+    <script>
+        // --- Data Array (Will be populated by processing PDFs) ---
+        let focusPointsData = []; // Use let as it will be reassigned
+
+        // --- Function to add a focus point safely ---
+        function addFocusPoint(point) {
+             // Ensure category is a number or can be converted to one if needed later
+            if (point && point.id && point.category !== undefined && point.stars && point.topic && point.details && point.source) {
+                if (!focusPointsData.some(existingPoint => existingPoint.id === point.id)) {
+                     // Convert category to string for consistent filtering later
+                     point.category = String(point.category);
+                    focusPointsData.push(point);
+                } else {
+                    console.warn(`Skipping duplicate focus point ID: ${point.id}`);
+                }
+            } else {
+                console.error("Attempted to add invalid focus point (missing fields):", point);
+            }
+        }
+
+        // --- Processing PDF Content (Placeholder - Replace with actual extraction logic) ---
+        // =======================================================================
+        // START OF PDF CONTENT PROCESSING (SIMULATION)
+        // =======================================================================
+        // Simulate extracting points from PDFs about Smart Manufacturing and IoT Security.
+        // Ensure category numbers are assigned based on actual content grouping.
+        // **IMPORTANT**: Replace this section with your actual data extraction logic.
+
+        addFocusPoint({ id: 1, category: 1, stars: 5, topic: `<strong class="chinese-term">物聯網</strong> (<strong class="english-abbr">IoT</strong>, <strong class="english-fullname">Internet of Things</strong>) 基本定義`, details: `<span class="keyword-highlight">將實體物件</span> (Things) 透過<strong class="chinese-term">感測器</strong>、<strong class="chinese-term">致動器</strong>與網路連接起來，使其能夠<span class="keyword-highlight">收集、交換數據</span>並<span class="keyword-highlight">執行特定任務</span>的技術。目標是實現物件之間的智慧化互動與管理。<span class="data-source">(資料來源：109初級-技術概論 Q48)</span>` , source: '109初級-技術概論 Q48'});
+        addFocusPoint({ id: 2, category: 1, stars: 4, topic: `<strong class="chinese-term">物聯網架構</strong> (三層/四層/五層)`, details: `常見的<strong class="chinese-term">物聯網架構</strong>通常包含：<ul><li><strong class="chinese-term">感知層/裝置層</strong> (<strong class="english-fullname">Perception/Device Layer</strong>): 負責<span class="keyword-highlight">收集數據</span>（<strong class="chinese-term">感測器</strong> <strong class="english-abbr">Sensor</strong>）或<span class="keyword-highlight">執行動作</span>（<strong class="chinese-term">致動器</strong> <strong class="english-abbr">Actuator</strong>）。</li><li><strong class="chinese-term">網路層/連接層</strong> (<strong class="english-fullname">Network/Connectivity Layer</strong>): 負責<span class="keyword-highlight">數據傳輸</span>，使用各種有線或無線通訊技術。</li><li><strong class="chinese-term">平台層/處理層</strong> (<strong class="english-fullname">Platform/Processing Layer</strong>): 負責<span class="keyword-highlight">數據儲存、處理、分析</span>，通常在雲端或邊緣進行。</li><li><strong class="chinese-term">應用層</strong> (<strong class="english-fullname">Application Layer</strong>): 提供<span class="keyword-highlight">使用者介面與特定應用服務</span>。</li></ul>部分模型會加入<strong class="chinese-term">邊緣運算層</strong> (<strong class="english-fullname">Edge Computing Layer</strong>) 或<strong class="chinese-term">業務層</strong> (<strong class="english-fullname">Business Layer</strong>)。<span class="data-source">(資料來源：112初級-技術概論 Q49)</span>`, source: '112初級-技術概論 Q49' });
+        addFocusPoint({ id: 3, category: 5, stars: 5, topic: `<strong class="chinese-term">營運技術</strong> (<strong class="english-abbr">OT</strong>, <strong class="english-fullname">Operational Technology</strong>) vs. <strong class="chinese-term">資訊技術</strong> (<strong class="english-abbr">IT</strong>, <strong class="english-fullname">Information Technology</strong>)`, details: `<ul><li><strong class="chinese-term">營運技術</strong> (<strong class="english-abbr">OT</strong>): <span class="keyword-highlight">直接監控和控制實體設備與工業流程</span>的硬體和軟體。重點在<span class="keyword-highlight">可用性、即時性、安全性(Safety)</span>。</li><li><strong class="chinese-term">資訊技術</strong> (<strong class="english-abbr">IT</strong>): 處理<span class="keyword-highlight">數據和資訊</span>的系統。重點在<strong class="chinese-term">機密性</strong>、<strong class="chinese-term">完整性</strong>、<strong class="chinese-term">可用性</strong> (<strong class="english-abbr">CIA</strong>)。</li><li><strong class="chinese-term">IT/OT 融合</strong>: 現今趨勢，但也帶來<span class="keyword-highlight">新的安全挑戰</span>，因兩者設計目標與安全考量不同。<span class="data-source">(資料來源：110初級-技術概論 Q49, 111初級-管理概論 Q40)</span></li></ul>`, source: '110初級-技術概論 Q49, 111初級-管理概論 Q40' });
+        addFocusPoint({ id: 4, category: 5, stars: 4, topic: `<strong class="chinese-term">工業控制系統</strong> (<strong class="english-abbr">ICS</strong>, <strong class="english-fullname">Industrial Control System</strong>) 安全`, details: `<strong class="english-abbr">ICS</strong> 是 <strong class="english-abbr">OT</strong> 的核心，用於監控和控制工業流程。包含 <strong class="english-abbr">SCADA</strong> (<strong class="english-fullname">Supervisory Control and Data Acquisition</strong>), <strong class="english-abbr">DCS</strong> (<strong class="english-fullname">Distributed Control System</strong>), <strong class="english-abbr">PLC</strong> (<strong class="english-fullname">Programmable Logic Controller</strong>) 等。<br>安全挑戰：<ul><li><span class="keyword-highlight">可用性優先</span>: 停機可能導致巨大損失或安全事故。</li><li><span class="keyword-highlight">老舊系統</span>: 許多 <strong class="english-abbr">ICS</strong> 系統設計時未考慮網路安全。</li><li><span class="keyword-highlight">更新困難</span>: 更新或修補可能影響生產，需要嚴格規劃。</li><li><span class="keyword-highlight">專有協定</span>: 使用特定的工業通訊協定，安全防護工具支援有限。</li><li><span class="keyword-highlight">實體安全</span>: 控制設備可能位於易受攻擊的環境。</li></ul><span class="data-source">(資料來源：108初級-技術概論 Q44, 111初級-技術概論 Q15)</span>`, source: '108初級-技術概論 Q44, 111初級-技術概論 Q15' });
+        addFocusPoint({ id: 5, category: 8, stars: 5, topic: `<strong class="chinese-term">普渡模型</strong> (<strong class="english-fullname">Purdue Model</strong>) for <strong class="english-abbr">ICS</strong> Segmentation`, details: `<strong class="chinese-term">普渡模型</strong>是一個<span class="keyword-highlight">工業控制網路的分層參考模型</span>，用於定義不同層級的功能和安全邊界，是實現<strong class="chinese-term">網路隔離</strong> (<strong class="english-fullname">Network Segmentation</strong>) 的重要概念。<br>層級 (由下至上):<ul><li>Level 0: <strong class="chinese-term">實體流程</strong> (<strong class="english-fullname">Physical Process</strong>) - 感測器、致動器</li><li>Level 1: <strong class="chinese-term">基本控制</strong> (<strong class="english-fullname">Basic Control</strong>) - <strong class="english-abbr">PLC</strong>, <strong class="english-abbr">RTU</strong> (<strong class="english-fullname">Remote Terminal Unit</strong>)</li><li>Level 2: <strong class="chinese-term">區域監控</strong> (<strong class="english-fullname">Area Supervisory Control</strong>) - <strong class="english-abbr">HMI</strong> (<strong class="english-fullname">Human Machine Interface</strong>), <strong class="english-abbr">SCADA</strong> 伺服器</li><li>Level 3: <strong class="chinese-term">生產管理</strong> (<strong class="english-fullname">Manufacturing Operations Management</strong>) - <strong class="english-abbr">MES</strong> (<strong class="english-fullname">Manufacturing Execution System</strong>), 資料歷史庫</li><li>Level 3.5: <strong class="chinese-term">工業非軍事區</strong> (<strong class="english-abbr">IDMZ</strong>, <strong class="english-fullname">Industrial Demilitarized Zone</strong>) - 作為 <strong class="english-abbr">IT</strong> 與 <strong class="english-abbr">OT</strong> 的緩衝區 (非原始模型，後續加入)</li><li>Level 4: <strong class="chinese-term">企業資訊規劃</strong> (<strong class="english-fullname">Business Planning and Logistics</strong>) - <strong class="english-abbr">ERP</strong> (<strong class="english-fullname">Enterprise Resource Planning</strong>), 企業網路</li><li>Level 5: <strong class="chinese-term">外部網路</strong> (<strong class="english-fullname">Enterprise Network / Internet</strong>)</li></ul><span class="keyword-highlight">層級間應有嚴格的存取控制與安全措施</span>，特別是在 <strong class="english-abbr">IT</strong> (Level 4/5) 與 <strong class="english-abbr">OT</strong> (Level 0-3) 之間。<span class="data-source">(資料來源：110初級-管理概論 Q5, 112初級-管理概論 Q15)</span>`, source: '110初級-管理概論 Q5, 112初級-管理概論 Q15' });
+        addFocusPoint({ id: 6, category: 2, stars: 4, topic: `<strong class="chinese-term">IoT 裝置</strong>安全考量與防護`, details: `<ul><li><strong class="chinese-term">資源限制</strong>: <span class="keyword-highlight">低功耗、低運算能力、有限儲存空間</span>，難以實施複雜安全機制。</li><li><strong class="chinese-term">韌體安全</strong> (<strong class="english-fullname">Firmware Security</strong>): <span class="keyword-highlight">確保韌體完整性</span> (如使用<strong class="chinese-term">雜湊</strong>檢查)、<span class="keyword-highlight">來源可信</span> (如<strong class="chinese-term">數位簽章</strong>)。</li><li><strong class="chinese-term">安全啟動</strong> (<strong class="english-fullname">Secure Boot</strong>): <span class="keyword-highlight">驗證啟動過程</span>的每個組件，確保載入的軟體受信任。</li><li><strong class="chinese-term">硬體安全模組</strong> (<strong class="english-abbr">HSM</strong>, <strong class="english-fullname">Hardware Security Module</strong>) / <strong class="chinese-term">可信賴平台模組</strong> (<strong class="english-abbr">TPM</strong>, <strong class="english-fullname">Trusted Platform Module</strong>): 提供<span class="keyword-highlight">安全的金鑰儲存</span>與加密運算。</li><li><strong class="chinese-term">預設密碼</strong>: <span class="keyword-highlight">必須更改</span>，且應設定<span class="keyword-highlight">高強度密碼</span>。</li><li><strong class="chinese-term">更新機制</strong>: 需<span class="keyword-highlight">安全可靠的更新機制</span> (<strong class="english-abbr">OTA</strong>, <strong class="english-fullname">Over-the-Air</strong> update) 來修補漏洞。</li><li><strong class="chinese-term">實體安全</strong>: 考慮部署環境，<span class="keyword-highlight">防止物理破壞或竄改</span>。</li><li><strong class="chinese-term">停用不必要服務/埠</strong>: 減少攻擊面。</li></ul><span class="data-source">(資料來源：109初級-技術概論 Q49, 110初級-技術概論 Q46, 111初級-技術概論 Q48, 113初級-技術概論 Q50)</span>`, source: '109初級-技術概論 Q49, 110初級-技術概論 Q46, 111初級-技術概論 Q48, 113初級-技術概論 Q50' });
+        addFocusPoint({ id: 7, category: 3, stars: 4, topic: `<strong class="chinese-term">IoT 通訊協定</strong>與安全`, details: `<ul><li><strong class="chinese-term">常用協定</strong>: <strong class="english-abbr">MQTT</strong>, <strong class="english-abbr">CoAP</strong>, <strong class="english-abbr">HTTP/S</strong>, <strong class="english-abbr">WebSockets</strong>, <strong class="english-abbr">Zigbee</strong>, <strong class="english-abbr">Z-Wave</strong>, <strong class="english-abbr">BLE</strong>, <strong class="english-abbr">LoRaWAN</strong>, <strong class="english-abbr">NB-IoT</strong>。</li><li><strong class="chinese-term">通訊安全</strong>: <span class="keyword-highlight">確保機密性、完整性、來源驗證</span>。</li><li><strong class="chinese-term">加密機制</strong>:<ul><li><strong class="english-abbr">TLS</strong> (<strong class="english-fullname">Transport Layer Security</strong>) / <strong class="english-abbr">DTLS</strong> (<strong class="english-fullname">Datagram Transport Layer Security</strong>): 分別用於保護基於 <strong class="english-abbr">TCP</strong> 和 <strong class="english-abbr">UDP</strong> 的通訊。</li><li><strong class="english-abbr">WPA2/3</strong> (<strong class="english-fullname">Wi-Fi Protected Access</strong>): 保護 <strong class="english-fullname">Wi-Fi</strong> 網路。</li><li><strong class="english-abbr">AES-CCM</strong>: 用於 <strong class="english-abbr">Zigbee</strong>, <strong class="english-abbr">BLE</strong> 等低功耗協定。</li></ul></li><li><strong class="chinese-term">身份驗證</strong>: 裝置與平台間需進行<span class="keyword-highlight">相互驗證</span> (<strong class="english-fullname">Mutual Authentication</strong>)。方法如<strong class="chinese-term">憑證</strong> (<strong class="english-fullname">Certificates</strong>)、預共享金鑰 (<strong class="english-abbr">PSK</strong>, <strong class="english-fullname">Pre-Shared Key</strong>)、<strong class="chinese-term">權杖</strong> (<strong class="english-fullname">Tokens</strong>)。</li></ul><span class="data-source">(資料來源：109初級-技術概論 Q47, 112初級-技術概論 Q49)</span>`, source: '109初級-技術概論 Q47, 112初級-技術概論 Q49' });
+        addFocusPoint({ id: 8, category: 6, stars: 5, topic: `<strong class="chinese-term">IoT/OT 常見威脅與攻擊</strong>`, details: `<ul><li><strong class="chinese-term">裝置劫持/殭屍網路</strong>: 如 <strong class="english-fullname">Mirai</strong> <span class="keyword-highlight">利用弱/預設密碼</span>。</li><li><strong class="chinese-term">中間人攻擊</strong> (<strong class="english-abbr">MITM</strong>, <strong class="english-fullname">Man-in-the-Middle</strong>): <span class="keyword-highlight">竊聽、竄改通訊</span>。</li><li><strong class="chinese-term">韌體/軟體漏洞利用</strong>。</li><li><strong class="chinese-term">資料外洩</strong> (<strong class="english-fullname">Data Breach</strong>)。</li><li><strong class="chinese-term">實體攻擊</strong>。</li><li><strong class="chinese-term">阻斷服務攻擊</strong> (<strong class="english-abbr">DoS/DDoS</strong>, <strong class="english-fullname">Denial-of-Service / Distributed Denial-of-Service</strong>)。</li><li><strong class="chinese-term">針對 OT/ICS 的攻擊</strong>: 如 <strong class="english-fullname">Stuxnet</strong>，可能<span class="keyword-highlight">造成實體破壞</span>。</li><li><strong class="chinese-term">勒索軟體</strong> (<strong class="english-fullname">Ransomware</strong>)。</li><li><strong class="chinese-term">重放攻擊</strong> (<strong class="english-fullname">Replaying Attack</strong>): <span class="keyword-highlight">重送已錄製的合法指令</span> (例如開鎖訊號)。</li><li><strong class="chinese-term">黑洞/蟲洞攻擊</strong>: <span class="keyword-highlight">干擾無線網路路由</span>。</li></ul><span class="data-source">(資料來源：108初級-技術概論 Q49, 109初級-技術概論 Q50, 110初級-技術概論 Q48, 110初級-技術概論 Q50, 樣題-技術 Q46, 樣題-技術 Q50)</span>`, source: '108初級-技術概論 Q49, 109初級-技術概論 Q50, 110初級-技術概論 Q48, 110初級-技術概論 Q50, 樣題-技術 Q46, 樣題-技術 Q50' });
+        addFocusPoint({ id: 9, category: 7, stars: 4, topic: `<strong class="chinese-term">IoT/OT 安全防護措施</strong>`, details: `<ul><li><strong class="chinese-term">安全設計/預設安全</strong>: 開發初期即導入安全考量。</li><li><strong class="chinese-term">身份驗證與存取控制</strong>: 強固密碼、<strong class="english-abbr">MFA</strong>、最小權限。</li><li><strong class="chinese-term">通訊加密</strong>: <strong class="english-abbr">TLS/DTLS</strong>。</li><li><strong class="chinese-term">韌體/軟體更新管理</strong>: 安全的 <strong class="english-abbr">OTA</strong> 機制。</li><li><strong class="chinese-term">網路隔離與分段</strong>: 遵循<strong class="chinese-term">普渡模型</strong>或<strong class="chinese-term">零信任</strong>原則。</li><li><strong class="chinese-term">安全監控與日誌</strong>: <strong class="english-abbr">SIEM</strong>, <strong class="english-abbr">SOC</strong>。</li><li><strong class="chinese-term">實體安全</strong>。</li><li><strong class="chinese-term">安全開發生命週期</strong> (<strong class="english-abbr">SSDLC</strong>, <strong class="english-fullname">Secure Software Development Lifecycle</strong>)。</li><li><strong class="chinese-term">定期安全評估/滲透測試</strong>。</li></ul><span class="data-source">(資料來源：108初級-技術概論 Q50, 111初級-技術概論 Q49, 樣題-技術 Q48)</span>`, source: '108初級-技術概論 Q50, 111初級-技術概論 Q49, 樣題-技術 Q48' });
+        addFocusPoint({ id: 10, category: 8, stars: 4, topic: `<strong class="chinese-term">IoT/OT 相關安全標準與框架</strong>`, details: `<ul><li><strong class="english-abbr">IEC 62443</strong>: <span class="keyword-highlight">工業自動化和控制系統</span> (<strong class="english-abbr">IACS</strong>) 安全國際標準。</li><li><strong class="english-abbr">NIST Cybersecurity Framework</strong> (<strong class="english-abbr">CSF</strong>): 通用風險管理框架。</li><li><strong class="english-abbr">NIST</strong> <strong class="english-abbr">IoT</strong> 指南 (<strong class="english-fullname">NISTIR 8259 series</strong>, <strong class="english-fullname">NIST SP 800-213</strong>): <strong class="english-abbr">IoT</strong> 裝置安全建議。</li><li><strong class="english-abbr">OWASP IoT Top 10</strong>: <span class="keyword-highlight"><strong class="english-abbr">IoT</strong> 十大安全風險</span>。</li><li><strong class="english-abbr">ETSI EN 303 645</strong>: <span class="keyword-highlight">歐洲消費級 <strong class="english-abbr">IoT</strong></span> 基礎安全標準。</li><li><strong class="english-abbr">ISO 27400</strong>: <strong class="english-abbr">IoT</strong> 安全與隱私指南。</li></ul><span class="data-source">(資料來源：112初級-技術概論 Q50)</span>`, source: '112初級-技術概論 Q50' });
+        addFocusPoint({ id: 11, category: 2, stars: 3, topic: `<strong class="chinese-term">安全啟動</strong> (<strong class="english-fullname">Secure Boot</strong>)`, details: `一種<span class="keyword-highlight">驗證裝置啟動過程</span>的安全機制，從硬體信任根開始，逐層驗證載入的<strong class="chinese-term">韌體</strong>與<strong class="chinese-term">作業系統</strong>元件的<strong class="chinese-term">數位簽章</strong>，確保只有<span class="keyword-highlight">受信任的軟體</span>被執行，有效<span class="keyword-highlight">防止 <strong class="chinese-term">Bootkit</strong></span> 等惡意軟體。<span class="data-source">(資料來源：110初級-技術概論 Q46)</span>`, source: '110初級-技術概論 Q46' });
+        addFocusPoint({ id: 12, category: 3, stars: 3, topic: `<strong class="english-abbr">MQTT</strong> (<strong class="english-fullname">Message Queuing Telemetry Transport</strong>) 安全`, details: `<strong class="english-abbr">MQTT</strong> 是輕量級<span class="keyword-highlight">發布/訂閱</span>協定。<span class="keyword-highlight">本身無內建強加密</span>，需搭配 <strong class="english-abbr">TLS</strong> 加密通道 (port 8883)，並使用<strong class="chinese-term">客戶端身份驗證</strong> (帳密/憑證) 及 <strong class="chinese-term">ACL</strong> 控制主題權限。<span class="data-source">(資料來源：111初級-技術概論 Q7)</span>`, source: '111初級-技術概論 Q7' });
+        addFocusPoint({ id: 13, category: 6, stars: 4, topic: `<strong class="chinese-term">殭屍網路</strong> (<strong class="english-fullname">Botnet</strong>) - <strong class="english-fullname">Mirai</strong>`, details: `一群被惡意軟體控制的電腦或<strong class="english-abbr">IoT</strong>裝置。<strong class="english-fullname">Mirai</strong> 針對<strong class="english-abbr">IoT</strong>，<span class="keyword-highlight">掃描並利用弱/預設密碼</span>感染裝置，使其成為<strong class="chinese-term">殭屍</strong> (<strong class="english-fullname">Bot</strong>)，聽從<strong class="chinese-term">C&C伺服器</strong>指令發動<strong class="english-abbr">DDoS</strong>攻擊。防護關鍵在於<span class="keyword-highlight">更改預設密碼</span>。<span class="data-source">(資料來源：110初級-技術概論 Q48, 113初級-技術概論 Q4)</span>`, source: '110初級-技術概論 Q48, 113初級-技術概論 Q4' });
+        addFocusPoint({ id: 14, category: 5, stars: 3, topic: `<strong class="english-abbr">PLC</strong> (<strong class="english-fullname">Programmable Logic Controller</strong>) 安全`, details: `<strong class="english-abbr">PLC</strong> 是<span class="keyword-highlight">工業控制核心元件</span>，傳統<strong class="english-abbr">PLC</strong> <span class="keyword-highlight">缺乏內建安全機制</span>。風險包括未授權存取、惡意程式碼、<strong class="chinese-term">阻斷服務</strong>。需透過<strong class="chinese-term">網路隔離</strong>、存取控制、韌體更新、實體安全防護。<span class="data-source">(資料來源：109初級-技術概論 Q44)</span>`, source: '109初級-技術概論 Q44' });
+        addFocusPoint({ id: 15, category: 7, stars: 3, topic: `<strong class="chinese-term">網路隔離/分段</strong> (<strong class="english-fullname">Network Segmentation</strong>)`, details: `將大型網路<span class="keyword-highlight">劃分成隔離的子網路</span>，<span class="keyword-highlight">限制橫向移動</span>、降低衝擊範圍。實現方式：<strong class="chinese-term">防火牆</strong>、<strong class="english-abbr">VLAN</strong>、<strong class="english-abbr">SDN</strong>。常依<strong class="chinese-term">普渡模型</strong>進行 <strong class="english-abbr">OT</strong> 分段，或將 <strong class="english-abbr">IoT</strong> 裝置獨立分段。<span class="data-source">(資料來源：111初級-技術概論 Q15)</span>`, source: '111初級-技術概論 Q15' });
+        addFocusPoint({ id: 17, category: 2, stars: 3, topic: `IoT 裝置 <strong class="chinese-term">OTA</strong> (<strong class="english-fullname">Over-the-Air</strong>) 更新安全`, details: `透過無線網路<span class="keyword-highlight">遠端更新韌體/軟體</span>。安全要求：<strong class="chinese-term">來源驗證</strong> (數位簽章)、<strong class="chinese-term">完整性保護</strong> (雜湊值)、<strong class="chinese-term">傳輸加密</strong>、版本控制、<strong class="chinese-term">回滾機制</strong>。<span class="data-source">(資料來源：110初級-管理概論 Q49)</span>`, source: '110初級-管理概論 Q49' });
+        addFocusPoint({ id: 18, category: 8, stars: 4, topic: `<strong class="english-abbr">OWASP IoT Top 10</strong>`, details: `列出<span class="keyword-highlight">物聯網十大安全風險</span>，旨在提高安全意識。包含弱密碼、不安全網路服務、不安全生態系介面、缺乏安全更新機制、使用不安全元件、資料保護不足等。<span class="data-source">(資料來源：111初級-技術概論 Q49)</span>`, source: '111初級-技術概論 Q49' });
+        addFocusPoint({ id: 19, category: 5, stars: 4, topic: `<strong class="english-abbr">Stuxnet</strong> 蠕蟲`, details: `針對<strong class="chinese-term">工業控制系統</strong> (<strong class="english-abbr">ICS</strong>) 的著名<strong class="chinese-term">蠕蟲</strong>。利用<span class="keyword-highlight">零時差漏洞</span>感染西門子 <strong class="english-abbr">PLC</strong>，<span class="keyword-highlight">竄改程式</span>導致伊朗核設施離心機損壞。證明<strong class="chinese-term">網路攻擊可造成實體破壞</strong>。<span class="data-source">(資料來源：108初級-管理概論 Q47)</span>`, source: '108初級-管理概論 Q47' });
+        addFocusPoint({ id: 21, category: 6, stars: 3, topic: `<strong class="chinese-term">蟲洞攻擊</strong> (<strong class="english-fullname">Wormhole Attack</strong>)`, details: `針對<strong class="chinese-term">無線感測網路</strong>(<strong class="english-abbr">WSN</strong>)或<strong class="chinese-term">移動自組織網路</strong>(<strong class="english-abbr">MANET</strong>)的攻擊。攻擊者建立私密高速通道(蟲洞)，<span class="keyword-highlight">攔截並快速轉發</span>數據封包至網路另一遙遠區域，使節點<span class="keyword-highlight">誤判距離</span>，擾亂路由協定。<span class="data-source">(資料來源：樣題-技術 Q50)</span>`, source: '樣題-技術 Q50' });
+        addFocusPoint({ id: 22, category: 6, stars: 3, topic: `<strong class="chinese-term">黑洞攻擊</strong> (<strong class="english-fullname">Blackhole Attack</strong>)`, details: `針對路由協定的攻擊。惡意節點<span class="keyword-highlight">謊稱擁有最短路徑</span>，誘騙其他節點發送封包給它，然後<span class="keyword-highlight">直接丟棄</span>所有封包，導致網路中斷。<span class="data-source">(資料來源：樣題-技術 Q50)</span>`, source: '樣題-技術 Q50' });
+        addFocusPoint({ id: 23, category: 6, stars: 3, topic: `<strong class="chinese-term">分割重組攻擊</strong> (<strong class="english-fullname">Fragmentation Attack</strong>)`, details: `利用 <strong class="english-abbr">IP</strong> 封包<strong class="chinese-term">分片和重組</strong>機制的漏洞。如<strong class="chinese-term">淚滴攻擊</strong>(<strong class="english-fullname">Teardrop Attack</strong>)：發送<span class="keyword-highlight">偏移量重疊或矛盾的 <strong class="english-abbr">IP</strong> 分片</span>，使目標系統重組時出錯而崩潰或<strong class="chinese-term">阻斷服務</strong>。<span class="data-source">(資料來源：109初級-技術概論 Q50)</span>`, source: '109初級-技術概論 Q50' });
+        addFocusPoint({ id: 24, category: 2, stars: 3, topic: `IoT 安全設計階段考量 (<strong class="english-fullname">Security by Design</strong>)`, details: `開發初期即導入安全。包含<strong class="chinese-term">威脅建模</strong>、<strong class="chinese-term">安全需求定義</strong>、<strong class="chinese-term">最小權限原則</strong>、設計<strong class="chinese-term">安全架構</strong>(安全啟動、硬體安全、安全更新)。<span class="keyword-highlight">不應為省成本犧牲安全</span>，需提供故障中斷時的<strong class="chinese-term">應變機制</strong>。<span class="data-source">(資料來源：樣題-技術 Q49)</span>`, source: '樣題-技術 Q49' });
+        addFocusPoint({ id: 26, category: 6, stars: 4, topic: `IoT 攻擊手法`, details: `<ul><li><strong class="chinese-term">中間人攻擊</strong> (<strong class="english-abbr">MITM</strong>)</li><li><strong class="chinese-term">重放攻擊</strong> (<strong class="english-fullname">Replaying Attack</strong>): 重送合法指令。</li><li><strong class="chinese-term">社交工程</strong> (<strong class="english-fullname">Social Engineering</strong>)</li><li><strong class="chinese-term">密碼攻擊</strong> (<strong class="english-fullname">Password-Based Attack</strong>): 針對弱/預設密碼。</li><li><strong class="chinese-term">金鑰淪陷攻擊</strong> (<strong class="english-fullname">Compromised-Key Attack</strong>): 獲取加密金鑰。</li></ul><span class="data-source">(資料來源：109初級-技術概論 Q50, 110初級-技術概論 Q48)</span>`, source: '109初級-技術概論 Q50, 110初級-技術概論 Q48' });
+
+
+        // =======================================================================
+        // END OF PDF CONTENT PROCESSING (SIMULATION)
+        // =======================================================================
+
+        // --- Final Setup Logic ---
+        const categories = {};
+        const categoryMap = { // Define category names explicitly
+             1: "IoT/OT 基本概念與架構",
+             2: "IoT 裝置安全",
+             3: "IoT/OT 通訊安全",
+             4: "IoT 平台與雲端安全",
+             5: "工業控制系統/智慧製造安全 (ICS/OT Security)",
+             6: "IoT/OT 常見威脅與攻擊",
+             7: "IoT/OT 安全防護措施",
+             8: "IoT/OT 相關標準與法規"
+         };
+
+        // Determine used categories and their names from the processed data
+        focusPointsData.forEach(point => {
+            // Ensure the category exists in the map and hasn't been added yet
+            if (point.category && categoryMap[point.category] && !categories[point.category]) {
+                 categories[point.category] = categoryMap[point.category];
+             }
+        });
+
+        const categoryFilterSelect = document.getElementById('categoryFilter');
+        const categoriesGrid = document.getElementById('categoriesGrid');
+        categoriesGrid.innerHTML = ''; // Clear placeholder initially
+
+        // Sort categories numerically based on the keys we found in the data
+        const sortedCategories = Object.keys(categories).sort((a, b) => parseInt(a) - parseInt(b));
+
+        // Populate category filter dropdown ONLY with categories that have data
+        sortedCategories.forEach(catId => {
+             const option = document.createElement('option');
+             option.value = catId;
+             option.textContent = `${catId}. ${categories[catId]}`;
+             categoryFilterSelect.appendChild(option);
+         });
+
+        // Populate category grid ONLY with categories that have data
+        if (sortedCategories.length > 0) {
+            sortedCategories.forEach(catId => {
+                 const catItem = document.createElement('div');
+                 catItem.className = 'category-item';
+                 catItem.onclick = () => filterByCategory(catId);
+                 catItem.innerHTML = `
+                     <div class="category-number">${catId}</div>
+                     <div class="category-text">${categories[catId]}</div>
+                 `;
+                 categoriesGrid.appendChild(catItem);
+             });
+        } else {
+             // Optionally display a message if no categories were found at all
+             const noCategoriesMsg = document.createElement('p');
+             noCategoriesMsg.textContent = '目前沒有可用的主題分類。';
+             noCategoriesMsg.style.textAlign = 'center';
+             noCategoriesMsg.style.color = '#777';
+             categoriesGrid.appendChild(noCategoriesMsg);
+        }
+
+
+        // --- Filtering, Searching, UI Logic (Keep as is) ---
+        const focusPointsContainer = document.getElementById("focusPointsContainer");
+        const starFilter = document.getElementById("starFilter");
+        const searchInput = document.getElementById("searchInput");
+        const searchButton = document.getElementById("searchButton");
+        const noResultsMessage = document.getElementById('noResultsMessage');
+        const progressBar = document.getElementById("progressBar");
+        const backToTopButton = document.getElementById("backToTop");
+
+        function populateFocusPoints(data) {
+            focusPointsContainer.innerHTML = ''; // Clear existing points
+             noResultsMessage.style.display = 'none'; // Assume results initially
+
+            if (!data || data.length === 0) {
+                 noResultsMessage.style.display = 'block';
+                 if (searchInput.value.trim() !== "" || categoryFilterSelect.value !== "all" || starFilter.value !== "all") {
+                    noResultsMessage.textContent = '沒有找到符合目前篩選及搜尋條件的重點。';
+                 } else {
+                     // This case should ideally not happen if focusPointsData is populated initially
+                     noResultsMessage.textContent = '沒有可顯示的重點內容。';
+                 }
+                 return; // Exit if no data
+            }
+
+            data.forEach(point => {
+                const card = document.createElement('div');
+                card.className = 'focus-card';
+                card.dataset.category = point.category;
+                card.dataset.stars = point.stars;
+
+                const starRatingHtml = '<span class="star-rating">' + '★'.repeat(point.stars) + '☆'.repeat(5 - point.stars) + '</span>';
+
+                // Add the data-source span to the details content
+                const detailsWithSource = `${point.details}<span class="data-source">${point.source}</span>`;
+
+
+                card.innerHTML = `
+                    <div class="focus-header">
+                        <div class="focus-id">#${point.id}</div>
+                        <div class="focus-importance">${starRatingHtml}</div>
+                    </div>
+                    <div class="focus-topic-container">
+                        <div class="focus-topic">${point.topic}</div>
+                    </div>
+                    <div class="focus-details-container">
+                        <div class="details-content">${detailsWithSource}</div>
+                    </div>
+                `;
+                focusPointsContainer.appendChild(card);
+            });
+        }
+
+        function filterAndSearch() {
+            let category = categoryFilterSelect.value; // Use the correct variable name
+            let stars = starFilter.value;
+            let searchText = searchInput.value.toLowerCase().trim();
+
+            const filteredData = focusPointsData.filter(point => {
+                const matchesCategory = (category === "all" || String(point.category) === category);
+                const matchesStars = (stars === "all" || String(point.stars) === stars);
+
+                // Include source text in the search
+                let pointText = (point.topic + ' ' + point.details + ' ' + point.source).toLowerCase();
+                pointText = pointText.replace(/<[^>]*>/g, ' '); // Basic HTML tag removal
+                const matchesSearch = (searchText === "" || pointText.includes(searchText));
+
+                return matchesCategory && matchesStars && matchesSearch;
+            });
+
+            populateFocusPoints(filteredData);
+        }
+
+         function filterByCategory(categoryNumber) {
+             categoryFilterSelect.value = categoryNumber === 'all' ? 'all' : String(categoryNumber);
+             searchInput.value = '';
+             filterAndSearch();
+         }
+
+        // Event Listeners
+        categoryFilterSelect.addEventListener("change", filterAndSearch);
+        starFilter.addEventListener("change", filterAndSearch);
+        searchButton.addEventListener("click", filterAndSearch);
+        searchInput.addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                filterAndSearch();
+            }
+        });
+        backToTopButton.addEventListener("click", () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+        // Scroll and Progress Bar
+        window.onscroll = function() { updateProgressBar(); toggleBackToTopButton(); };
+        function updateProgressBar() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (height > 0) ? (winScroll / height) * 100 : 0;
+            progressBar.style.width = scrolled + "%";
+        }
+         function toggleBackToTopButton() {
+             backToTopButton.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "flex" : "none";
+        }
+
+        // --- Initial Load ---
+        // Ensure categories are populated before the first filter call
+        if (focusPointsData.length > 0) {
+            populateFocusPoints(focusPointsData); // Populate points first
+        }
+        toggleBackToTopButton();
+        updateProgressBar();
+        filterAndSearch(); // Then apply initial filter/search state
+
+    </script>
+</body>
+</html>

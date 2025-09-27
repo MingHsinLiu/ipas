@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>iPAS 資訊安全工程師 考試重點整理 - IS122 風險評鑑與風險處理</title> <!-- Changed Title -->
+    <style>
+        /* RWD設定，讓整體版面在不同裝置都有良好顯示 */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft JhengHei", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto; /* Added top/bottom margin */
+            padding: 25px;
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border-radius: 8px;
+        }
+        /* Updated Header */
+        .header-container {
+            background: linear-gradient(135deg, #2c3e50, #34495e); /* Darker gradient */
+            color: white;
+            padding: 30px 20px; /* Increased padding */
+            margin: -25px -25px 25px -25px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+        .header-container h1 {
+            margin: 0;
+            color: white;
+            font-size: 2.2rem; /* Larger title */
+            font-weight: 600;
+            margin-bottom: 5px; /* Space below title */
+        }
+        .header-container div { /* Subtitle */
+             font-size: 1.2rem;
+             opacity: 0.9;
+             margin-top: 5px;
+             font-weight: 300; /* Lighter weight */
+        }
+
+        /* Topic Categories Section (Renamed from Directions) */
+        .categories-container { /* Renamed */
+            background-color: #e8f0f5; /* Slightly different blue */
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 5px solid #5dade2; /* Lighter blue border */
+            border-radius: 5px;
+        }
+        .categories-title { /* Renamed */
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .categories-grid { /* Renamed */
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        .category-item { /* Renamed */
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #d6e0ea; /* Border matching background */
+        }
+        .category-item:hover {
+            background-color: #5dade2; /* Lighter blue hover */
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: #5dade2;
+        }
+        .category-number { /* Renamed */
+            width: 30px;
+            height: 30px;
+            background-color: #5dade2; /* Lighter blue number */
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .category-item:hover .category-number {
+            background-color: white;
+            color: #5dade2;
+        }
+        .category-text { /* Renamed */
+            font-size: 0.95rem;
+        }
+
+        /* Focus Point Card Styling (Replaces Question Card) */
+        .focus-points-container { /* Renamed */
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px; /* Increased gap */
+        }
+        .focus-card { /* Renamed */
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 0; /* Remove padding here, apply to inner elements */
+            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.1); /* Slightly stronger shadow */
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            border: 1px solid #e0e0e0;
+            overflow: hidden; /* Ensure inner elements respect border radius */
+        }
+        .focus-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(44, 62, 80, 0.15);
+        }
+        .focus-header { /* Renamed */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px; /* Padding inside header */
+            background-color: #f8f9fa; /* Light header background */
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .focus-id { /* Renamed */
+            font-weight: bold;
+            color: #5dade2; /* Lighter blue ID */
+            font-size: 1rem;
+            background-color: #e8f0f5; /* Background for ID */
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .focus-importance { /* Renamed */
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .focus-topic-container { /* New container for the main topic */
+             padding: 25px 25px 20px 25px; /* Padding around the topic */
+             border-bottom: 1px dashed #eee; /* Separator line */
+        }
+
+        .focus-topic { /* Replaces question-content */
+            font-size: 1.5rem; /* Larger font for the topic */
+            font-weight: 600; /* Bolder */
+            margin-bottom: 0; /* Remove margin, handled by container padding */
+            line-height: 1.4;
+            color: #2c3e50; /* Dark blue-grey for topic */
+        }
+
+        /* Styling for terminology within topic/details */
+        .english-abbr {
+            color: #8e44ad; /* Purple for abbreviations */
+            font-weight: 600;
+        }
+        .english-fullname {
+            color: #c0392b; /* Darker red for full names/concepts */
+            font-weight: 500;
+        }
+
+
+        /* Details Section Styling (Replaces Explanation) */
+        .focus-details-container { /* Renamed */
+            padding: 20px 25px 25px 25px; /* Padding for details */
+            /* background-color: #fdfefe; */ /* Optional subtle background, removing for cleaner look */
+        }
+        .details-header { /* Renamed */
+            font-weight: bold;
+            margin-bottom: 15px; /* Space below header */
+            color: #34495e;
+            font-size: 1.2rem; /* Slightly larger details header */
+            /* text-transform: uppercase; */ /* Optional styling */
+            letter-spacing: 0.5px; /* Optional spacing */
+            /* border-bottom: 2px solid #5dade2; */ /* Optional underline */
+            /* display: inline-block; */ /* If using underline */
+            /* padding-bottom: 5px; */ /* If using underline */
+        }
+        .details-content { /* Renamed */
+            line-height: 1.75; /* Increased line height for readability */
+            color: #444;
+            font-size: 1.05rem; /* Slightly larger detail text */
+        }
+        .details-content ul { /* Style lists if used in details */
+             padding-left: 25px;
+             margin-top: 10px;
+             margin-bottom: 10px;
+        }
+         .details-content li {
+             margin-bottom: 8px; /* Space between list items */
+         }
+         .formula {
+             font-family: Consolas, Monaco, monospace;
+             background-color: #eee;
+             padding: 5px 10px;
+             border-radius: 4px;
+             display: inline-block;
+             margin: 5px 0;
+         }
+
+        /* Controls Section Styling (Adjusted for Focus Points) */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 15px;
+            background-color: #fdfdfd;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+        .filter-container, .search-container, .star-filter-container { /* Removed .toggle-explanations */
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            min-width: 200px;
+        }
+         .search-container { flex-grow: 2; }
+        .filter-label, .search-label, .star-filter-label {
+            font-weight: 600;
+            margin-right: 10px;
+            white-space: nowrap;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        select, input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+            flex-grow: 1;
+            font-size: 0.95rem;
+            background-color: white;
+        }
+         input[type="text"] { min-width: 180px; }
+        button {
+            padding: 10px 18px;
+            background-color: #5dade2; /* Lighter blue buttons */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.2s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-left: 8px;
+            white-space: nowrap;
+        }
+        button:hover {
+            background-color: #3498db; /* Darker blue hover */
+        }
+
+        /* RWD Adjustments */
+        @media (max-width: 992px) {
+             .controls { flex-direction: column; align-items: stretch; }
+            .filter-container, .search-container, .star-filter-container { width: 100%; flex-grow: 0; }
+             select, input[type="text"] { width: 100%; }
+             button { margin-left: 0; margin-top: 5px; }
+             .search-container button { margin-left: 8px; margin-top: 0; }
+             #searchInput { width: calc(100% - 90px); }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .header-container { padding: 25px 15px; margin: -15px -15px 20px -15px; }
+            .categories-grid { grid-template-columns: 1fr; }
+            .focus-card { padding: 0; } /* Ensure no padding on card itself */
+             .focus-header, .focus-topic-container, .focus-details-container { padding-left: 20px; padding-right: 20px; } /* Adjust inner padding */
+            h1 { font-size: 1.8rem; }
+            .header-container h1 { font-size: 2rem; }
+            .focus-topic { font-size: 1.3rem; }
+            .details-header { font-size: 1.1rem; }
+            .details-content { font-size: 1rem; }
+        }
+
+        /* Back to Top Button & Progress Bar (No changes needed) */
+        .back-to-top {
+            position: fixed; bottom: 25px; right: 25px; background-color: #5dade2; color: white;
+            width: 45px; height: 45px; border-radius: 50%; display: none; justify-content: center;
+            align-items: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, opacity 0.3s, transform 0.3s; z-index: 1000;
+            opacity: 0.8; font-size: 1.2rem;
+        }
+        .back-to-top:hover { background-color: #3498db; opacity: 1; transform: scale(1.1); }
+        .progress-container {
+            width: 100%; height: 5px; background-color: #e8f0f5; position: fixed;
+            top: 0; left: 0; z-index: 1001;
+        }
+        .progress-bar {
+            height: 5px; background: linear-gradient(90deg, #5dade2, #85c1e9); /* Adjusted gradient */
+            width: 0%; border-radius: 0 2px 2px 0; transition: width 0.1s linear;
+        }
+         #noResultsMessage {
+             text-align: center; padding: 20px; color: #777; display: none; font-style: italic;
+         }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <div class="header-container">
+            <h1>iPAS 資訊安全工程師 考試重點</h1> <!-- Updated Title -->
+            <div>IS122 風險評鑑與風險處理</div> <!-- Updated Subtitle -->
+        </div>
+
+        <div class="controls">
+             <div class="filter-container">
+                 <!-- Updated Label -->
+                <label for="categoryFilter" class="filter-label">篩選主題：</label>
+                <select id="categoryFilter"> <!-- Updated ID -->
+                    <option value="all">全部主題</option>
+                    <option value="1">風險管理基礎概念</option>
+                    <option value="2">風險識別與要素</option>
+                    <option value="3">風險分析 (定性與定量)</option>
+                    <option value="4">風險評估與基準</option>
+                    <option value="5">風險處理策略</option>
+                    <option value="6">殘餘風險與風險接受</option>
+                    <option value="7">風險管理流程與循環</option>
+                    <option value="8">CVSS 與其他相關概念</option>
+                </select>
+            </div>
+
+            <div class="star-filter-container">
+                <label for="starFilter" class="star-filter-label">重要性：</label>
+                <select id="starFilter">
+                    <option value="all">全部重要性</option>
+                    <option value="5">★★★★★</option>
+                    <option value="4">★★★★</option>
+                    <option value="3">★★★</option>
+                    <option value="2">★★</option>
+                    <option value="1">★</option>
+                </select>
+            </div>
+
+            <div class="search-container">
+                <label for="searchInput" class="search-label">搜尋：</label>
+                <input type="text" id="searchInput" placeholder="輸入關鍵字...">
+                <button id="searchButton">搜尋</button>
+            </div>
+            <!-- Removed Toggle Explanations Button -->
+        </div>
+
+        <div class="categories-container"> <!-- Renamed -->
+            <div class="categories-title">主題分類</div> <!-- Updated Title -->
+            <div class="categories-grid" id="categoriesGrid"> <!-- Renamed ID -->
+                <!-- Renamed classes and updated filter function call -->
+                 <div class="category-item" onclick="filterByCategory(1)">
+                    <div class="category-number">1</div>
+                    <div class="category-text">風險管理基礎概念</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(2)">
+                    <div class="category-number">2</div>
+                    <div class="category-text">風險識別與要素</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(3)">
+                    <div class="category-number">3</div>
+                    <div class="category-text">風險分析 (定性與定量)</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(4)">
+                    <div class="category-number">4</div>
+                    <div class="category-text">風險評估與基準</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(5)">
+                    <div class="category-number">5</div>
+                    <div class="category-text">風險處理策略</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(6)">
+                    <div class="category-number">6</div>
+                    <div class="category-text">殘餘風險與風險接受</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(7)">
+                    <div class="category-number">7</div>
+                    <div class="category-text">風險管理流程與循環</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(8)">
+                    <div class="category-number">8</div>
+                    <div class="category-text">CVSS 與其他相關概念</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="focus-points-container" id="focusPointsContainer"> <!-- Renamed -->
+
+            <!-- Focus Point 1 -->
+            <div class="focus-card" data-category="1" data-stars="5">
+                <div class="focus-header">
+                    <div class="focus-id">#1</div>
+                    <div class="focus-importance">★★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">風險</span> (<span class="english-fullname">Risk</span>) 的定義與要素
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">風險</span>是指<span style="background-color: #ffff0030;">目標的不確定性效應</span>，特別是指可能對組織造成<span style="background-color: #ffff0030;">負面影響</span>的事件或情況發生的可能性及其後果。<br>
+                        <span style="color: blue; font-weight: bold;">資訊安全風險</span>通常由以下要素構成：
+                        <ul>
+                            <li><span style="color: blue; font-weight: bold;">資產</span> (<span class="english-fullname">Asset</span>)：對組織有價值的任何事物。</li>
+                            <li><span style="color: blue; font-weight: bold;">威脅</span> (<span class="english-fullname">Threat</span>)：可能損害資產的潛在原因（人為或自然）。</li>
+                            <li><span style="color: blue; font-weight: bold;">弱點</span> / <span style="color: blue; font-weight: bold;">脆弱性</span> (<span class="english-fullname">Vulnerability</span>)：資產或控制措施中可能被威脅利用的缺陷。</li>
+                            <li><span style="color: blue; font-weight: bold;">衝擊</span> (<span class="english-fullname">Impact</span>)：風險事件發生時對組織造成的損害程度。</li>
+                        </ul>
+                        <span style="background-color: #ffff0030;">風險 = 威脅 x 弱點 x 衝擊</span> (概念公式，實務計算更複雜)<br>
+                        <span style="background-color: #ffff0030;">弱點</span>是指系統、程序、設計、裝置或內部控制裡的一個<span style="background-color: #ffff0030;">瑕疵或缺點</span>，若被威脅來源利用，會破壞安全性或違背系統安全政策。
+                        (資料來源：108初級-管理概論 Q4, 109初級-管理概論 Q22, 113管理 Q23)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 2 -->
+            <div class="focus-card" data-category="2" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#2</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">風險評鑑</span> (<span class="english-fullname">Risk Assessment</span>) 流程
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">主要活動</div>
+                    <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">風險評鑑</span>是一個系統化的過程，用於識別、分析和評估風險。其主要活動包括：
+                        <ol>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">風險識別</b> (<span class="english-fullname">Risk Identification</span>)</span>：<span style="background-color: #ffff0030;">發掘</span>可能發生的風險事件及其原因和方式。</li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">風險分析</b> (<span class="english-fullname">Risk Analysis</span>)</span>：<span style="background-color: #ffff0030;">理解風險</span>的性質並決定風險等級（可能性與衝擊）。</li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">風險評估</b> (<span class="english-fullname">Risk Evaluation</span>)</span>：將<span style="background-color: #ffff0030;">風險分析結果與風險準則進行比較</span>，以決定風險是否可接受或需要處理。</li>
+                        </ol>
+                        <span style="background-color: #ffff0030;">風險處理</span> (<span class="english-fullname">Risk Treatment</span>) 是<span style="background-color: #ffff0030;">風險評鑑之後</span>的步驟，不屬於風險評鑑過程本身。
+                        (資料來源：111初級-管理概論 Q4, 110初級-管理概論 Q23, 113管理 Q22)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 3 -->
+            <div class="focus-card" data-category="3" data-stars="5">
+                <div class="focus-header">
+                    <div class="focus-id">#3</div>
+                    <div class="focus-importance">★★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">風險分析</span> (<span class="english-fullname">Risk Analysis</span>) - 定性與定量
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">分析方法</div>
+                    <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">風險分析</span>旨在了解風險發生的可能性與影響程度，主要有兩種方法：
+                        <ul>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">定性分析</b> (<span class="english-fullname">Qualitative Analysis</span>)</span>：<span style="background-color: #ffff0030;">主觀判斷</span>風險的等級，常用描述性詞語（如：高、中、低；極小、較小、中等、較大、巨大）。不以具體金錢數額計算損失。</li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">定量分析</b> (<span class="english-fullname">Quantitative Analysis</span>)</span>：使用<span style="background-color: #ffff0030;">數值化方法</span>計算風險的影響，通常以<span style="background-color: #ffff0030;">貨幣金額</span>表示預期損失。</li>
+                        </ul>
+                         <span style="background-color: #ffff0030;">均線</span> (<span class="english-fullname">Moving Average, MA</span>) 是技術分析指標，<span style="background-color: #ffff0030;">不屬於</span>定量風險分析的計算因子。
+                        (資料來源：108初級-管理概論 Q16, 110初級-管理概論 Q25, 113管理 Q26)
+                    </div>
+                    <div class="details-header">定量分析公式</div>
+                    <div class="details-content">
+                        常用的<span style="color: blue; font-weight: bold;">定量風險分析</span>公式：
+                        <ul>
+                            <li><span style="color: blue; font-weight: bold;">單一損失預期值</span> (<span class="english-abbr">SLE</span>, <span class="english-fullname">Single Loss Expectancy</span>) = <span style="color: blue; font-weight: bold;">資產價值</span> (<span class="english-abbr">AV</span>) × <span style="color: blue; font-weight: bold;">暴露因子</span> (<span class="english-abbr">EF</span>)</li>
+                            <li><span style="color: blue; font-weight: bold;">年度損失預期值</span> (<span class="english-abbr">ALE</span>, <span class="english-fullname">Annualized Loss Expectancy</span>) = <span style="color: blue; font-weight: bold;">單一損失預期值</span> (<span class="english-abbr">SLE</span>) × <span style="color: blue; font-weight: bold;">年度發生率</span> (<span class="english-abbr">ARO</span>)</li>
+                        </ul>
+                        其中：
+                        <ul>
+                             <li><span class="english-abbr">AV</span> (<span class="english-fullname">Asset Value</span>): 資產的價值。</li>
+                            <li><span class="english-abbr">EF</span> (<span class="english-fullname">Exposure Factor</span>): 風險事件發生時資產損失的百分比。</li>
+                            <li><span class="english-abbr">ARO</span> (<span class="english-fullname">Annualized Rate of Occurrence</span>): 風險事件在一年內發生的頻率。</li>
+                        </ul>
+                        例如：20年才發生一次的地震，<span class="english-abbr">ARO</span> = 1/20 = 0.05。若資產價值50萬，<span class="english-abbr">EF</span>=25%，則 <span class="english-abbr">SLE</span> = 50萬 * 0.25 = 12.5萬，<span class="english-abbr">ALE</span> = 12.5萬 * 0.05 = 6250元。
+                         (資料來源：113管理 Q26)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 4 -->
+            <div class="focus-card" data-category="4" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#4</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">風險評估</span> (<span class="english-fullname">Risk Evaluation</span>) 與基準
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">風險評估</span>是將<span style="color: blue; font-weight: bold;">風險分析</span>的結果與<span style="background-color: #ffff0030;">預先建立的風險準則</span>（例如<span style="color: blue; font-weight: bold;">可接受風險</span>等級、<span style="color: blue; font-weight: bold;">風險胃納</span>）進行比較，以判斷風險的<span style="background-color: #ffff0030;">顯著性</span>並決定是否需要處理的過程。<br>
+                        其目的是<span style="background-color: #ffff0030;">決定可接受風險的程度</span>，以及對無法接受的風險確定處理的優先順序。
+                        (資料來源：108初級-管理概論 Q18, 110初級-管理概論 Q25, 113管理 Q25)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 5 -->
+            <div class="focus-card" data-category="5" data-stars="5">
+                <div class="focus-header">
+                    <div class="focus-id">#5</div>
+                    <div class="focus-importance">★★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">風險處理</span> (<span class="english-fullname">Risk Treatment</span>) 策略
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">四大策略</div>
+                    <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">風險處理</span>是指針對已評估的風險，選擇並實施適當措施的過程。主要有四種策略：
+                        <ul>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">風險規避</b> (<span class="english-fullname">Risk Avoidance</span>)</span>：<span style="background-color: #ffff0030;">完全停止</span>可能引發風險的活動。例如：為避免淹水將機房搬到高樓層。</li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">風險降低</b> / <span style="color: blue; font-weight: bold;">風險減輕</span> (<span class="english-fullname">Risk Reduction</span> / <span class="english-fullname">Risk Mitigation</span>)</span>：採取<span style="background-color: #ffff0030;">控制措施</span>來降低風險發生的可能性或衝擊。例如：安裝防火牆、資料備份。</li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">風險轉移</b> / <span style="color: blue; font-weight: bold;">風險分擔</span> (<span class="english-fullname">Risk Transfer</span> / <span class="english-fullname">Risk Sharing</span>)</span>：將部分或全部風險<span style="background-color: #ffff0030;">轉移給第三方</span>承擔。例如：購買保險、委外服務。</li>
+                            <li><span style="background-color: #ffff0030;"><b style="color: blue;">風險接受</b> / <span style="color: blue; font-weight: bold;">風險保留</span> (<span class="english-fullname">Risk Acceptance</span> / <span class="english-fullname">Risk Retention</span>)</span>：<span style="background-color: #ffff0030;">接受風險</span>存在，不採取額外措施。通常用於低風險或處理成本過高的情況。例如：資安事件損失在組織可容忍範圍內。</li>
+                        </ul>
+                        <span style="background-color: #ffff0030;">風險忽略 (<span class="english-fullname">Risk Neglect</span>)</span> 或<span style="background-color: #ffff0030;">風險調整 (<span class="english-fullname">Risk Adjust</span>)</span> <span style="background-color: #ffff0030;">並非</span>標準的風險處理選項。<span style="background-color: #ffff0030;">風險處理策略並非必然相互排斥</span>，可同時選用多種方式。
+                        (資料來源：108初級-管理概論 Q4, 108初級-管理概論 Q17, 108初級-管理概論 Q20, 109初級-管理概論 Q15, 110初級-管理概論 Q26, 111初級-管理概論 Q42, 112初級-管理概論 Q21, 112初級-管理概論 Q22, 112初級-管理概論 Q25, 113管理 Q33, 113管理 Q34, 113管理 Q35)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 6 -->
+            <div class="focus-card" data-category="6" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#6</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">殘餘風險</span> (<span class="english-fullname">Residual Risk</span>) 與<span style="color: blue; font-weight: bold;">風險接受</span> (<span class="english-fullname">Risk Acceptance</span>)
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">定義</div>
+                    <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">殘餘風險</span>是指在<span style="background-color: #ffff0030;">執行風險處理措施後，仍然殘留下來的風險</span>。即使採取了控制措施，風險通常無法完全消除。<br>
+                        <span style="color: blue; font-weight: bold;">風險接受</span>是指組織<span style="background-color: #ffff0030;">知曉並接受</span>某個風險及其潛在後果，決定不採取額外處理措施。通常適用於<span style="background-color: #ffff0030;">殘餘風險低於組織可接受範圍</span>的情況。經過風險評鑑後，低風險或處理成本過高的風險項目，可能會被組織選擇接受。
+                        (資料來源：109初級-管理概論 Q24, 110初級-管理概論 Q22, 110初級-管理概論 Q26, 113管理 Q25)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 7 -->
+            <div class="focus-card" data-category="7" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#7</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">風險管理</span>流程與<span style="color: blue; font-weight: bold;">PDCA</span>循環
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">PDCA 循環</div>
+                    <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">資訊安全管理系統</span> (<span class="english-abbr">ISMS</span>) 常採用 <span style="color: blue; font-weight: bold;">PDCA</span> (<span class="english-fullname">Plan-Do-Check-Act</span>) 循環來進行持續改善。<span style="color: blue; font-weight: bold;">風險評鑑</span>作業主要屬於 <span style="background-color: #ffff0030;"><b style="color: blue;">規劃</b> (<span class="english-fullname">Plan</span>)</span> 或 <span style="background-color: #ffff0030;"><b style="color: blue;">執行</b> (<span class="english-fullname">Do</span>)</span> 階段，視具體定義而定 (題目中較常歸類於 Do)。<span style="color: blue; font-weight: bold;">風險處理</span>屬於 <span style="background-color: #ffff0030;"><b style="color: blue;">執行</b> (<span class="english-fullname">Do</span>)</span> 階段。管理階層審查屬於 <span style="background-color: #ffff0030;"><b style="color: blue;">檢查</b> (<span class="english-fullname">Check</span>)</span> 階段。
+                         (資料來源：108初級-管理概論 Q55, 110初級-管理概論 Q3, 111初級-管理概論 Q2, 112初級-管理概論 Q5)
+                    </div>
+                     <div class="details-header">持續性</div>
+                     <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">風險管理</span>是一個<span style="background-color: #ffff0030;">持續性</span>的過程，需要定期重新評鑑風險，並根據環境變化調整控制措施。重大風險項目完成處理後，仍需進行<span style="background-color: #ffff0030;">風險再評估</span> (<span class="english-fullname">Risk Reassessment</span>)。
+                         (資料來源：109初級-管理概論 Q16, 109初級-管理概論 Q24, 113管理 Q25, 113管理 Q27)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 8 -->
+            <div class="focus-card" data-category="8" data-stars="3">
+                <div class="focus-header">
+                    <div class="focus-id">#8</div>
+                    <div class="focus-importance">★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span style="color: blue; font-weight: bold;">通用漏洞評分系統</span> (<span class="english-abbr">CVSS</span>)
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <span style="color: blue; font-weight: bold;">通用漏洞評分系統</span> (<span class="english-abbr">CVSS</span>, <span class="english-fullname">Common Vulnerability Scoring System</span>) 是一個<span style="background-color: #ffff0030;">公開標準</span>，用於評估電腦系統安全漏洞的<span style="background-color: #ffff0030;">嚴重程度</span>。<br>
+                        <span class="english-abbr">CVSS</span> v3.x 版本將評分指標分為三個群組：
+                        <ul>
+                             <li><span style="background-color: #ffff0030;">基本指標群</span> (<span class="english-fullname">Base Metric Group</span>)：評估漏洞本身的固有特性，如攻擊途徑、攻擊複雜度、所需權限、使用者互動、範圍、機密性衝擊、完整性衝擊、可用性衝擊。</li>
+                             <li><span style="background-color: #ffff0030;">暫時指標群</span> (<span class="english-fullname">Temporal Metric Group</span>)：評估漏洞隨時間變化的特性，如 Exploit 可用性、修補程式等級、報告可信度。</li>
+                             <li><span style="background-color: #ffff0030;">環境指標群</span> (<span class="english-fullname">Environmental Metric Group</span>)：評估漏洞在特定使用者環境中的特性，如修改後的安全需求、修改後的範圍。</li>
+                        </ul>
+                        基本指標群中<span style="background-color: #ffff0030;">不包含</span>「可靠性衝擊」(<span class="english-fullname">Reliability Impact</span>)。<span class="english-abbr">CVSS</span> 本身是一個<span style="background-color: #ffff0030;">弱點計分系統</span>，而非漏洞種類或修補建議。
+                        (資料來源：109技術-概論 Q29, 111初級-管理概論 Q25, 113技術-概論 Q32)
+                    </div>
+                </div>
+            </div>
+
+
+             <!-- Placeholder for No Results -->
+             <div id="noResultsMessage">沒有找到符合條件的重點。</div>
+
+        </div><!-- end focus-points-container -->
+
+        <div class="back-to-top" id="backToTop">↑</div>
+    </div>
+
+    <script>
+        // Progress bar (no changes needed)
+        const progressBar = document.getElementById("progressBar");
+        window.onscroll = function() { updateProgressBar(); toggleBackToTopButton(); };
+        function updateProgressBar() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (height > 0) ? (winScroll / height) * 100 : 0;
+            progressBar.style.width = scrolled + "%";
+        }
+
+        // Back to top button (no changes needed)
+        const backToTopButton = document.getElementById("backToTop");
+        function toggleBackToTopButton() {
+             backToTopButton.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "flex" : "none";
+        }
+        backToTopButton.addEventListener("click", () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+        // Filter by category (Updated function name and logic)
+        function filterByCategory(categoryNumber) {
+            // Ensure categoryNumber is treated as a string for comparison, except for 'all'
+             const valueToSet = categoryNumber === 'all' ? 'all' : String(categoryNumber);
+             document.getElementById('categoryFilter').value = valueToSet;
+             document.getElementById('searchInput').value = ''; // Clear search on filter click
+             filterFocusPoints(); // Call updated filter function
+        }
+
+        // Event listeners for filters and search (Updated IDs/functions)
+        document.getElementById("categoryFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("starFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("searchButton").addEventListener("click", searchFocusPoints); // Updated function call
+        document.getElementById("searchInput").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                searchFocusPoints(); // Updated function call
+            }
+        });
+
+        const noResultsMessage = document.getElementById('noResultsMessage');
+
+        // Combined filter function (Updated variable/class names)
+        function filterFocusPoints() {
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+            let points = document.querySelectorAll(".focus-card"); // Target .focus-card
+            let anyVisible = false;
+
+            points.forEach(function(point) {
+                // Updated dataset attribute name
+                const pointCategory = point.dataset.category;
+                const pointStars = point.dataset.stars;
+
+                const matchesCategory = (category === "all" || pointCategory === category);
+                const matchesStars = (stars === "all" || pointStars === stars);
+
+                if (matchesCategory && matchesStars) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                 // Updated message text
+                 noResultsMessage.textContent = '沒有找到符合篩選條件的重點。';
+             }
+        }
+
+        // Search function (Updated variable/class names)
+        function searchFocusPoints() {
+            let searchText = document.getElementById("searchInput").value.toLowerCase().trim();
+            let points = document.querySelectorAll(".focus-card"); // Target .focus-card
+            let anyVisible = false;
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+
+            points.forEach(function(point) {
+                // Check filters first
+                 const pointCategory = point.dataset.category;
+                 const pointStars = point.dataset.stars;
+                 const matchesCategory = (category === "all" || pointCategory === category);
+                 const matchesStars = (stars === "all" || pointStars === stars);
+                let visibleBasedOnFilter = matchesCategory && matchesStars;
+
+                // Check search text
+                let pointText = point.textContent.toLowerCase();
+                let matchesSearch = (searchText === "" || pointText.includes(searchText));
+
+                // Show if matches filters AND search (or if search is empty)
+                if (visibleBasedOnFilter && matchesSearch) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 if (searchText !== "") {
+                      noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                      // Updated message text
+                      noResultsMessage.textContent = '沒有找到符合目前篩選及搜尋條件的重點。';
+                 } else {
+                     // If search is empty, rely on filter results
+                     filterFocusPoints();
+                 }
+             }
+        }
+
+        // Removed Toggle Explanations Logic
+
+         // Initial setup
+         toggleBackToTopButton();
+         updateProgressBar();
+         filterFocusPoints(); // Apply default filters on load
+
+    </script>
+</body>
+</html>

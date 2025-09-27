@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>iPAS 資訊安全工程師 考試重點整理 - 日誌管理</title> <!-- Changed Title -->
+    <style>
+        /* RWD設定，讓整體版面在不同裝置都有良好顯示 */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft JhengHei", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto; /* Added top/bottom margin */
+            padding: 25px;
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border-radius: 8px;
+        }
+        /* Updated Header */
+        .header-container {
+            background: linear-gradient(135deg, #2c3e50, #34495e); /* Darker gradient */
+            color: white;
+            padding: 30px 20px; /* Increased padding */
+            margin: -25px -25px 25px -25px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+        .header-container h1 {
+            margin: 0;
+            color: white;
+            font-size: 2.2rem; /* Larger title */
+            font-weight: 600;
+            margin-bottom: 5px; /* Space below title */
+        }
+        .header-container div { /* Subtitle */
+             font-size: 1.2rem;
+             opacity: 0.9;
+             margin-top: 5px;
+             font-weight: 300; /* Lighter weight */
+        }
+
+        /* Topic Categories Section (Renamed from Directions) */
+        .categories-container { /* Renamed */
+            background-color: #e8f0f5; /* Slightly different blue */
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 5px solid #5dade2; /* Lighter blue border */
+            border-radius: 5px;
+        }
+        .categories-title { /* Renamed */
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .categories-grid { /* Renamed */
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        .category-item { /* Renamed */
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #d6e0ea; /* Border matching background */
+        }
+        .category-item:hover {
+            background-color: #5dade2; /* Lighter blue hover */
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: #5dade2;
+        }
+        .category-number { /* Renamed */
+            width: 30px;
+            height: 30px;
+            background-color: #5dade2; /* Lighter blue number */
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .category-item:hover .category-number {
+            background-color: white;
+            color: #5dade2;
+        }
+        .category-text { /* Renamed */
+            font-size: 0.95rem;
+        }
+
+        /* Focus Point Card Styling (Replaces Question Card) */
+        .focus-points-container { /* Renamed */
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px; /* Increased gap */
+        }
+        .focus-card { /* Renamed */
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 0; /* Remove padding here, apply to inner elements */
+            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.1); /* Slightly stronger shadow */
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            border: 1px solid #e0e0e0;
+            overflow: hidden; /* Ensure inner elements respect border radius */
+        }
+        .focus-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(44, 62, 80, 0.15);
+        }
+        .focus-header { /* Renamed */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px; /* Padding inside header */
+            background-color: #f8f9fa; /* Light header background */
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .focus-id { /* Renamed */
+            font-weight: bold;
+            color: #5dade2; /* Lighter blue ID */
+            font-size: 1rem;
+            background-color: #e8f0f5; /* Background for ID */
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .focus-importance { /* Renamed */
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .focus-topic-container { /* New container for the main topic */
+             padding: 25px 25px 20px 25px; /* Padding around the topic */
+             border-bottom: 1px dashed #eee; /* Separator line */
+        }
+
+        .focus-topic { /* Replaces question-content */
+            font-size: 1.5rem; /* Larger font for the topic */
+            font-weight: 600; /* Bolder */
+            margin-bottom: 0; /* Remove margin, handled by container padding */
+            line-height: 1.4;
+            color: #2c3e50; /* Dark blue-grey for topic */
+        }
+
+        /* Styling for terminology within topic/details */
+        .chinese-term {
+            color: #0000FF; /* Blue */
+            font-weight: bold;
+        }
+        .english-abbr {
+            color: #800080; /* Purple */
+            font-weight: bold;
+        }
+        .english-fullname {
+            color: #FF0000; /* Red */
+            font-weight: bold;
+        }
+        .keyword-highlight {
+            background-color: #ffff0030; /* Light yellow background */
+        }
+
+        /* Details Section Styling (Replaces Explanation) */
+        .focus-details-container { /* Renamed */
+            padding: 20px 25px 25px 25px; /* Padding for details */
+            /* background-color: #fdfefe; */ /* Optional subtle background, removing for cleaner look */
+        }
+        .details-header { /* Renamed */
+            font-weight: bold;
+            margin-bottom: 15px; /* Space below header */
+            color: #34495e;
+            font-size: 1.2rem; /* Slightly larger details header */
+            /* text-transform: uppercase; */ /* Optional styling */
+            letter-spacing: 0.5px; /* Optional spacing */
+            /* border-bottom: 2px solid #5dade2; */ /* Optional underline */
+            /* display: inline-block; */ /* If using underline */
+            /* padding-bottom: 5px; */ /* If using underline */
+        }
+        .details-content { /* Renamed */
+            line-height: 1.75; /* Increased line height for readability */
+            color: #444;
+            font-size: 1.05rem; /* Slightly larger detail text */
+        }
+        .details-content ul { /* Style lists if used in details */
+             padding-left: 25px;
+             margin-top: 10px;
+             margin-bottom: 10px;
+        }
+         .details-content li {
+             margin-bottom: 8px; /* Space between list items */
+         }
+         .source-ref {
+            font-size: 0.85rem;
+            color: #777;
+            margin-top: 15px;
+            display: block;
+            text-align: right;
+         }
+
+        /* Controls Section Styling (Adjusted for Focus Points) */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 15px;
+            background-color: #fdfdfd;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+        .filter-container, .search-container, .star-filter-container { /* Removed .toggle-explanations */
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            min-width: 200px;
+        }
+         .search-container { flex-grow: 2; }
+        .filter-label, .search-label, .star-filter-label {
+            font-weight: 600;
+            margin-right: 10px;
+            white-space: nowrap;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        select, input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+            flex-grow: 1;
+            font-size: 0.95rem;
+            background-color: white;
+        }
+         input[type="text"] { min-width: 180px; }
+        button {
+            padding: 10px 18px;
+            background-color: #5dade2; /* Lighter blue buttons */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.2s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-left: 8px;
+            white-space: nowrap;
+        }
+        button:hover {
+            background-color: #3498db; /* Darker blue hover */
+        }
+
+        /* RWD Adjustments */
+        @media (max-width: 992px) {
+             .controls { flex-direction: column; align-items: stretch; }
+            .filter-container, .search-container, .star-filter-container { width: 100%; flex-grow: 0; }
+             select, input[type="text"] { width: 100%; }
+             button { margin-left: 0; margin-top: 5px; }
+             .search-container button { margin-left: 8px; margin-top: 0; }
+             #searchInput { width: calc(100% - 90px); }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .header-container { padding: 25px 15px; margin: -15px -15px 20px -15px; }
+            .categories-grid { grid-template-columns: 1fr; }
+            .focus-card { padding: 0; } /* Ensure no padding on card itself */
+             .focus-header, .focus-topic-container, .focus-details-container { padding-left: 20px; padding-right: 20px; } /* Adjust inner padding */
+            h1 { font-size: 1.8rem; }
+            .header-container h1 { font-size: 2rem; }
+            .focus-topic { font-size: 1.3rem; }
+            .details-header { font-size: 1.1rem; }
+            .details-content { font-size: 1rem; }
+        }
+
+        /* Back to Top Button & Progress Bar (No changes needed) */
+        .back-to-top {
+            position: fixed; bottom: 25px; right: 25px; background-color: #5dade2; color: white;
+            width: 45px; height: 45px; border-radius: 50%; display: none; justify-content: center;
+            align-items: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, opacity 0.3s, transform 0.3s; z-index: 1000;
+            opacity: 0.8; font-size: 1.2rem;
+        }
+        .back-to-top:hover { background-color: #3498db; opacity: 1; transform: scale(1.1); }
+        .progress-container {
+            width: 100%; height: 5px; background-color: #e8f0f5; position: fixed;
+            top: 0; left: 0; z-index: 1001;
+        }
+        .progress-bar {
+            height: 5px; background: linear-gradient(90deg, #5dade2, #85c1e9); /* Adjusted gradient */
+            width: 0%; border-radius: 0 2px 2px 0; transition: width 0.1s linear;
+        }
+         #noResultsMessage {
+             text-align: center; padding: 20px; color: #777; display: none; font-style: italic;
+         }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <div class="header-container">
+            <h1>iPAS 資訊安全工程師 考試重點</h1> <!-- Updated Title -->
+            <div>IS223 日誌管理</div>
+        </div>
+
+        <div class="controls">
+             <div class="filter-container">
+                <label for="categoryFilter" class="filter-label">篩選主題：</label>
+                <select id="categoryFilter">
+                    <option value="all">全部主題</option>
+                    <option value="1">基本概念與差異</option>
+                    <option value="2">日誌管理流程與工具</option>
+                    <option value="3">日誌保存與合規</option>
+                    <option value="4">特定系統日誌</option>
+                    <option value="5">事件應變與日誌</option>
+                </select>
+            </div>
+
+            <div class="star-filter-container">
+                <label for="starFilter" class="star-filter-label">重要性：</label>
+                <select id="starFilter">
+                    <option value="all">全部重要性</option>
+                    <option value="5">★★★★★</option>
+                    <option value="4">★★★★</option>
+                    <option value="3">★★★</option>
+                    <option value="2">★★</option>
+                    <option value="1">★</option>
+                </select>
+            </div>
+
+            <div class="search-container">
+                <label for="searchInput" class="search-label">搜尋：</label>
+                <input type="text" id="searchInput" placeholder="輸入關鍵字...">
+                <button id="searchButton">搜尋</button>
+            </div>
+        </div>
+
+        <div class="categories-container">
+            <div class="categories-title">主題分類</div>
+            <div class="categories-grid" id="categoriesGrid">
+                <div class="category-item" onclick="filterByCategory(1)">
+                    <div class="category-number">1</div>
+                    <div class="category-text">基本概念與差異 (日誌/事件/事故)</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(2)">
+                    <div class="category-number">2</div>
+                    <div class="category-text">日誌管理流程與工具 (收集/正規化/SIEM)</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(3)">
+                    <div class="category-number">3</div>
+                    <div class="category-text">日誌保存與合規 (期限/保護/稽核軌跡)</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(4)">
+                    <div class="category-number">4</div>
+                    <div class="category-text">特定系統日誌 (Linux/Windows/應用程式)</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(5)">
+                    <div class="category-number">5</div>
+                    <div class="category-text">事件應變與日誌 (調查/鑑識)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="focus-points-container" id="focusPointsContainer">
+
+            <div class="focus-card" data-category="1" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#LGM01</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span class="chinese-term">日誌</span>、<span class="chinese-term">事件</span>、<span class="chinese-term">事故</span>的差異
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">定義區分</div>
+                    <div class="details-content">
+                        <ul>
+                            <li><span class="chinese-term">日誌</span> (<span class="english-abbr">Log</span>)：<span class="keyword-highlight">僅是如實記錄所有系統活動</span>。例如：「使用者A在9:00-9:15嘗試登入5次失敗」。</li>
+                            <li><span class="chinese-term">資訊安全事件</span> (<span class="english-fullname">Information Security Event</span>)：需要<span class="keyword-highlight">資安人員定義事件指標與判斷的異常現象</span>。可能需要處理，否則可能演變成事故。例如：事件指標為15分鐘內密碼錯誤5次，需判斷是忘記密碼或遭受攻擊。</li>
+                            <li><span class="chinese-term">資訊安全事故</span> (<span class="english-fullname">Information Security Incident</span>)：<span class="keyword-highlight">已確認造成組織損害的安全事件</span>。需要依組織政策啟動正式事故應變程序。例如：確認駭客成功入侵系統。</li>
+                        </ul>
+                    </div>
+                    <span class="source-ref">(資料來源：事故處理流程 p2)</span>
+                </div>
+            </div>
+
+            <div class="focus-card" data-category="2" data-stars="3">
+                <div class="focus-header">
+                    <div class="focus-id">#LGM02</div>
+                    <div class="focus-importance">★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span class="chinese-term">安全資訊與事件管理</span> (<span class="english-abbr">SIEM</span>)
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心功能</div>
+                    <div class="details-content">
+                        <ul>
+                            <li>定義：<span class="keyword-highlight">收集並分析安全事件與日誌</span>。</li>
+                            <li>用途：提供<span class="keyword-highlight">即時警報</span>與<span class="keyword-highlight">威脅情報</span>，協助快速反應。</li>
+                            <li><span class="english-abbr">SIEM</span> 是 <span class="chinese-term">安全維運中心</span> (<span class="english-abbr">SOC</span>) 的核心工具。</li>
+                            <li>結合了<span class="chinese-term">安全性資訊管理</span> (<span class="english-abbr">SIM</span>) 和<span class="chinese-term">安全性事件管理</span> (<span class="english-abbr">SEM</span>) 的功能。 <span class="english-abbr">SIM</span> 專注於長期儲存和分析日誌，用於合規和歷史調查；<span class="english-abbr">SEM</span> 則專注於即時監控和警報。</li>
+                            <li><span class="keyword-highlight">SIEM 系統具有強大的日誌管理功能</span>，能夠收集、儲存、正規化和分析來自各種來源的大量日誌資料。</li>
+                        </ul>
+                         <span class="keyword-highlight">注意：SIEM 仍可能產生誤報與漏報</span>，需要持續調整和優化規則。
+                    </div>
+                    <span class="source-ref">(資料來源：資安設備 p27, p30, p31, p41)</span>
+                </div>
+            </div>
+
+             <div class="focus-card" data-category="2" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#LGM03</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span class="chinese-term">日誌正規化</span> (<span class="english-fullname">Log Normalization</span>)
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">目的與重要性</div>
+                    <div class="details-content">
+                        由於不同設備、系統產生的日誌格式可能不同（例如時間格式、欄位名稱），<span class="keyword-highlight">日誌正規化是將這些不同格式的日誌轉換為統一、標準化格式的過程</span>。這對於後續的日誌分析、關聯性比對和 <span class="english-abbr">SIEM</span> 系統的有效運作至關重要，可以<span class="keyword-highlight">方便分析與查詢</span>。
+                    </div>
+                     <span class="source-ref">(資料來源：資安要素 p7, 風險管理 p43)</span>
+                </div>
+            </div>
+
+            <div class="focus-card" data-category="3" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#LGM04</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span class="chinese-term">日誌保存</span>要求與<span class="chinese-term">稽核軌跡</span>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">關鍵考量</div>
+                    <div class="details-content">
+                        <ul>
+                            <li>保存期限：根據<span class="keyword-highlight">法規要求</span>（如資通安全管理法規定至少6個月）或組織政策，日誌需要保存足夠長的時間以供稽核、調查或合規需求。</li>
+                            <li>完整性與保護：日誌應<span class="keyword-highlight">受到保護，防止未經授權的存取、修改或刪除</span>。需確保日誌記錄的準確性與可信度，以作為有效的<span class="chinese-term">稽核軌跡</span> (<span class="english-fullname">Audit Trail</span>)。</li>
+                            <li><span class="keyword-highlight">不可否認性</span> (<span class="english-fullname">Non-repudiation</span>)：完整的稽核軌跡有助於確保行為的不可否認性。</li>
+                            <li>系統管理者不應具有刪除或修改日誌的權限，以維持日誌的公正性。</li>
+                            <li>日誌應<span class="keyword-highlight">記錄足夠資訊</span>以供追蹤，例如時間、來源IP、目的IP、使用者ID、執行的動作等。</li>
+                        </ul>
+                    </div>
+                     <span class="source-ref">(資料來源：資安要素 p4, 網路安全 p30, 112初級管理 Q41, 112初級技術 Q43)</span>
+                </div>
+            </div>
+
+             <div class="focus-card" data-category="4" data-stars="3">
+                <div class="focus-header">
+                    <div class="focus-id">#LGM05</div>
+                    <div class="focus-importance">★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        Linux 系統<span class="chinese-term">日誌</span>檔案
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">常見日誌檔與用途</div>
+                    <div class="details-content">
+                        <ul>
+                           <li><span class="keyword-highlight">/var/log/messages</span>：記錄<span class="keyword-highlight">系統核心與多數系統服務的訊息</span> (但不包含所有帳號登入資訊)。</li>
+                           <li><span class="keyword-highlight">/var/log/secure</span> (或 /var/log/auth.log)：記錄<span class="keyword-highlight">使用者登入、身份驗證</span>相關的訊息，包括成功與失敗的嘗試。</li>
+                           <li><span class="keyword-highlight">/var/log/cron</span>：記錄 <span class="keyword-highlight">crontab 排程任務</span>的執行狀況。</li>
+                           <li><span class="keyword-highlight">/var/log/boot.log</span>：記錄<span class="keyword-highlight">系統開機過程</span>中的訊息。</li>
+                           <li><span class="keyword-highlight">/var/log/dmesg</span>：記錄<span class="keyword-highlight">核心環緩衝區的訊息</span>，主要是開機時核心偵測到的硬體資訊。</li>
+                           <li><span class="keyword-highlight">/var/log/lastlog</span>：記錄每個使用者<span class="keyword-highlight">最後一次登錄</span>的時間和來源。需用 `lastlog` 命令查看。</li>
+                           <li><span class="keyword-highlight">/var/log/wtmp</span>：記錄使用者<span class="keyword-highlight">登入登出</span>的歷史紀錄。需用 `last` 命令查看。</li>
+                           <li>使用者登入的歷史紀錄通常存放在 `/var/log/wtmp` (登入登出紀錄) 或 `/bash_history` (指令歷史)，`/var/log/secure` 記錄驗證事件。</li>
+                        </ul>
+                    </div>
+                    <span class="source-ref">(資料來源：網路安全 p30, 112初級技術 Q40, Q42, 111初級技術 Q16)</span>
+                </div>
+            </div>
+
+             <div class="focus-card" data-category="4" data-stars="2">
+                <div class="focus-header">
+                    <div class="focus-id">#LGM06</div>
+                    <div class="focus-importance">★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        Windows 事件<span class="chinese-term">日誌</span> (<span class="english-fullname">Event Log</span>)
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">主要類型與內容</div>
+                    <div class="details-content">
+                        Windows Event Log 主要包含三種類型：
+                        <ul>
+                           <li><span class="chinese-term">應用程式</span> (<span class="english-fullname">Application</span>) 日誌：記錄應用程式產生的事件。</li>
+                           <li><span class="chinese-term">安全性</span> (<span class="english-fullname">Security</span>) 日誌：<span class="keyword-highlight">記錄登入成功/失敗、物件存取、權限變更等安全相關事件</span>。 (例如：Event ID 4625 代表登入失敗)</li>
+                           <li><span class="chinese-term">系統</span> (<span class="english-fullname">System</span>) 日誌：記錄作業系統元件產生的事件，如驅動程式載入失敗。</li>
+                        </ul>
+                        <span class="keyword-highlight">Windows Event Log 不包含所有帳號最近一次登入系統的相關資訊</span> (這更像是Linux的/var/log/lastlog)。雖然安全性日誌會記錄登入事件，但不是彙總性的「最後一次登入」。<br>
+                        事件檢視器（Event Viewer）是 Windows 內建用來查看這些日誌的工具。日誌格式是 Windows 特定的，但可以透過工具轉換或使用支援的協定（如 WEF 或 Syslog 代理）匯出。
+                    </div>
+                     <span class="source-ref">(資料來源：113初級技術 Q41, Q42)</span>
+                </div>
+            </div>
+
+            <div class="focus-card" data-category="5" data-stars="3">
+                <div class="focus-header">
+                    <div class="focus-id">#LGM07</div>
+                    <div class="focus-importance">★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span class="chinese-term">日誌</span>在<span class="chinese-term">事件應變</span>中的應用
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">角色與價值</div>
+                    <div class="details-content">
+                         <ul>
+                            <li><span class="chinese-term">偵測與分析</span>：<span class="english-abbr">SIEM</span> 等工具分析日誌以<span class="keyword-highlight">偵測異常活動與潛在威脅</span>。</li>
+                            <li><span class="chinese-term">調查與鑑識</span>：事故發生後，日誌是<span class="keyword-highlight">追溯攻擊路徑、確定影響範圍、找出根本原因</span> (<span class="english-fullname">Root Cause Analysis</span>) 的關鍵證據。勒索病毒案例中，分析 <span class="english-abbr">EDR</span>、<span class="english-abbr">SIEM</span>、<span class="english-abbr">Windows</span> 事件日誌、防火牆日誌可確認攻擊來源 (<span class="english-abbr">RDP</span> 弱密碼)、提權漏洞 (<span class="english-abbr">PrintNightmare</span>)、橫向移動等。</li>
+                            <li><span class="chinese-term">損害評估</span>：透過日誌分析受影響的系統與資料，評估業務衝擊。</li>
+                            <li><span class="chinese-term">預防與改進</span>：根據日誌分析結果，修補漏洞、強化防護措施、改善應變流程 (<span class="english-fullname">Lessons Learned</span>)。</li>
+                        </ul>
+                         原始稽核紀錄是調查資安事件的重要證據，<span class="keyword-highlight">不應隨意刪除</span>。
+                    </div>
+                     <span class="source-ref">(資料來源：事故處理流程 p3, p4, p6, p7, p10)</span>
+                </div>
+            </div>
+
+             <div class="focus-card" data-category="2" data-stars="2">
+                <div class="focus-header">
+                    <div class="focus-id">#LGM08</div>
+                    <div class="focus-importance">★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <span class="chinese-term">Syslog</span> 協定
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">特性與安全考量</div>
+                    <div class="details-content">
+                         <ul>
+                           <li><span class="english-abbr">Syslog</span> 是一種標準的日誌傳輸協定，常用於將不同設備的日誌<span class="keyword-highlight">集中發送到中央日誌伺服器</span>。</li>
+                           <li>傳統 <span class="english-abbr">Syslog</span> 通常使用 <span class="english-abbr">UDP</span> port 514 傳輸，<span class="keyword-highlight">UDP 是不可靠的協定，可能遺失封包</span>，且<span class="keyword-highlight">傳輸內容未加密</span>。</li>
+                           <li>為提高安全性，可採用 <span class="english-abbr">Syslog over TLS</span> 或其他安全傳輸機制。</li>
+                           <li>防火牆需開放相應的端口（預設 UDP 514）以允許 <span class="english-abbr">Syslog</span> 流量通過。</li>
+                        </ul>
+                    </div>
+                     <span class="source-ref">(資料來源：資安設備 p40, p41)</span>
+                </div>
+            </div>
+
+
+            <!-- Placeholder for No Results -->
+             <div id="noResultsMessage">沒有找到符合條件的重點。</div>
+
+        </div><!-- end focus-points-container -->
+
+        <div class="back-to-top" id="backToTop">↑</div>
+    </div>
+
+    <script>
+        // Progress bar
+        const progressBar = document.getElementById("progressBar");
+        window.onscroll = function() { updateProgressBar(); toggleBackToTopButton(); };
+        function updateProgressBar() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (height > 0) ? (winScroll / height) * 100 : 0;
+            progressBar.style.width = scrolled + "%";
+        }
+
+        // Back to top button
+        const backToTopButton = document.getElementById("backToTop");
+        function toggleBackToTopButton() {
+             backToTopButton.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "flex" : "none";
+        }
+        backToTopButton.addEventListener("click", () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+        // Filter by category
+        function filterByCategory(categoryNumber) {
+            document.getElementById('categoryFilter').value = categoryNumber === 'all' ? 'all' : String(categoryNumber);
+            document.getElementById('searchInput').value = ''; // Clear search on filter click
+            filterFocusPoints();
+        }
+
+        // Event listeners for filters and search
+        document.getElementById("categoryFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("starFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("searchButton").addEventListener("click", searchFocusPoints);
+        document.getElementById("searchInput").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                searchFocusPoints();
+            }
+        });
+
+        const noResultsMessage = document.getElementById('noResultsMessage');
+
+        // Combined filter function
+        function filterFocusPoints() {
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+            let points = document.querySelectorAll(".focus-card");
+            let anyVisible = false;
+
+            points.forEach(function(point) {
+                const matchesCategory = (category === "all" || point.dataset.category === category);
+                const matchesStars = (stars === "all" || point.dataset.stars === stars);
+
+                if (matchesCategory && matchesStars) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                 noResultsMessage.textContent = '沒有找到符合篩選條件的重點。';
+             }
+        }
+
+        // Search function
+        function searchFocusPoints() {
+            let searchText = document.getElementById("searchInput").value.toLowerCase().trim();
+            let points = document.querySelectorAll(".focus-card");
+            let anyVisible = false;
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+
+            points.forEach(function(point) {
+                // Check filters first
+                const matchesCategory = (category === "all" || point.dataset.category === category);
+                const matchesStars = (stars === "all" || point.dataset.stars === stars);
+                let visibleBasedOnFilter = matchesCategory && matchesStars;
+
+                // Check search text
+                let pointText = point.textContent.toLowerCase();
+                let matchesSearch = (searchText === "" || pointText.includes(searchText));
+
+                // Show if matches filters AND search (or if search is empty)
+                if (visibleBasedOnFilter && matchesSearch) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 if (searchText !== "") {
+                      noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                      noResultsMessage.textContent = '沒有找到符合目前篩選及搜尋條件的重點。';
+                 } else {
+                     // If search is empty, rely on filter results displayed by filterFocusPoints
+                     filterFocusPoints(); // Re-apply filters to show potentially hidden items
+                 }
+             }
+        }
+
+         // Initial setup
+         toggleBackToTopButton();
+         updateProgressBar();
+         filterFocusPoints(); // Apply default filters on load
+
+    </script>
+</body>
+</html>

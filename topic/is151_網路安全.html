@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>iPAS 資訊安全工程師 考試重點整理 - IS151 網路安全</title> <!-- Changed Title -->
+    <style>
+        /* RWD設定，讓整體版面在不同裝置都有良好顯示 */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft JhengHei", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto; /* Added top/bottom margin */
+            padding: 25px;
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border-radius: 8px;
+        }
+        /* Updated Header */
+        .header-container {
+            background: linear-gradient(135deg, #2c3e50, #34495e); /* Darker gradient */
+            color: white;
+            padding: 30px 20px; /* Increased padding */
+            margin: -25px -25px 25px -25px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+        .header-container h1 {
+            margin: 0;
+            color: white;
+            font-size: 2.2rem; /* Larger title */
+            font-weight: 600;
+            margin-bottom: 5px; /* Space below title */
+        }
+        .header-container div { /* Subtitle */
+             font-size: 1.2rem;
+             opacity: 0.9;
+             margin-top: 5px;
+             font-weight: 300; /* Lighter weight */
+        }
+
+        /* Topic Categories Section (Renamed from Directions) */
+        .categories-container { /* Renamed */
+            background-color: #e8f0f5; /* Slightly different blue */
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 5px solid #5dade2; /* Lighter blue border */
+            border-radius: 5px;
+        }
+        .categories-title { /* Renamed */
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .categories-grid { /* Renamed */
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        .category-item { /* Renamed */
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #d6e0ea; /* Border matching background */
+        }
+        .category-item:hover {
+            background-color: #5dade2; /* Lighter blue hover */
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: #5dade2;
+        }
+        .category-number { /* Renamed */
+            width: 30px;
+            height: 30px;
+            background-color: #5dade2; /* Lighter blue number */
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .category-item:hover .category-number {
+            background-color: white;
+            color: #5dade2;
+        }
+        .category-text { /* Renamed */
+            font-size: 0.95rem;
+        }
+
+        /* Focus Point Card Styling (Replaces Question Card) */
+        .focus-points-container { /* Renamed */
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px; /* Increased gap */
+        }
+        .focus-card { /* Renamed */
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 0; /* Remove padding here, apply to inner elements */
+            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.1); /* Slightly stronger shadow */
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            border: 1px solid #e0e0e0;
+            overflow: hidden; /* Ensure inner elements respect border radius */
+        }
+        .focus-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(44, 62, 80, 0.15);
+        }
+        .focus-header { /* Renamed */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px; /* Padding inside header */
+            background-color: #f8f9fa; /* Light header background */
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .focus-id { /* Renamed */
+            font-weight: bold;
+            color: #5dade2; /* Lighter blue ID */
+            font-size: 1rem;
+            background-color: #e8f0f5; /* Background for ID */
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .focus-importance { /* Renamed */
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .focus-topic-container { /* New container for the main topic */
+             padding: 25px 25px 20px 25px; /* Padding around the topic */
+             border-bottom: 1px dashed #eee; /* Separator line */
+        }
+
+        .focus-topic { /* Replaces question-content */
+            font-size: 1.5rem; /* Larger font for the topic */
+            font-weight: 600; /* Bolder */
+            margin-bottom: 0; /* Remove margin, handled by container padding */
+            line-height: 1.4;
+            color: #2c3e50; /* Dark blue-grey for topic */
+        }
+
+        /* Styling for terminology within topic/details */
+        .term-cn { /* Chinese Term */
+            color: rgb(0, 0, 255); /* Corrected to Blue */
+            font-weight: bold;
+        }
+        .term-abbr { /* English Abbreviation */
+            color: purple;
+            font-weight: bold;
+        }
+        .term-eng { /* English Full Name */
+            color: red;
+            font-weight: bold;
+        }
+        .keyword-highlight {
+             background-color: #ffff0030; /* Faint yellow background */
+        }
+
+
+        /* Details Section Styling (Replaces Explanation) */
+        .focus-details-container { /* Renamed */
+            padding: 20px 25px 25px 25px; /* Padding for details */
+        }
+        .details-header { /* Renamed */
+            font-weight: bold;
+            margin-bottom: 15px; /* Space below header */
+            color: #34495e;
+            font-size: 1.2rem; /* Slightly larger details header */
+            letter-spacing: 0.5px; /* Optional spacing */
+        }
+        .details-content { /* Renamed */
+            line-height: 1.75; /* Increased line height for readability */
+            color: #444;
+            font-size: 1.05rem; /* Slightly larger detail text */
+        }
+        .details-content ul { /* Style lists if used in details */
+             padding-left: 25px;
+             margin-top: 10px;
+             margin-bottom: 10px;
+        }
+         .details-content li {
+             margin-bottom: 8px; /* Space between list items */
+         }
+
+        /* Controls Section Styling (Adjusted for Focus Points) */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 15px;
+            background-color: #fdfdfd;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+        .filter-container, .search-container, .star-filter-container { /* Removed .toggle-explanations */
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            min-width: 200px;
+        }
+         .search-container { flex-grow: 2; }
+        .filter-label, .search-label, .star-filter-label {
+            font-weight: 600;
+            margin-right: 10px;
+            white-space: nowrap;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        select, input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+            flex-grow: 1;
+            font-size: 0.95rem;
+            background-color: white;
+        }
+         input[type="text"] { min-width: 180px; }
+        button {
+            padding: 10px 18px;
+            background-color: #5dade2; /* Lighter blue buttons */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.2s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-left: 8px;
+            white-space: nowrap;
+        }
+        button:hover {
+            background-color: #3498db; /* Darker blue hover */
+        }
+
+        /* RWD Adjustments */
+        @media (max-width: 992px) {
+             .controls { flex-direction: column; align-items: stretch; }
+            .filter-container, .search-container, .star-filter-container { width: 100%; flex-grow: 0; }
+             select, input[type="text"] { width: 100%; }
+             button { margin-left: 0; margin-top: 5px; }
+             .search-container button { margin-left: 8px; margin-top: 0; }
+             #searchInput { width: calc(100% - 90px); }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .header-container { padding: 25px 15px; margin: -15px -15px 20px -15px; }
+            .categories-grid { grid-template-columns: 1fr; }
+            .focus-card { padding: 0; } /* Ensure no padding on card itself */
+             .focus-header, .focus-topic-container, .focus-details-container { padding-left: 20px; padding-right: 20px; } /* Adjust inner padding */
+            h1 { font-size: 1.8rem; }
+            .header-container h1 { font-size: 2rem; }
+            .focus-topic { font-size: 1.3rem; }
+            .details-header { font-size: 1.1rem; }
+            .details-content { font-size: 1rem; }
+        }
+
+        /* Back to Top Button & Progress Bar (No changes needed) */
+        .back-to-top {
+            position: fixed; bottom: 25px; right: 25px; background-color: #5dade2; color: white;
+            width: 45px; height: 45px; border-radius: 50%; display: none; justify-content: center;
+            align-items: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, opacity 0.3s, transform 0.3s; z-index: 1000;
+            opacity: 0.8; font-size: 1.2rem;
+        }
+        .back-to-top:hover { background-color: #3498db; opacity: 1; transform: scale(1.1); }
+        .progress-container {
+            width: 100%; height: 5px; background-color: #e8f0f5; position: fixed;
+            top: 0; left: 0; z-index: 1001;
+        }
+        .progress-bar {
+            height: 5px; background: linear-gradient(90deg, #5dade2, #85c1e9); /* Adjusted gradient */
+            width: 0%; border-radius: 0 2px 2px 0; transition: width 0.1s linear;
+        }
+         #noResultsMessage {
+             text-align: center; padding: 20px; color: #777; display: none; font-style: italic;
+         }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <div class="header-container">
+            <h1>iPAS 資訊安全工程師 考試重點</h1> <!-- Updated Title -->
+            <div>IS151 網路安全</div> <!-- Updated Subtitle -->
+        </div>
+
+        <div class="controls">
+             <div class="filter-container">
+                 <!-- Updated Label -->
+                <label for="categoryFilter" class="filter-label">篩選主題：</label>
+                <select id="categoryFilter"> <!-- Updated ID and options -->
+                    <option value="all">全部主題</option>
+                    <option value="1">網路基礎 & 模型</option>
+                    <option value="2">網路協定安全</option>
+                    <option value="3">防火牆 & 網路設備安全</option>
+                    <option value="5">VPN & 通道技術</option>
+                    <option value="6">常見網路攻擊 & 防禦</option>
+                    <option value="7">網路監控 & 記錄</option>
+                    <!-- Removed category 4 -->
+                </select>
+            </div>
+
+            <div class="star-filter-container">
+                <label for="starFilter" class="star-filter-label">重要性：</label>
+                <select id="starFilter">
+                    <option value="all">全部重要性</option>
+                    <option value="5">★★★★★</option>
+                    <option value="4">★★★★</option>
+                    <option value="3">★★★</option>
+                    <option value="2">★★</option>
+                    <option value="1">★</option>
+                </select>
+            </div>
+
+            <div class="search-container">
+                <label for="searchInput" class="search-label">搜尋：</label>
+                <input type="text" id="searchInput" placeholder="輸入關鍵字...">
+                <button id="searchButton">搜尋</button>
+            </div>
+            <!-- Removed Toggle Explanations Button -->
+        </div>
+
+        <div class="categories-container"> <!-- Renamed -->
+            <div class="categories-title">主題分類</div> <!-- Updated Title -->
+            <div class="categories-grid" id="categoriesGrid"> <!-- Renamed ID and removed category 4 -->
+                <div class="category-item" onclick="filterByCategory(1)">
+                    <div class="category-number">1</div>
+                    <div class="category-text">網路基礎 & 模型</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(2)">
+                    <div class="category-number">2</div>
+                    <div class="category-text">網路協定安全</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(3)">
+                    <div class="category-number">3</div>
+                    <div class="category-text">防火牆 & 網路設備安全</div>
+                </div>
+                <!-- Removed category 4 item -->
+                 <div class="category-item" onclick="filterByCategory(5)">
+                    <div class="category-number">5</div>
+                    <div class="category-text">VPN & 通道技術</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(6)">
+                    <div class="category-number">6</div>
+                    <div class="category-text">常見網路攻擊 & 防禦</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(7)">
+                    <div class="category-number">7</div>
+                    <div class="category-text">網路監控 & 記錄</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="focus-points-container" id="focusPointsContainer"> <!-- Renamed -->
+
+             <!-- Focus Point: OSI Model Layer 3 -->
+             <div class="focus-card" data-category="1" data-stars="5">
+                 <div class="focus-header"><div class="focus-id">#1</div><div class="focus-importance">★★★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="term-cn">OSI 模型</span> - <span class="term-cn">網路層</span> (<span class="term-eng">OSI Model</span> - <span class="term-eng">Network Layer</span>)</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         <span class="term-cn">開放式系統互聯模型</span> (<strong class="term-abbr">OSI</strong> - <span class="term-eng">Open System Interconnection</span>) 的<span class="keyword-highlight">第三層</span>是<strong class="term-cn">網路層</strong>。<br>主要功能：
+                         <ul>
+                             <li><span class="keyword-highlight">邏輯定址</span> (<span class="term-eng">Logical Addressing</span>)：定義 <strong class="term-abbr">IP</strong> (<span class="term-eng">Internet Protocol</span>) 位址，用於在整個網路中唯一標識主機。</li>
+                             <li><span class="keyword-highlight">路由</span> (<span class="term-eng">Routing</span>)：決定資料封包從來源到目的地的<span class="keyword-highlight">最佳路徑</span>。路由器 (<span class="term-eng">Router</span>) 是此層的主要設備。</li>
+                             <li>路徑選擇和轉發封包。</li>
+                         </ul>
+                         常見協定：<strong class="term-abbr">IP</strong> (IPv4, IPv6), <strong class="term-abbr">ICMP</strong> (<span class="term-eng">Internet Control Message Protocol</span>), <strong class="term-abbr">IPSec</strong> (<span class="term-eng">Internet Protocol Security</span>)。 OSI模型中，<span class="keyword-highlight">網路層</span>負責<strong class="term-abbr">IP</strong>之間的傳輸。
+                     </div>
+                 </div>
+             </div>
+
+             <!-- Focus Point: Firewall Rules -->
+             <div class="focus-card" data-category="3" data-stars="5">
+                 <div class="focus-header"><div class="focus-id">#2</div><div class="focus-importance">★★★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="term-cn">防火牆規則</span> - <span class="term-cn">封包過濾</span> (<span class="term-eng">Firewall Rules</span> - <span class="term-eng">Packet Filtering</span>)</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         <span class="term-cn">封包過濾防火牆</span>根據預先定義的規則集來檢查<span class="keyword-highlight">網路封包</span>。這些規則基於封包標頭中的資訊，例如：
+                         <ul>
+                             <li><span class="keyword-highlight"><strong class="term-cn">來源IP位址</strong></span> (<span class="term-eng">Source IP Address</span>)</li>
+                             <li><span class="keyword-highlight"><strong class="term-cn">目的IP位址</strong></span> (<span class="term-eng">Destination IP Address</span>)</li>
+                             <li><span class="keyword-highlight"><strong class="term-cn">協定</strong></span> (<span class="term-eng">Protocol</span>) - 如 <strong class="term-abbr">TCP</strong>, <strong class="term-abbr">UDP</strong>, <strong class="term-abbr">ICMP</strong></li>
+                             <li><span class="keyword-highlight"><strong class="term-cn">來源埠號</strong></span> (<span class="term-eng">Source Port</span>)</li>
+                             <li><span class="keyword-highlight"><strong class="term-cn">目的埠號</strong></span> (<span class="term-eng">Destination Port</span>)</li>
+                         </ul>
+                         防火牆會<span class="keyword-highlight">依序比對</span>規則，一旦找到符合的規則，就會執行該規則指定的動作（<span class="keyword-highlight">允許</span> <span class="term-eng">Allow</span> 或 <span class="keyword-highlight">拒絕</span> <span class="term-eng">Deny</span>），並且<span class="keyword-highlight">停止比對後續規則</span>。通常在規則列表的最後會有一條<span class="keyword-highlight">隱含的拒絕所有規則</span>（<span class="term-eng">Implicit Deny</span>）。<span class="term-cn">防火牆</span>主要防禦OSI模型中<span class="keyword-highlight">第四層（傳輸層）</span>的攻擊，因為它判別封包的IP與埠號（Port）。
+                     </div>
+                 </div>
+             </div>
+
+             <!-- Focus Point: NAT -->
+             <div class="focus-card" data-category="1" data-stars="4">
+                  <div class="focus-header"><div class="focus-id">#3</div><div class="focus-importance">★★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="term-cn">網路位址轉換</span> (<strong class="term-abbr">NAT</strong> - <span class="term-eng">Network Address Translation</span>)</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         <strong class="term-abbr">NAT</strong> 是一種在 <strong class="term-abbr">IP</strong> 網路中，修改<span class="keyword-highlight">網路封包</span>的<span class="keyword-highlight">來源</span>或<span class="keyword-highlight">目的IP位址</span>資訊的技術。其主要功能包括：
+                         <ul>
+                             <li><span class="keyword-highlight">將多個<strong class="term-cn">私有IP位址</strong></span> (<span class="term-eng">Private IP</span>) <span class="keyword-highlight">對應到單一或少數<strong class="term-cn">公有IP位址</strong></span> (<span class="term-eng">Public IP</span>)，以<span class="keyword-highlight">節省公有IP資源</span>。</li>
+                             <li><span class="keyword-highlight">隱藏內部網路的拓撲結構</span>，提升一定的安全性，因為外部網路無法直接看到內部裝置的真實IP。</li>
+                             <li>允許內部網路使用<strong class="term-cn">私有IP網段</strong>（如 10.x.x.x, 172.16.x.x-172.31.x.x, 192.168.x.x）。</li>
+                         </ul>
+                         然而，<strong class="term-abbr">NAT</strong> <span class="keyword-highlight">本身並非安全機制</span>，它<span class="keyword-highlight">無法直接防止</span>針對透過 <strong class="term-abbr">NAT</strong> 對外開放服務的<strong class="term-cn">暴力破解攻擊</strong> (<span class="term-eng">Brute-Force Attack</span>) 或其他應用層攻擊。
+                     </div>
+                 </div>
+             </div>
+
+              <!-- Focus Point: Private IP Addresses -->
+             <div class="focus-card" data-category="1" data-stars="3">
+                 <div class="focus-header"><div class="focus-id">#4</div><div class="focus-importance">★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="term-cn">私有IP位址</span> (<span class="term-eng">Private IP Address</span>)</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         <strong class="term-cn">私有IP位址</strong>是被保留用於<span class="keyword-highlight">內部網路</span>（如家庭、學校或企業內部）的IP位址範圍。這些位址<span class="keyword-highlight">不能在公共網際網路上路由</span>。<br>
+                         主要的私有IP位址範圍由<strong class="term-abbr">IANA</strong> (<span class="term-eng">Internet Assigned Numbers Authority</span>) 定義在 <strong class="term-abbr">RFC</strong> 1918 中：
+                         <ul>
+                             <li>Class A: <span class="keyword-highlight">10.0.0.0</span> 到 <span class="keyword-highlight">10.255.255.255</span> (10.0.0.0/8)</li>
+                             <li>Class B: <span class="keyword-highlight">172.16.0.0</span> 到 <span class="keyword-highlight">172.31.255.255</span> (172.16.0.0/12)</li>
+                             <li>Class C: <span class="keyword-highlight">192.168.0.0</span> 到 <span class="keyword-highlight">192.168.255.255</span> (192.168.0.0/16)</li>
+                         </ul>
+                         使用私有IP位址可以節省<strong class="term-cn">公有IP位址</strong>，並且可以透過<strong class="term-abbr">NAT</strong>技術與外部網路通訊。題目中 10.10.10.10 屬於私有IP範圍。
+                     </div>
+                 </div>
+             </div>
+
+             <!-- Focus Point: NetBIOS Port -->
+             <div class="focus-card" data-category="2" data-stars="2">
+                  <div class="focus-header"><div class="focus-id">#5</div><div class="focus-importance">★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="term-cn">微軟網路芳鄰</span> (<span class="term-abbr">NetBIOS</span>) <span class="term-cn">常用通訊埠</span></div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         <span class="term-cn">網路基本輸入輸出系統</span> (<strong class="term-abbr">NetBIOS</strong> - <span class="term-eng">Network Basic Input/Output System</span>) 及其後續協定（如 <strong class="term-abbr">SMB</strong>/<strong class="term-abbr">CIFS</strong>）是 <span class="term-cn">微軟</span> <span class="term-eng">Windows</span> 系統中用於<span class="keyword-highlight">檔案</span>和<span class="keyword-highlight">印表機共享</span>（俗稱<strong class="term-cn">網路芳鄰</strong>）的傳統協定。它通常使用 <strong class="term-abbr">UDP</strong>/137、<strong class="term-abbr">UDP</strong>/138、<strong class="term-abbr">TCP</strong>/139 埠。
+                     </div>
+                 </div>
+             </div>
+
+              <!-- Focus Point: Firewall Management -->
+             <div class="focus-card" data-category="3" data-stars="3">
+                 <div class="focus-header"><div class="focus-id">#6</div><div class="focus-importance">★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="term-cn">防火牆規則管理</span> (<span class="term-eng">Firewall Rule Management</span>)</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         管理<span class="term-cn">防火牆規則</span>是維護網路安全的重要環節。
+                         <ul>
+                             <li><span class="keyword-highlight">規則數量影響效能</span>：規則數量過多可能會降低防火牆的處理效能。</li>
+                             <li><span class="keyword-highlight">需要管理辦法</span>：即使管理員熟悉設備，也應制定明確的管理辦法和變更流程，以確保規則的一致性、正確性和可追溯性。</li>
+                             <li><span class="keyword-highlight">白名單優於黑名單</span>：<strong class="term-cn">白名單</strong> (<span class="term-eng">Whitelist</span>) 模式（僅允許明確許可的流量，拒絕其他所有流量）通常比<strong class="term-cn">黑名單</strong> (<span class="term-eng">Blacklist</span>) 模式（僅拒絕明確禁止的流量，允許其他所有流量）更安全。</li>
+                             <li><span class="keyword-highlight">標準化與避免衝突</span>：應制定一套標準的規則制定方法，避免因管理模式不同導致規則衝突或管理困難。</li>
+                         </ul>
+                     </div>
+                 </div>
+             </div>
+
+             <!-- Focus Point: Stateful Inspection Firewall Characteristics -->
+             <div class="focus-card" data-category="3" data-stars="4">
+                  <div class="focus-header"><div class="focus-id">#7</div><div class="focus-importance">★★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="term-cn">狀態檢視防火牆</span> (<span class="term-eng">Stateful Inspection Firewall</span>) 特性</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         <strong class="term-cn">狀態檢視防火牆</strong>透過<span class="keyword-highlight">追蹤網路連線的狀態</span>來決定是否允許封包通過。
+                         <ul>
+                             <li>檢查內容<span class="keyword-highlight">較多</span>：除了來源/目的IP和埠號，還會檢查<span class="keyword-highlight">連線狀態資訊</span>。</li>
+                             <li><span class="keyword-highlight">記錄連線狀態</span>：維護狀態表 (<span class="term-eng">State Table</span>)。</li>
+                             <li>可根據<span class="keyword-highlight">目的埠號</span>和<span class="keyword-highlight">目的位址</span>進行阻擋。</li>
+                         </ul>
+                         因此，「所檢查的內容較封包過濾防火牆少」是<span class="keyword-highlight">錯誤</span>的描述。
+                     </div>
+                 </div>
+             </div>
+
+              <!-- Focus Point: Proxy Firewall Layer -->
+              <div class="focus-card" data-category="3" data-stars="3">
+                  <div class="focus-header"><div class="focus-id">#8</div><div class="focus-importance">★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="term-cn">代理防火牆</span> (<span class="term-eng">Proxy Firewall</span>) <span class="term-cn">運作層級</span></div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         <strong class="term-cn">代理防火牆</strong>（也稱為應用層閘道）運作在 <strong class="term-abbr">OSI</strong> 模型的<span class="keyword-highlight">第七層，即應用層</span> (<span class="term-eng">Application Layer</span>)。
+                         <ul>
+                             <li>作為用戶端和伺服器之間的<span class="keyword-highlight">中介</span>。</li>
+                             <li>處理應用層協定（如 <strong class="term-abbr">HTTP</strong>, <strong class="term-abbr">FTP</strong>）。</li>
+                             <li><span class="keyword-highlight">不直接轉發</span>網路層或傳輸層封包。</li>
+                             <li>可進行<span class="keyword-highlight">深度內容檢查</span>。</li>
+                              <li>駭客可能透過<span class="keyword-highlight">多層代理</span>隱藏來源。</li>
+                         </ul>
+                         描述代理防火牆運作於第四層網路層是<span class="keyword-highlight">錯誤</span>的。
+                     </div>
+                 </div>
+              </div>
+
+             <!-- Focus Point: DNS Protocols (TCP/UDP) -->
+              <div class="focus-card" data-category="2" data-stars="4">
+                  <div class="focus-header"><div class="focus-id">#9</div><div class="focus-importance">★★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><strong class="term-abbr">DNS</strong> <span class="term-cn">使用的傳輸層協定</span></div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         <strong class="term-abbr">DNS</strong> (<span class="term-eng">Domain Name System</span>) 在運作時，根據不同的操作需求，會使用<span class="keyword-highlight">兩種</span>傳輸層協定：
+                         <ul>
+                             <li><strong class="term-abbr">UDP</strong> (<span class="term-eng">User Datagram Protocol</span>) <strong class="term-cn">埠 53</strong>：主要用於<span class="keyword-highlight">客戶端向伺服器發起的標準名稱解析查詢</span>。</li>
+                             <li><strong class="term-abbr">TCP</strong> (<span class="term-eng">Transmission Control Protocol</span>) <strong class="term-cn">埠 53</strong>：主要用於<span class="keyword-highlight">伺服器之間的區域傳輸</span> (<span class="term-eng">Zone Transfer</span>) 或當回應大小超過限制時。</li>
+                         </ul>
+                     </div>
+                 </div>
+              </div>
+
+              <!-- Focus Point: Switch Flooding Condition -->
+              <div class="focus-card" data-category="3" data-stars="3">
+                  <div class="focus-header"><div class="focus-id">#10</div><div class="focus-importance">★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="term-cn">交換器溢送</span> (<span class="term-eng">Switch Flooding</span>) <span class="term-cn">觸發條件</span></div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                        <strong class="term-cn">交換器</strong>在以下情況會將訊框<span class="keyword-highlight">溢送</span>至所有埠口（除了來源埠）：
+                         <ul>
+                             <li><span class="keyword-highlight">目的 MAC 位址未知</span> (<span class="term-eng">Unknown Unicast</span>)。</li>
+                             <li>目的 MAC 位址為<strong class="term-cn">廣播位址</strong> (FF:FF:FF:FF:FF:FF)。</li>
+                             <li>目的 MAC 位址為<strong class="term-cn">多點傳送位址</strong> (且無特殊處理機制)。</li>
+                         </ul>
+                         當<span class="keyword-highlight">來源 MAC 位址未知</span>時，交換器會<span class="keyword-highlight">學習</span>該位址，<span class="keyword-highlight">不會觸發溢送</span>。
+                     </div>
+                 </div>
+              </div>
+
+              <!-- Focus Point: VPN Tunneling Technology -->
+              <div class="focus-card" data-category="5" data-stars="4">
+                  <div class="focus-header"><div class="focus-id">#11</div><div class="focus-importance">★★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><strong class="term-abbr">VPN</strong> <span class="term-cn">建立安全連線的技術</span></div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         <strong class="term-cn">虛擬私有網路</strong> (<strong class="term-abbr">VPN</strong> - <span class="term-eng">Virtual Private Network</span>) 使用<strong class="term-cn">通道技術</strong> (<span class="term-eng">Tunneling</span>) 在公共網路上建立安全連線。
+                         <ul>
+                             <li><span class="keyword-highlight">通道技術</span>涉及<span class="keyword-highlight">封裝</span>、<span class="keyword-highlight">加密</span>和<span class="keyword-highlight">驗證</span>。</li>
+                         </ul>
+                     </div>
+                 </div>
+              </div>
+
+              <!-- Focus Point: Web Service Security -->
+              <div class="focus-card" data-category="2" data-stars="3">
+                  <div class="focus-header"><div class="focus-id">#12</div><div class="focus-importance">★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="term-cn">Web Service 資料交換安全</span></div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                          安全措施包含使用 <strong class="term-abbr">HTTPS</strong>、資料加密、隱藏敏感資訊於原始碼外、以及謹慎選擇 <strong class="term-abbr">GET</strong> 或 <strong class="term-abbr">POST</strong> 方法。<span class="keyword-highlight"><strong class="term-abbr">POST</strong> 方法通常比 <strong class="term-abbr">GET</strong> 方法安全</span>。
+                     </div>
+                 </div>
+              </div>
+
+             <!-- Focus Point: TCP Connection States -->
+              <div class="focus-card" data-category="2" data-stars="3">
+                  <div class="focus-header"><div class="focus-id">#13</div><div class="focus-importance">★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="term-cn">TCP 連線狀態</span> (<span class="term-eng">TCP Connection States</span>)</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                          <strong class="term-abbr">TCP</strong> 連線有多種狀態。關鍵狀態包括：<strong class="term-eng">SYN-SENT</strong> (已發送SYN), <strong class="term-eng">SYN-RECEIVED</strong> (已收SYN發SYN+ACK), <strong class="term-eng">ESTABLISHED</strong> (三向交握完成，可傳輸資料), <strong class="term-eng">CLOSE-WAIT</strong> (<span class="keyword-highlight">被動關閉方</span>收到FIN，已回ACK，等待本地應用關閉)。<strong class="term-eng">CLOSE-WAIT</strong> 狀態下仍可傳送資料。
+                     </div>
+                 </div>
+              </div>
+
+             <!-- Focus Point: DoS Attack -->
+              <div class="focus-card" data-category="6" data-stars="4">
+                  <div class="focus-header"><div class="focus-id">#14</div><div class="focus-importance">★★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="term-cn">阻斷服務攻擊</span> (<strong class="term-abbr">DoS</strong> - <span class="term-eng">Denial of Service Attack</span>)</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                          <strong class="term-abbr">DoS</strong> 攻擊目的在於<span class="keyword-highlight">耗盡目標資源</span>，使其無法提供服務。<strong class="term-abbr">DDoS</strong> 則是利用<span class="keyword-highlight">多台電腦</span>發動攻擊。攔截並轉送資料不屬於 DoS 的範疇。
+                     </div>
+                 </div>
+              </div>
+
+              <!-- Focus Point: UTM -->
+             <div class="focus-card" data-category="3" data-stars="3">
+                 <div class="focus-header"><div class="focus-id">#15</div><div class="focus-importance">★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="term-cn">整合式威脅管理</span> (<strong class="term-abbr">UTM</strong> - <span class="term-eng">Unified Threat Management</span>)</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         <strong class="term-abbr">UTM</strong> 整合<span class="keyword-highlight">多種安全功能</span>於單一設備，如防火牆、IPS、防毒、VPN等。其核心目標是<span class="keyword-highlight">簡化管理</span>，但通常<span class="keyword-highlight">不包含完整的路由功能</span>。<strong class="term-cn">Honeypot</strong> (蜜罐) 功能並非 UTM 的標準常見功能。
+                     </div>
+                 </div>
+             </div>
+
+             <!-- Focus Point: Syslog Security -->
+             <div class="focus-card" data-category="7" data-stars="3">
+                 <div class="focus-header"><div class="focus-id">#16</div><div class="focus-importance">★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="term-cn">Syslog 安全性</span></div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         傳統的 <strong class="term-cn">Syslog</strong> 通常使用 <strong class="term-abbr">UDP</strong> 協定傳輸，存在<span class="keyword-highlight">不穩定</span>（可能丟包）和<span class="keyword-highlight">不安全</span>（明文傳輸，無驗證）的問題。可透過基於 <strong class="term-abbr">TCP</strong> 的 Syslog 或使用 <strong class="term-abbr">TLS/SSL</strong>、<strong class="term-abbr">IPSec</strong> 加密來加強安全。
+                     </div>
+                 </div>
+             </div>
+
+              <!-- Focus Point: SYN Flood -->
+              <div class="focus-card" data-category="6" data-stars="4">
+                  <div class="focus-header"><div class="focus-id">#17</div><div class="focus-importance">★★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="term-abbr">SYN</span> <span class="term-cn">洪水攻擊</span> (<span class="term-eng">SYN Flood</span>)</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                          <strong class="term-abbr">SYN Flood</strong> 攻擊利用 <strong class="term-abbr">TCP</strong> 三向交握。<span class="keyword-highlight">攻擊者大量發送 <strong class="term-abbr">SYN</strong> 封包</span>，目標伺服器回應 <strong class="term-abbr">SYN+ACK</strong> 並等待最終的 <strong class="term-abbr">ACK</strong>，由於來源 IP 常被偽造，導致伺服器<span class="keyword-highlight">連線資源耗盡</span>。
+                      </div>
+                  </div>
+              </div>
+
+             <!-- Focus Point: IP Spoofing -->
+             <div class="focus-card" data-category="6" data-stars="3">
+                  <div class="focus-header"><div class="focus-id">#18</div><div class="focus-importance">★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="term-cn">IP 位址欺騙</span> (<span class="term-eng">IP address spoofing</span>)</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         <strong class="term-cn">IP 位址欺騙</strong>是指攻擊者<span class="keyword-highlight">偽造封包的來源IP位址</span>，以冒充他人身份或隱藏自身來源。
+                     </div>
+                 </div>
+             </div>
+
+             <!-- Focus Point: Cookies & Session Hijacking -->
+             <div class="focus-card" data-category="6" data-stars="4">
+                 <div class="focus-header"><div class="focus-id">#19</div><div class="focus-importance">★★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="term-cn">Cookies</span> 與 <span class="term-cn">連線劫持</span> (<span class="term-eng">Session Hijacking</span>)</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         <span class="term-cn">Cookies</span> <span class="keyword-highlight">可能儲存</span> Session ID 等敏感資訊。駭客可透過 <strong class="term-abbr">XSS</strong> 等方式竊取 Cookie，進而<span class="keyword-highlight">冒充使用者</span>進行<strong class="term-cn">連線劫持</strong>。
+                     </div>
+                 </div>
+             </div>
+
+             <!-- Focus Point: ARP Spoofing Defense -->
+             <div class="focus-card" data-category="6" data-stars="3">
+                  <div class="focus-header"><div class="focus-id">#20</div><div class="focus-importance">★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="term-cn">防禦 ARP 欺騙</span> (<span class="term-eng">ARP Spoofing Defense</span>)</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         最佳防禦方式是<span class="keyword-highlight">使用<strong class="term-cn">靜態 ARP 表</strong></span>，並<span class="keyword-highlight">綁定 IP 與 MAC</span>。
+                     </div>
+                 </div>
+             </div>
+
+             <!-- Focus Point: DDoS Attack Method -->
+             <div class="focus-card" data-category="6" data-stars="3">
+                  <div class="focus-header"><div class="focus-id">#21</div><div class="focus-importance">★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="term-cn">DDoS 攻擊方法</span> - <span class="term-eng">Slowloris Attack</span></div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         <span class="term-eng">Slowloris</span> 攻擊透過建立多個連線並<span class="keyword-highlight">極其緩慢地</span>發送請求資料，以<span class="keyword-highlight">佔用伺服器連線資源</span>。
+                     </div>
+                 </div>
+             </div>
+
+              <!-- Focus Point: Clickjacking -->
+              <div class="focus-card" data-category="6" data-stars="2">
+                  <div class="focus-header"><div class="focus-id">#22</div><div class="focus-importance">★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="term-cn">點擊劫持</span> (<span class="term-eng">Clickjacking</span> / <span class="term-eng">UI Redress Attack</span>)</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         <strong class="term-cn">點擊劫持</strong>使用<span class="keyword-highlight">透明框架</span>覆蓋在其他網頁元素上，<span class="keyword-highlight">誘騙使用者點擊</span>隱藏的按鈕或連結。
+                     </div>
+                 </div>
+              </div>
+
+             <!-- Placeholder for No Results -->
+             <div id="noResultsMessage">沒有找到符合條件的重點。</div>
+
+        </div><!-- end focus-points-container -->
+
+        <div class="back-to-top" id="backToTop">↑</div>
+    </div>
+
+    <script>
+        // Progress bar (no changes needed)
+        const progressBar = document.getElementById("progressBar");
+        window.onscroll = function() { updateProgressBar(); toggleBackToTopButton(); };
+        function updateProgressBar() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (height > 0) ? (winScroll / height) * 100 : 0;
+            progressBar.style.width = scrolled + "%";
+        }
+
+        // Back to top button (no changes needed)
+        const backToTopButton = document.getElementById("backToTop");
+        function toggleBackToTopButton() {
+             backToTopButton.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "flex" : "none";
+        }
+        backToTopButton.addEventListener("click", () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+        // Filter by category (Updated function name)
+        function filterByCategory(categoryNumber) {
+            document.getElementById('categoryFilter').value = categoryNumber === 'all' ? 'all' : String(categoryNumber);
+            document.getElementById('searchInput').value = ''; // Clear search on filter click
+            filterFocusPoints(); // Call updated filter function
+        }
+
+        // Event listeners for filters and search (Updated IDs/functions)
+        document.getElementById("categoryFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("starFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("searchButton").addEventListener("click", searchFocusPoints); // Updated function call
+        document.getElementById("searchInput").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                searchFocusPoints(); // Updated function call
+            }
+        });
+
+        const noResultsMessage = document.getElementById('noResultsMessage');
+
+        // Combined filter function (Updated variable/class names)
+        function filterFocusPoints() {
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+            let points = document.querySelectorAll(".focus-card"); // Target .focus-card
+            let anyVisible = false;
+
+            points.forEach(function(point) {
+                // Updated dataset attribute name
+                const matchesCategory = (category === "all" || point.dataset.category === category);
+                const matchesStars = (stars === "all" || point.dataset.stars === stars);
+
+                if (matchesCategory && matchesStars) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                 // Updated message text
+                 noResultsMessage.textContent = '沒有找到符合篩選條件的重點。';
+             }
+        }
+
+        // Search function (Updated variable/class names)
+        function searchFocusPoints() {
+            let searchText = document.getElementById("searchInput").value.toLowerCase().trim();
+            let points = document.querySelectorAll(".focus-card"); // Target .focus-card
+            let anyVisible = false;
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+
+            points.forEach(function(point) {
+                // Check filters first
+                const matchesCategory = (category === "all" || point.dataset.category === category);
+                const matchesStars = (stars === "all" || point.dataset.stars === stars);
+                let visibleBasedOnFilter = matchesCategory && matchesStars;
+
+                // Check search text
+                let pointText = point.textContent.toLowerCase();
+                let matchesSearch = (searchText === "" || pointText.includes(searchText));
+
+                // Show if matches filters AND search (or if search is empty)
+                if (visibleBasedOnFilter && matchesSearch) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 if (searchText !== "") {
+                      noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                      // Updated message text
+                      noResultsMessage.textContent = '沒有找到符合目前篩選及搜尋條件的重點。';
+                 } else {
+                     // If search is empty, rely on filter results
+                     filterFocusPoints();
+                 }
+             }
+        }
+
+        // Removed Toggle Explanations Logic
+
+         // Initial setup
+         toggleBackToTopButton();
+         updateProgressBar();
+         filterFocusPoints(); // Apply default filters on load
+
+    </script>
+</body>
+</html>

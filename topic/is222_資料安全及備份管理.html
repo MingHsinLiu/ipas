@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>iPAS 資訊安全工程師 考試重點整理 - IS222 資料安全及備份管理</title> <!-- Changed Title -->
+    <style>
+        /* RWD設定，讓整體版面在不同裝置都有良好顯示 */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft JhengHei", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto; /* Added top/bottom margin */
+            padding: 25px;
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border-radius: 8px;
+        }
+        /* Updated Header */
+        .header-container {
+            background: linear-gradient(135deg, #2c3e50, #34495e); /* Darker gradient */
+            color: white;
+            padding: 30px 20px; /* Increased padding */
+            margin: -25px -25px 25px -25px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+        .header-container h1 {
+            margin: 0;
+            color: white;
+            font-size: 2.2rem; /* Larger title */
+            font-weight: 600;
+            margin-bottom: 5px; /* Space below title */
+        }
+        .header-container div { /* Subtitle */
+             font-size: 1.2rem;
+             opacity: 0.9;
+             margin-top: 5px;
+             font-weight: 300; /* Lighter weight */
+        }
+
+        /* Topic Categories Section (Renamed from Directions) */
+        .categories-container { /* Renamed */
+            background-color: #e8f0f5; /* Slightly different blue */
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 5px solid #5dade2; /* Lighter blue border */
+            border-radius: 5px;
+        }
+        .categories-title { /* Renamed */
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .categories-grid { /* Renamed */
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        .category-item { /* Renamed */
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #d6e0ea; /* Border matching background */
+        }
+        .category-item:hover {
+            background-color: #5dade2; /* Lighter blue hover */
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: #5dade2;
+        }
+        .category-number { /* Renamed */
+            width: 30px;
+            height: 30px;
+            background-color: #5dade2; /* Lighter blue number */
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .category-item:hover .category-number {
+            background-color: white;
+            color: #5dade2;
+        }
+        .category-text { /* Renamed */
+            font-size: 0.95rem;
+        }
+
+        /* Focus Point Card Styling (Replaces Question Card) */
+        .focus-points-container { /* Renamed */
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px; /* Increased gap */
+        }
+        .focus-card { /* Renamed */
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 0; /* Remove padding here, apply to inner elements */
+            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.1); /* Slightly stronger shadow */
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            border: 1px solid #e0e0e0;
+            overflow: hidden; /* Ensure inner elements respect border radius */
+        }
+        .focus-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(44, 62, 80, 0.15);
+        }
+        .focus-header { /* Renamed */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px; /* Padding inside header */
+            background-color: #f8f9fa; /* Light header background */
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .focus-id { /* Renamed */
+            font-weight: bold;
+            color: #5dade2; /* Lighter blue ID */
+            font-size: 1rem;
+            background-color: #e8f0f5; /* Background for ID */
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .focus-importance { /* Renamed */
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .focus-topic-container { /* New container for the main topic */
+             padding: 25px 25px 20px 25px; /* Padding around the topic */
+             border-bottom: 1px dashed #eee; /* Separator line */
+        }
+
+        .focus-topic { /* Replaces question-content */
+            font-size: 1.5rem; /* Larger font for the topic */
+            font-weight: 600; /* Bolder */
+            margin-bottom: 0; /* Remove margin, handled by container padding */
+            line-height: 1.4;
+            color: #2c3e50; /* Dark blue-grey for topic */
+        }
+
+        /* Styling for terminology within topic/details */
+        .term-cn { /* Chinese Term */
+            color: rgb(0, 0, 255); /* Corrected to Blue */
+            font-weight: bold;
+        }
+        .term-abbr { /* English Abbreviation */
+            color: purple;
+            font-weight: bold;
+        }
+        .term-eng { /* English Full Name */
+            color: red;
+            font-weight: bold;
+        }
+        .keyword-highlight {
+             background-color: #ffff0030; /* Faint yellow background */
+        }
+
+
+        /* Details Section Styling (Replaces Explanation) */
+        .focus-details-container { /* Renamed */
+            padding: 20px 25px 25px 25px; /* Padding for details */
+        }
+        .details-header { /* Renamed */
+            font-weight: bold;
+            margin-bottom: 15px; /* Space below header */
+            color: #34495e;
+            font-size: 1.2rem; /* Slightly larger details header */
+            letter-spacing: 0.5px; /* Optional spacing */
+        }
+        .details-content { /* Renamed */
+            line-height: 1.75; /* Increased line height for readability */
+            color: #444;
+            font-size: 1.05rem; /* Slightly larger detail text */
+        }
+        .details-content ul { /* Style lists if used in details */
+             padding-left: 25px;
+             margin-top: 10px;
+             margin-bottom: 10px;
+        }
+         .details-content li {
+             margin-bottom: 8px; /* Space between list items */
+         }
+         .source-annotation {
+            font-size: 0.85rem;
+            color: #777;
+            margin-top: 15px;
+            display: block;
+            text-align: right;
+        }
+
+
+        /* Controls Section Styling (Adjusted for Focus Points) */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 15px;
+            background-color: #fdfdfd;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+        .filter-container, .search-container, .star-filter-container { /* Removed .toggle-explanations */
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            min-width: 200px;
+        }
+         .search-container { flex-grow: 2; }
+        .filter-label, .search-label, .star-filter-label {
+            font-weight: 600;
+            margin-right: 10px;
+            white-space: nowrap;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        select, input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+            flex-grow: 1;
+            font-size: 0.95rem;
+            background-color: white;
+        }
+         input[type="text"] { min-width: 180px; }
+        button {
+            padding: 10px 18px;
+            background-color: #5dade2; /* Lighter blue buttons */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.2s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-left: 8px;
+            white-space: nowrap;
+        }
+        button:hover {
+            background-color: #3498db; /* Darker blue hover */
+        }
+
+        /* RWD Adjustments */
+        @media (max-width: 992px) {
+             .controls { flex-direction: column; align-items: stretch; }
+            .filter-container, .search-container, .star-filter-container { width: 100%; flex-grow: 0; }
+             select, input[type="text"] { width: 100%; }
+             button { margin-left: 0; margin-top: 5px; }
+             .search-container button { margin-left: 8px; margin-top: 0; }
+             #searchInput { width: calc(100% - 90px); }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .header-container { padding: 25px 15px; margin: -15px -15px 20px -15px; }
+            .categories-grid { grid-template-columns: 1fr; }
+            .focus-card { padding: 0; } /* Ensure no padding on card itself */
+             .focus-header, .focus-topic-container, .focus-details-container { padding-left: 20px; padding-right: 20px; } /* Adjust inner padding */
+            h1 { font-size: 1.8rem; }
+            .header-container h1 { font-size: 2rem; }
+            .focus-topic { font-size: 1.3rem; }
+            .details-header { font-size: 1.1rem; }
+            .details-content { font-size: 1rem; }
+        }
+
+        /* Back to Top Button & Progress Bar (No changes needed) */
+        .back-to-top {
+            position: fixed; bottom: 25px; right: 25px; background-color: #5dade2; color: white;
+            width: 45px; height: 45px; border-radius: 50%; display: none; justify-content: center;
+            align-items: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, opacity 0.3s, transform 0.3s; z-index: 1000;
+            opacity: 0.8; font-size: 1.2rem;
+        }
+        .back-to-top:hover { background-color: #3498db; opacity: 1; transform: scale(1.1); }
+        .progress-container {
+            width: 100%; height: 5px; background-color: #e8f0f5; position: fixed;
+            top: 0; left: 0; z-index: 1001;
+        }
+        .progress-bar {
+            height: 5px; background: linear-gradient(90deg, #5dade2, #85c1e9); /* Adjusted gradient */
+            width: 0%; border-radius: 0 2px 2px 0; transition: width 0.1s linear;
+        }
+         #noResultsMessage {
+             text-align: center; padding: 20px; color: #777; display: none; font-style: italic;
+         }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <div class="header-container">
+            <h1>iPAS 資訊安全工程師 考試重點</h1> <!-- Updated Title -->
+            <div>IS222 資料安全及備份管理</div> <!-- Updated Subtitle -->
+        </div>
+
+        <div class="controls">
+             <div class="filter-container">
+                 <!-- Updated Label -->
+                <label for="categoryFilter" class="filter-label">篩選主題：</label>
+                <select id="categoryFilter"> <!-- Updated ID and options based on actual content -->
+                    <option value="all">全部主題</option>
+                    <option value="1">資料安全原則 (CIA)</option>
+                    <option value="2">備份類型與策略</option>
+                    <option value="3">RAID 與儲存技術</option>
+                    <option value="4">資料生命週期與復原目標 (RPO/RTO)</option>
+                    <option value="5">加密、雜湊與完整性</option>
+                    <option value="6">記錄檔管理 (日誌)</option>
+                </select>
+            </div>
+
+            <div class="star-filter-container">
+                <label for="starFilter" class="star-filter-label">重要性：</label>
+                <select id="starFilter">
+                    <option value="all">全部重要性</option>
+                    <option value="5">★★★★★</option>
+                    <option value="4">★★★★</option>
+                    <option value="3">★★★</option>
+                    <option value="2">★★</option>
+                    <option value="1">★</option>
+                </select>
+            </div>
+
+            <div class="search-container">
+                <label for="searchInput" class="search-label">搜尋：</label>
+                <input type="text" id="searchInput" placeholder="輸入關鍵字...">
+                <button id="searchButton">搜尋</button>
+            </div>
+            <!-- Removed Toggle Explanations Button -->
+        </div>
+
+        <div class="categories-container"> <!-- Renamed -->
+            <div class="categories-title">主題分類</div> <!-- Updated Title -->
+            <div class="categories-grid" id="categoriesGrid"> <!-- Renamed ID and categories based on actual content -->
+                 <div class="category-item" onclick="filterByCategory(1)">
+                    <div class="category-number">1</div>
+                    <div class="category-text">資料安全原則 (CIA)</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(2)">
+                    <div class="category-number">2</div>
+                    <div class="category-text">備份類型與策略</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(3)">
+                    <div class="category-number">3</div>
+                    <div class="category-text">RAID 與儲存技術</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(4)">
+                    <div class="category-number">4</div>
+                    <div class="category-text">資料生命週期與復原目標 (RPO/RTO)</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(5)">
+                    <div class="category-number">5</div>
+                    <div class="category-text">加密、雜湊與完整性</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(6)">
+                    <div class="category-number">6</div>
+                    <div class="category-text">記錄檔管理 (日誌)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="focus-points-container" id="focusPointsContainer"> <!-- Renamed -->
+
+             <!-- Focus Point: CIA Triad -->
+             <div class="focus-card" data-category="1" data-stars="5">
+                 <div class="focus-header"><div class="focus-id">#1</div><div class="focus-importance">★★★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><strong class="term-cn">資訊安全三要素</strong> (<strong class="term-abbr">CIA Triad</strong>)</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         資訊安全的核心目標通常圍繞著<strong class="term-abbr">CIA</strong>三要素：
+                         <ul>
+                             <li><strong class="term-cn">機密性</strong> (<span class="term-eng">Confidentiality</span>)：確保資訊<span class="keyword-highlight">不被未經授權者存取</span>或揭露。例如，使用 <strong class="term-cn">Wireshark</strong> 嗅探未加密的 <strong class="term-abbr">Telnet</strong> 流量會<span class="keyword-highlight">破壞機密性</span>。</li>
+                             <li><strong class="term-cn">完整性</strong> (<span class="term-eng">Integrity</span>)：確保資訊的<span class="keyword-highlight">準確性</span>和<span class="keyword-highlight">完整性</span>，防止未經授權的修改或刪除。例如，使用 <strong class="term-cn">SHA2</strong> 雜湊函數檢查檔案<span class="keyword-highlight">是否被篡改</span>，是在保護完整性。</li>
+                             <li><strong class="term-cn">可用性</strong> (<span class="term-eng">Availability</span>)：確保<span class="keyword-highlight">經授權的使用者</span>在需要時能<span class="keyword-highlight">存取</span>資訊和相關資產。例如，資料備份的主要目的是在發生問題時<span class="keyword-highlight">恢復資料</span>，保障可用性。<strong class="term-cn">阻斷服務攻擊</strong> (<strong class="term-abbr">DoS</strong>) 主要破壞可用性。</li>
+                         </ul>
+                         <strong class="term-cn">可靠性</strong> (<span class="term-eng">Reliability</span>) 通常指系統穩定運行的能力，不是 CIA 中的核心要素。<strong class="term-cn">真確性</strong> (<span class="term-eng">Authenticity</span>) 則與身份驗證相關，確保來源的真實性。<span class="source-annotation">(資料來源：111初級-管理概論 Q6, Q29, 109初級-管理概論 Q1, 109初級-管理概論(5月) Q2, Q3, 110初級-管理概論 Q1, 110初級-技術概論(11月) Q40, 112初級-管理概論 Q4)</span>
+                     </div>
+                 </div>
+             </div>
+
+             <!-- Focus Point: Backup Types -->
+             <div class="focus-card" data-category="2" data-stars="5">
+                 <div class="focus-header"><div class="focus-id">#2</div><div class="focus-importance">★★★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><strong class="term-cn">備份類型</strong> (<span class="term-eng">Backup Types</span>)</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         常見的資料備份類型：
+                         <ul>
+                             <li><strong class="term-cn">完整備份</strong> (<span class="term-eng">Full Backup</span>)：<span class="keyword-highlight">備份所有</span>選定的資料。耗時最長，佔用空間最大，但<span class="keyword-highlight">還原最簡單</span>（只需最新的完整備份）。</li>
+                             <li><strong class="term-cn">增量備份</strong> (<span class="term-eng">Incremental Backup</span>)：僅備份<span class="keyword-highlight">自上次任何類型備份</span>（完整或增量）<span class="keyword-highlight">以來有變更</span>的資料。備份最快，佔用空間最小，但<span class="keyword-highlight">還原最複雜</span>（需要最新的完整備份加上之後所有的增量備份）。</li>
+                             <li><strong class="term-cn">差異備份</strong> (<span class="term-eng">Differential Backup</span>)：僅備份<span class="keyword-highlight">自上次完整備份</span><span class="keyword-highlight">以來有變更</span>的資料。備份時間和空間介於兩者之間，還原較增量簡單（只需最新的完整備份和最新的差異備份）。</li>
+                         </ul>
+                         比較：
+                         <ul>
+                             <li><span class="keyword-highlight">備份速度（快>慢）</span>：增量 > 差異 > 完整</li>
+                             <li><span class="keyword-highlight">備份空間（小>大）</span>：增量 < 差異 < 完整</li>
+                             <li><span class="keyword-highlight">還原速度（快>慢）</span>：完整 > 差異 > 增量</li>
+                             <li><span class="keyword-highlight">還原複雜度（易>難）</span>：完整 < 差異 < 增量</li>
+                         </ul>
+                         差異備份是備份自上次<span class="keyword-highlight">完整備份</span>後更改的檔案。<span class="source-annotation">(資料來源：109初級-管理概論 Q50, 109初級-管理概論(5月) Q43, 110初級-技術概論 Q34, 110初級-技術概論(11月) Q32, Q36, 111初級-技術概論 Q15, 111初級-技術概論(11月) Q37)</span>
+                     </div>
+                 </div>
+             </div>
+
+             <!-- Focus Point: RAID Levels -->
+             <div class="focus-card" data-category="3" data-stars="4">
+                 <div class="focus-header"><div class="focus-id">#3</div><div class="focus-importance">★★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><strong class="term-cn">磁碟陣列</strong> (<strong class="term-abbr">RAID</strong> - <span class="term-eng">Redundant Array of Independent Disks</span>)</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         <strong class="term-abbr">RAID</strong> 是一種將多個獨立硬碟組合成一個邏輯單元，以提升效能或提供資料冗餘的技術。
+                         <ul>
+                             <li><strong class="term-abbr">RAID 0</strong> (<span class="term-eng">Striping</span>)：<span class="keyword-highlight">條帶化</span>。資料分散寫入多個硬碟，提升讀寫速度，但<span class="keyword-highlight">沒有容錯</span>能力，任一硬碟損壞資料即遺失。</li>
+                             <li><strong class="term-abbr">RAID 1</strong> (<span class="term-eng">Mirroring</span>)：<span class="keyword-highlight">鏡像</span>。資料完全複製到另一個（或多個）硬碟，提供<span class="keyword-highlight">高容錯</span>（可壞一半硬碟），但磁碟利用率低。</li>
+                             <li><strong class="term-abbr">RAID 5</strong> (<span class="term-eng">Striping with Distributed Parity</span>)：<span class="keyword-highlight">帶分散式同位元檢查的條帶化</span>。資料和同位元檢查資訊分散存儲在所有硬碟上，提供<span class="keyword-highlight">容錯</span>（允許<span class="keyword-highlight">一顆硬碟損壞</span>）和較好的讀取效能，寫入效能稍差。至少需要 3 顆硬碟。</li>
+                             <li><strong class="term-abbr">RAID 6</strong> (<span class="term-eng">Striping with Dual Parity</span>)：類似 RAID 5，但使用<span class="keyword-highlight">兩組獨立的同位元檢查資訊</span>，提供<span class="keyword-highlight">更高容錯</span>（允許<span class="keyword-highlight">兩顆硬碟同時損壞</span>）。至少需要 4 顆硬碟。</li>
+                             <li><strong class="term-abbr">RAID 10</strong> (1+0)：<span class="keyword-highlight">先鏡像再條帶化</span>。兼具 RAID 1 的容錯和 RAID 0 的效能。</li>
+                         </ul>
+                         <strong class="term-abbr">RAID 5</strong> <span class="keyword-highlight">只能容忍一顆硬碟損壞</span>。若有硬碟故障，只需更換硬碟並進行 <strong class="term-cn">重建</strong> (<span class="term-eng">Rebuild</span>)。<span class="source-annotation">(資料來源：111初級-管理概論 Q14, 110初級-技術概論 Q36, 109初級-管理概論(11月) Q44)</span>
+                     </div>
+                 </div>
+             </div>
+
+             <!-- Focus Point: RTO & RPO -->
+             <div class="focus-card" data-category="4" data-stars="5">
+                 <div class="focus-header"><div class="focus-id">#4</div><div class="focus-importance">★★★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><strong class="term-cn">復原時間目標</strong> & <strong class="term-cn">復原點目標</strong> (<strong class="term-abbr">RTO</strong> & <strong class="term-abbr">RPO</strong>)</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         <strong class="term-abbr">RTO</strong> 和 <strong class="term-abbr">RPO</strong> 是<strong class="term-cn">營運持續計畫</strong> (<strong class="term-abbr">BCP</strong> - <span class="term-eng">Business Continuity Planning</span>) 和<strong class="term-cn">災難復原計畫</strong> (<strong class="term-abbr">DRP</strong> - <span class="term-eng">Disaster Recovery Planning</span>) 中的關鍵指標：
+                         <ul>
+                             <li><strong class="term-cn">復原時間目標</strong> (<strong class="term-abbr">RTO</strong> - <span class="term-eng">Recovery Time Objective</span>)：指<span class="keyword-highlight">災害發生後</span>，系統或服務必須<span class="keyword-highlight">恢復運作</span>（達到可接受水準）的<span class="keyword-highlight">最長可容忍時間</span>。RTO 時間越長，代表可容忍系統無法使用的時間越長。</li>
+                             <li><strong class="term-cn">復原點目標</strong> (<strong class="term-abbr">RPO</strong> - <span class="term-eng">Recovery Point Objective</span>)：指災害發生後，<span class="keyword-highlight">可容忍遺失多少時間的資料量</span>。它決定了<span class="keyword-highlight">備份的頻率</span>。RPO 的時間點要求越遠（例如一天備份一次 vs 一小時備份一次），代表可容忍遺失的資料量越多，備份週期可以越長。</li>
+                         </ul>
+                         <strong class="term-abbr">MTPD</strong> (<span class="term-eng">Maximum Tolerable Period of Disruption</span>) 指<span class="keyword-highlight">最大容許中斷時間</span>，<strong class="term-abbr">RTO</strong> 必須小於等於 <strong class="term-abbr">MTPD</strong>。時間關係通常是：<strong class="term-abbr">MTPD ≥ RTO</span>。 RPO 與 RTO/MTPD 無直接大小關係，但都需考量。<br>
+                         <span class="keyword-highlight">RPO 的時間點要求越遠，代表備份週期可以越長</span>（允許損失較多資料）。<span class="source-annotation">(資料來源：111初級-管理概論 Q13, 109初級-管理概論 Q48, Q49, 109初級-管理概論(5月) Q44, 108初級-管理概論 Q42)</span>
+                     </div>
+                 </div>
+             </div>
+
+            <!-- Focus Point: Hashing & Integrity -->
+            <div class="focus-card" data-category="5" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#5</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><strong class="term-cn">雜湊函數</strong> (<span class="term-eng">Hash Function</span>) <strong class="term-cn">與完整性檢查</strong></div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <strong class="term-cn">雜湊函數</strong>是一種將任意長度的輸入資料，透過特定演算法轉換成<span class="keyword-highlight">固定長度輸出</span>（雜湊值或摘要）的函數。
+                        <ul>
+                            <li><span class="keyword-highlight">單向性</span>：難以從雜湊值反推回原始輸入。</li>
+                            <li><span class="keyword-highlight">固定長度輸出</span>：不論輸入多長，輸出長度固定。</li>
+                            <li><span class="keyword-highlight">雪崩效應</span>：輸入微小變動會導致輸出雜湊值巨大差異。</li>
+                            <li><span class="keyword-highlight">碰撞抗性</span>：難以找到兩個不同輸入產生相同輸出（碰撞）。</li>
+                        </ul>
+                        主要應用於<strong class="term-cn">資料完整性</strong> (<span class="term-eng">Integrity</span>) 檢查：計算檔案的雜湊值，若稍後重新計算的雜湊值與原始值不同，表示檔案<span class="keyword-highlight">已被修改</span>。<br>
+                        常見演算法：<strong class="term-abbr">MD5</strong> (有碰撞風險，不建議用於安全敏感場景), <strong class="term-abbr">SHA-1</strong> (有碰撞風險), <strong class="term-abbr">SHA-2</strong> (SHA-256, SHA-512) 是目前常用的安全雜湊演算法。<br>
+                        <strong class="term-abbr">SHA2</strong> 最常被用來檢查<strong class="term-cn">檔案完整性</strong>。<span class="source-annotation">(資料來源：111初級-管理概論 Q35, 108初級-管理概論 Q33)</span>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point: Hashing with Salt -->
+             <div class="focus-card" data-category="5" data-stars="3">
+                 <div class="focus-header"><div class="focus-id">#6</div><div class="focus-importance">★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><strong class="term-cn">雜湊加鹽</strong> (<span class="term-eng">Hashing with Salt</span>)</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         <strong class="term-cn">加鹽</strong> (<span class="term-eng">Salting</span>) 是一種增強密碼雜湊安全的技術。<br>
+                         <ul>
+                             <li>在對密碼進行<strong class="term-cn">雜湊運算前</span>，先將一個<span class="keyword-highlight">隨機且唯一的字串</span>（稱為<strong class="term-cn">鹽</strong>, <span class="term-eng">Salt</span>）附加到原始密碼上。</li>
+                             <li>然後對「密碼+鹽」的組合進行雜湊運算。</li>
+                             <li>將計算出的<span class="keyword-highlight">雜湊值</span>和對應的<span class="keyword-highlight">鹽值</span>一起儲存。</li>
+                         </ul>
+                         目的：
+                         <ul>
+                             <li><span class="keyword-highlight">對抗彩虹表攻擊</span>：由於每個密碼都使用了不同的鹽，即使是相同的密碼也會產生不同的雜湊值，使得預先計算的彩虹表失效。</li>
+                             <li>增加暴力破解難度。</li>
+                         </ul>
+                         <strong class="term-cn">加鹽</strong>是在雜湊前將內容插入特定字串的操作。<span class="source-annotation">(資料來源：110初級-技術概論 Q35, 109初級-管理概論 Q39)</span>
+                     </div>
+                 </div>
+             </div>
+
+             <!-- Focus Point: Data De-identification -->
+             <div class="focus-card" data-category="1" data-stars="2">
+                 <div class="focus-header"><div class="focus-id">#7</div><div class="focus-importance">★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><strong class="term-cn">去識別化</strong> (<span class="term-eng">De-identification</span>)</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         <strong class="term-cn">去識別化</strong>是指移除或修改資料中的<span class="keyword-highlight">個人可識別資訊</span> (<strong class="term-abbr">PII</strong> - <span class="term-eng">Personally Identifiable Information</span>)，使其<span class="keyword-highlight">無法直接關聯到特定個人</span>的過程。<br>
+                         目的是在保護個人隱私的同時，仍能使用資料進行分析、研究或共享。<br>
+                         主要目標是保護資料的<strong class="term-cn">機密性</strong> (<span class="term-eng">Confidentiality</span>)。<span class="source-annotation">(資料來源：110初級-技術概論 Q33, 109初級-技術概論 Q38)</span>
+                     </div>
+                 </div>
+             </div>
+
+            <!-- Focus Point: Log Management -->
+            <div class="focus-card" data-category="6" data-stars="4">
+                 <div class="focus-header"><div class="focus-id">#8</div><div class="focus-importance">★★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><strong class="term-cn">日誌管理</strong> (<span class="term-eng">Log Management</span>) <strong class="term-cn">與監控</strong></div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         <strong class="term-cn">日誌</strong> (<span class="term-eng">Log</span>) 是系統或應用程式運行過程中產生的事件記錄。<br>
+                         重要性：
+                         <ul>
+                             <li><span class="keyword-highlight">記錄使用者活動</span>、<span class="keyword-highlight">系統異常</span>、錯誤訊息、安全事件等。</li>
+                             <li>用於<span class="keyword-highlight">問題排查</span>、<span class="keyword-highlight">效能監控</span>、<strong class="term-cn">安全稽核</strong>、<span class="keyword-highlight">事件追蹤</span>和<span class="keyword-highlight">法規遵循</span>。</li>
+                         </ul>
+                         管理要點：
+                         <ul>
+                             <li><span class="keyword-highlight">時間同步</span>：所有設備的時鐘應與準確的時間來源同步，確保日誌時間戳的一致性。</li>
+                             <li><span class="keyword-highlight">依法定要求保存</span>：日誌需按法規或政策要求保存足夠長的時間。</li>
+                             <li><span class="keyword-highlight">保護日誌</span>：防止未經授權的存取、修改或刪除。日誌不應隨意存取，尤其是在非調查情況下。</li>
+                             <li><span class="keyword-highlight">集中管理</span>：使用 <strong class="term-cn">Syslog</strong> 或 <strong class="term-abbr">SIEM</strong> (<span class="term-eng">Security Information and Event Management</span>) 系統集中收集和分析日誌。</li>
+                             <li><span class="keyword-highlight">定期審查</span>：定期檢查日誌以發現潛在問題或異常活動。</li>
+                             <li><span class="keyword-highlight">格式化/正規化</span>：將不同來源、不同格式的日誌轉換為統一格式，方便分析，稱為<strong class="term-cn">正規化</strong> (<span class="term-eng">Normalization</span>)。</li>
+                         </ul>
+                         <strong class="term-cn">系統日誌</strong>不應平日隨意存取，以防外洩或篡改。<span class="keyword-highlight">資料清理</span> (<span class="term-eng">Data Cleaning</span>) 是指刪除或修正日誌中格式不正確或不完整的資料，以提高分析質量。<span class="source-annotation">(資料來源：111初級-管理概論 Q26, 110初級-技術概論 Q16, Q38, Q39, Q41, 109初級-技術概論 Q39, Q41, Q43, 108初級-技術概論 Q41)</span>
+                     </div>
+                 </div>
+            </div>
+
+             <!-- Placeholder for No Results -->
+             <div id="noResultsMessage">沒有找到符合條件的重點。</div>
+
+        </div><!-- end focus-points-container -->
+
+        <div class="back-to-top" id="backToTop">↑</div>
+    </div>
+
+    <script>
+        // Progress bar (no changes needed)
+        const progressBar = document.getElementById("progressBar");
+        window.onscroll = function() { updateProgressBar(); toggleBackToTopButton(); };
+        function updateProgressBar() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (height > 0) ? (winScroll / height) * 100 : 0;
+            progressBar.style.width = scrolled + "%";
+        }
+
+        // Back to top button (no changes needed)
+        const backToTopButton = document.getElementById("backToTop");
+        function toggleBackToTopButton() {
+             backToTopButton.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "flex" : "none";
+        }
+        backToTopButton.addEventListener("click", () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+        // Filter by category (Updated function name)
+        function filterByCategory(categoryNumber) {
+            document.getElementById('categoryFilter').value = categoryNumber === 'all' ? 'all' : String(categoryNumber);
+            document.getElementById('searchInput').value = ''; // Clear search on filter click
+            filterFocusPoints(); // Call updated filter function
+        }
+
+        // Event listeners for filters and search (Updated IDs/functions)
+        document.getElementById("categoryFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("starFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("searchButton").addEventListener("click", searchFocusPoints); // Updated function call
+        document.getElementById("searchInput").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                searchFocusPoints(); // Updated function call
+            }
+        });
+
+        const noResultsMessage = document.getElementById('noResultsMessage');
+
+        // Combined filter function (Updated variable/class names)
+        function filterFocusPoints() {
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+            let points = document.querySelectorAll(".focus-card"); // Target .focus-card
+            let anyVisible = false;
+
+            points.forEach(function(point) {
+                // Updated dataset attribute name
+                const matchesCategory = (category === "all" || point.dataset.category === category);
+                const matchesStars = (stars === "all" || point.dataset.stars === stars);
+
+                if (matchesCategory && matchesStars) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                 // Updated message text
+                 noResultsMessage.textContent = '沒有找到符合篩選條件的重點。';
+             }
+        }
+
+        // Search function (Updated variable/class names)
+        function searchFocusPoints() {
+            let searchText = document.getElementById("searchInput").value.toLowerCase().trim();
+            let points = document.querySelectorAll(".focus-card"); // Target .focus-card
+            let anyVisible = false;
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+
+            points.forEach(function(point) {
+                // Check filters first
+                const matchesCategory = (category === "all" || point.dataset.category === category);
+                const matchesStars = (stars === "all" || point.dataset.stars === stars);
+                let visibleBasedOnFilter = matchesCategory && matchesStars;
+
+                // Check search text
+                let pointText = point.textContent.toLowerCase();
+                let matchesSearch = (searchText === "" || pointText.includes(searchText));
+
+                // Show if matches filters AND search (or if search is empty)
+                if (visibleBasedOnFilter && matchesSearch) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 if (searchText !== "") {
+                      noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                      // Updated message text
+                      noResultsMessage.textContent = '沒有找到符合目前篩選及搜尋條件的重點。';
+                 } else {
+                     // If search is empty, rely on filter results
+                     filterFocusPoints();
+                 }
+             }
+        }
+
+        // Removed Toggle Explanations Logic
+
+         // Initial setup
+         toggleBackToTopButton();
+         updateProgressBar();
+         filterFocusPoints(); // Apply default filters on load
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>iPAS 資訊安全工程師 考試重點整理 - IS211 作業系統安全</title> <!-- Changed Title -->
+    <style>
+        /* RWD設定，讓整體版面在不同裝置都有良好顯示 */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft JhengHei", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto; /* Added top/bottom margin */
+            padding: 25px;
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border-radius: 8px;
+        }
+        /* Updated Header */
+        .header-container {
+            background: linear-gradient(135deg, #2c3e50, #34495e); /* Darker gradient */
+            color: white;
+            padding: 30px 20px; /* Increased padding */
+            margin: -25px -25px 25px -25px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+        .header-container h1 {
+            margin: 0;
+            color: white;
+            font-size: 2.2rem; /* Larger title */
+            font-weight: 600;
+            margin-bottom: 5px; /* Space below title */
+        }
+        .header-container div { /* Subtitle */
+             font-size: 1.2rem;
+             opacity: 0.9;
+             margin-top: 5px;
+             font-weight: 300; /* Lighter weight */
+        }
+
+        /* Topic Categories Section (Renamed from Directions) */
+        .categories-container { /* Renamed */
+            background-color: #e8f0f5; /* Slightly different blue */
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 5px solid #5dade2; /* Lighter blue border */
+            border-radius: 5px;
+        }
+        .categories-title { /* Renamed */
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .categories-grid { /* Renamed */
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        .category-item { /* Renamed */
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #d6e0ea; /* Border matching background */
+        }
+        .category-item:hover {
+            background-color: #5dade2; /* Lighter blue hover */
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: #5dade2;
+        }
+        .category-number { /* Renamed */
+            width: 30px;
+            height: 30px;
+            background-color: #5dade2; /* Lighter blue number */
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .category-item:hover .category-number {
+            background-color: white;
+            color: #5dade2;
+        }
+        .category-text { /* Renamed */
+            font-size: 0.95rem;
+        }
+
+        /* Focus Point Card Styling (Replaces Question Card) */
+        .focus-points-container { /* Renamed */
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px; /* Increased gap */
+        }
+        .focus-card { /* Renamed */
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 0; /* Remove padding here, apply to inner elements */
+            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.1); /* Slightly stronger shadow */
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            border: 1px solid #e0e0e0;
+            overflow: hidden; /* Ensure inner elements respect border radius */
+        }
+        .focus-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(44, 62, 80, 0.15);
+        }
+        .focus-header { /* Renamed */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px; /* Padding inside header */
+            background-color: #f8f9fa; /* Light header background */
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .focus-id { /* Renamed */
+            font-weight: bold;
+            color: #5dade2; /* Lighter blue ID */
+            font-size: 1rem;
+            background-color: #e8f0f5; /* Background for ID */
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .focus-importance { /* Renamed */
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .focus-topic-container { /* New container for the main topic */
+             padding: 25px 25px 20px 25px; /* Padding around the topic */
+             border-bottom: 1px dashed #eee; /* Separator line */
+        }
+
+        .focus-topic { /* Replaces question-content */
+            font-size: 1.5rem; /* Larger font for the topic */
+            font-weight: 600; /* Bolder */
+            margin-bottom: 0; /* Remove margin, handled by container padding */
+            line-height: 1.4;
+            color: #2c3e50; /* Dark blue-grey for topic */
+        }
+
+        /* Styling for terminology within topic/details */
+        .term-cn { /* Chinese Term */
+            color: rgb(0, 0, 255); /* Corrected to Blue */
+            font-weight: bold;
+        }
+        .term-abbr { /* English Abbreviation */
+            color: purple;
+            font-weight: bold;
+        }
+        .term-eng { /* English Full Name */
+            color: red;
+            font-weight: bold;
+        }
+        .keyword-highlight {
+             background-color: #ffff0030; /* Faint yellow background */
+        }
+
+
+        /* Details Section Styling (Replaces Explanation) */
+        .focus-details-container { /* Renamed */
+            padding: 20px 25px 25px 25px; /* Padding for details */
+        }
+        .details-header { /* Renamed */
+            font-weight: bold;
+            margin-bottom: 15px; /* Space below header */
+            color: #34495e;
+            font-size: 1.2rem; /* Slightly larger details header */
+            letter-spacing: 0.5px; /* Optional spacing */
+        }
+        .details-content { /* Renamed */
+            line-height: 1.75; /* Increased line height for readability */
+            color: #444;
+            font-size: 1.05rem; /* Slightly larger detail text */
+        }
+        .details-content ul { /* Style lists if used in details */
+             padding-left: 25px;
+             margin-top: 10px;
+             margin-bottom: 10px;
+        }
+         .details-content li {
+             margin-bottom: 8px; /* Space between list items */
+         }
+        .source-annotation {
+            font-size: 0.85rem;
+            color: #777;
+            margin-top: 15px;
+            display: block;
+            text-align: right;
+        }
+
+
+        /* Controls Section Styling (Adjusted for Focus Points) */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 15px;
+            background-color: #fdfdfd;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+        .filter-container, .search-container, .star-filter-container { /* Removed .toggle-explanations */
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            min-width: 200px;
+        }
+         .search-container { flex-grow: 2; }
+        .filter-label, .search-label, .star-filter-label {
+            font-weight: 600;
+            margin-right: 10px;
+            white-space: nowrap;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        select, input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+            flex-grow: 1;
+            font-size: 0.95rem;
+            background-color: white;
+        }
+         input[type="text"] { min-width: 180px; }
+        button {
+            padding: 10px 18px;
+            background-color: #5dade2; /* Lighter blue buttons */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.2s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-left: 8px;
+            white-space: nowrap;
+        }
+        button:hover {
+            background-color: #3498db; /* Darker blue hover */
+        }
+
+        /* RWD Adjustments */
+        @media (max-width: 992px) {
+             .controls { flex-direction: column; align-items: stretch; }
+            .filter-container, .search-container, .star-filter-container { width: 100%; flex-grow: 0; }
+             select, input[type="text"] { width: 100%; }
+             button { margin-left: 0; margin-top: 5px; }
+             .search-container button { margin-left: 8px; margin-top: 0; }
+             #searchInput { width: calc(100% - 90px); }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .header-container { padding: 25px 15px; margin: -15px -15px 20px -15px; }
+            .categories-grid { grid-template-columns: 1fr; }
+            .focus-card { padding: 0; } /* Ensure no padding on card itself */
+             .focus-header, .focus-topic-container, .focus-details-container { padding-left: 20px; padding-right: 20px; } /* Adjust inner padding */
+            h1 { font-size: 1.8rem; }
+            .header-container h1 { font-size: 2rem; }
+            .focus-topic { font-size: 1.3rem; }
+            .details-header { font-size: 1.1rem; }
+            .details-content { font-size: 1rem; }
+        }
+
+        /* Back to Top Button & Progress Bar (No changes needed) */
+        .back-to-top {
+            position: fixed; bottom: 25px; right: 25px; background-color: #5dade2; color: white;
+            width: 45px; height: 45px; border-radius: 50%; display: none; justify-content: center;
+            align-items: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, opacity 0.3s, transform 0.3s; z-index: 1000;
+            opacity: 0.8; font-size: 1.2rem;
+        }
+        .back-to-top:hover { background-color: #3498db; opacity: 1; transform: scale(1.1); }
+        .progress-container {
+            width: 100%; height: 5px; background-color: #e8f0f5; position: fixed;
+            top: 0; left: 0; z-index: 1001;
+        }
+        .progress-bar {
+            height: 5px; background: linear-gradient(90deg, #5dade2, #85c1e9); /* Adjusted gradient */
+            width: 0%; border-radius: 0 2px 2px 0; transition: width 0.1s linear;
+        }
+         #noResultsMessage {
+             text-align: center; padding: 20px; color: #777; display: none; font-style: italic;
+         }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <div class="header-container">
+            <h1>iPAS 資訊安全工程師 考試重點</h1> <!-- Updated Title -->
+            <div>IS211 作業系統安全</div> <!-- Updated Subtitle -->
+        </div>
+
+        <div class="controls">
+             <div class="filter-container">
+                 <!-- Updated Label -->
+                <label for="categoryFilter" class="filter-label">篩選主題：</label>
+                <select id="categoryFilter"> <!-- Updated ID and options based on actual content -->
+                    <option value="all">全部主題</option>
+                    <option value="1">權限與存取控制</option>
+                    <!-- Removed Category 2 -->
+                    <option value="3">惡意程式與威脅</option>
+                    <!-- Removed Category 4 -->
+                    <option value="5">強化與組態設定</option>
+                    <option value="6">修補與更新管理</option>
+                    <option value="7">Linux/Windows 特定安全</option>
+                </select>
+            </div>
+
+            <div class="star-filter-container">
+                <label for="starFilter" class="star-filter-label">重要性：</label>
+                <select id="starFilter">
+                    <option value="all">全部重要性</option>
+                    <option value="5">★★★★★</option>
+                    <option value="4">★★★★</option>
+                    <option value="3">★★★</option>
+                    <option value="2">★★</option>
+                    <option value="1">★</option>
+                </select>
+            </div>
+
+            <div class="search-container">
+                <label for="searchInput" class="search-label">搜尋：</label>
+                <input type="text" id="searchInput" placeholder="輸入關鍵字...">
+                <button id="searchButton">搜尋</button>
+            </div>
+            <!-- Removed Toggle Explanations Button -->
+        </div>
+
+        <div class="categories-container"> <!-- Renamed -->
+            <div class="categories-title">主題分類</div> <!-- Updated Title -->
+            <div class="categories-grid" id="categoriesGrid"> <!-- Renamed ID and categories based on actual content -->
+                 <div class="category-item" onclick="filterByCategory(1)">
+                    <div class="category-number">1</div>
+                    <div class="category-text">權限與存取控制</div>
+                </div>
+                <!-- Removed Category 2 -->
+                <div class="category-item" onclick="filterByCategory(3)">
+                    <div class="category-number">3</div> <!-- Kept original number for consistency, or could re-number -->
+                    <div class="category-text">惡意程式與威脅</div>
+                </div>
+                 <!-- Removed Category 4 -->
+                 <div class="category-item" onclick="filterByCategory(5)">
+                    <div class="category-number">5</div> <!-- Kept original number for consistency -->
+                    <div class="category-text">強化與組態設定</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(6)">
+                    <div class="category-number">6</div> <!-- Kept original number for consistency -->
+                    <div class="category-text">修補與更新管理</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(7)">
+                    <div class="category-number">7</div> <!-- Kept original number for consistency -->
+                    <div class="category-text">Linux/Windows 特定安全</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="focus-points-container" id="focusPointsContainer"> <!-- Renamed -->
+
+            <!-- Focus Point: Linux File Permissions -->
+            <div class="focus-card" data-category="1" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#1</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="term-eng">Linux</span> <strong class="term-cn">檔案存取權限</strong></div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        在 <span class="term-eng">Linux</span> 作業系統中，檔案的基礎存取權限主要分為三種：
+                        <ul>
+                            <li><strong class="term-cn">可讀</strong> (<span class="term-eng">Read</span>, r)：允許<span class="keyword-highlight">查看檔案內容</span>或<span class="keyword-highlight">列出目錄內容</span>。</li>
+                            <li><strong class="term-cn">可寫</strong> (<span class="term-eng">Write</span>, w)：允許<span class="keyword-highlight">修改檔案內容</span>或在目錄中<span class="keyword-highlight">建立/刪除檔案</span>。</li>
+                            <li><strong class="term-cn">可執行</strong> (<span class="term-eng">Execute</span>, x)：允許<span class="keyword-highlight">執行檔案</span>（如果是程式）或<span class="keyword-highlight">進入目錄</span>。</li>
+                        </ul>
+                        <span class="keyword-highlight">沒有「測試」</span>(<span class="term-eng">Test</span>) 這種標準的檔案存取權限分類。當判斷檔案是否可刪除時，是看該檔案所在的<span class="keyword-highlight">目錄是否具有可寫 (w) 權限</span>。<span class="source-annotation">(資料來源：111初級-技術概論 Q8, 113初級-技術概論 Q18)</span>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point: Linux Password File -->
+             <div class="focus-card" data-category="7" data-stars="3">
+                 <div class="focus-header"><div class="focus-id">#2</div><div class="focus-importance">★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="term-eng">Linux</span> <strong class="term-cn">密碼儲存檔案</strong></div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         在現代 <span class="term-eng">Linux</span> 系統中，使用者帳號的<span class="keyword-highlight">密碼雜湊值</span> (<span class="term-eng">Password Hash</span>) 通常儲存在 <code class="keyword-highlight">/etc/shadow</code> 檔案中。
+                         <ul>
+                             <li><code class="keyword-highlight">/etc/shadow</code>：儲存加密後的密碼及密碼原則資訊，<span class="keyword-highlight">只有 root 使用者有權限讀取</span>。</li>
+                             <li><code>/etc/passwd</code>：儲存使用者帳號基本資訊，<span class="keyword-highlight">不儲存密碼雜湊</span>，所有使用者皆可讀取。</li>
+                         </ul><span class="source-annotation">(資料來源：111初級-技術概論 Q24, 108初級-技術概論 Q16)</span>
+                     </div>
+                 </div>
+             </div>
+
+             <!-- Focus Point: Privilege Escalation -->
+            <div class="focus-card" data-category="1" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#3</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><strong class="term-cn">提權攻擊</strong> (<span class="term-eng">Privilege Escalation</span>)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <strong class="term-cn">提權</strong>是指攻擊者利用系統<span class="keyword-highlight">漏洞</span>或<span class="keyword-highlight">配置錯誤</span>，將其<span class="keyword-highlight">較低權限提升至更高權限</span>（如<span class="keyword-highlight">系統管理員</span>或 <span class="term-eng">root</span>），以獲得對系統的<span class="keyword-highlight">完全控制權</span>。<span class="source-annotation">(資料來源：110初級-技術概論 Q23, 108初級-技術概論 Q18, 113初級-技術概論 Q22)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point: OS Hardening -->
+            <div class="focus-card" data-category="5" data-stars="4">
+                <div class="focus-header"><div class="focus-id">#4</div><div class="focus-importance">★★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><strong class="term-cn">作業系統強化</strong> (<span class="term-eng">Operating System Hardening</span>)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <strong class="term-cn">作業系統強化</strong>是透過設定變更來<span class="keyword-highlight">減少攻擊面</span>，提升安全性。措施包括<span class="keyword-highlight">關閉不必要的服務</span>、遵循<strong class="term-cn">最小權限原則</strong>、安裝<strong class="term-cn">防毒軟體</strong>、定期<span class="keyword-highlight">安全更新</span>與<span class="keyword-highlight">修補</span>等。滲透測試是<span class="keyword-highlight">評估</span>而非強化機制。<span class="source-annotation">(資料來源：109初級-技術概論 Q26, 108初級-技術概論 Q17, 113初級-技術概論 Q15)</span>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point: Malware Types -->
+             <div class="focus-card" data-category="3" data-stars="4">
+                 <div class="focus-header"><div class="focus-id">#5</div><div class="focus-importance">★★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><strong class="term-cn">惡意程式類型</strong> (<span class="term-eng">Malware Types</span>)</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         不同<strong class="term-cn">惡意程式</strong>的行為：
+                         <ul>
+                             <li><strong class="term-cn">蠕蟲</strong> (<span class="term-eng">Worm</span>)：<span class="keyword-highlight">自我複製</span>並透過網路傳播。</li>
+                             <li><strong class="term-cn">病毒</strong> (<span class="term-eng">Virus</span>)：<span class="keyword-highlight">需依附</span>宿主程式/檔案，透過宿主執行觸發。</li>
+                             <li><strong class="term-cn">木馬程式</strong> (<span class="term-eng">Trojan Horse</span>)：<span class="keyword-highlight">偽裝</span>成合法程式誘騙執行惡意行為。</li>
+                             <li><strong class="term-cn">後門程式</strong> (<span class="term-eng">Backdoor</span>)：提供攻擊者<span class="keyword-highlight">遠端存取</span>的隱藏通道。</li>
+                         </ul>
+                         <span class="keyword-highlight">寄生或附著</span>是<strong class="term-cn">電腦病毒</strong>的特徵。<span class="source-annotation">(資料來源：111初級-技術概論 Q13, 110初級-技術概論 Q14, 108初級-技術概論 Q13, 112初級-技術概論 Q32)</span>
+                     </div>
+                 </div>
+             </div>
+
+             <!-- Focus Point: Windows Executable Files -->
+            <div class="focus-card" data-category="7" data-stars="2">
+                <div class="focus-header"><div class="focus-id">#6</div><div class="focus-importance">★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="term-eng">Windows</span> <strong class="term-cn">執行檔類型</strong></div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <span class="term-eng">Windows</span> 常見執行檔：<strong class="term-abbr">.EXE</strong>, <strong class="term-abbr">.COM</strong>, <strong class="term-abbr">.BAT</strong>, <strong class="term-abbr">.SCR</strong>, <strong class="term-abbr">.MSI</strong>。<br>
+                        <strong class="term-abbr">.ELF</strong> (<span class="term-eng">Executable and Linkable Format</span>) 是 <span class="keyword-highlight">Linux/Unix-like 系統</span>的格式。<span class="source-annotation">(資料來源：111初級-技術概論 Q11)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point: OS Kernel Mode -->
+            <div class="focus-card" data-category="1" data-stars="3">
+                <div class="focus-header"><div class="focus-id">#7</div><div class="focus-importance">★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><strong class="term-cn">作業系統核心模式</strong> & <span class="term-eng">Intel x86</span> <strong class="term-cn">特權等級</strong></div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <span class="term-eng">Intel x86</span> <strong class="term-cn">特權等級</strong> (<strong class="term-eng">Ring</strong>)：
+                        <ul>
+                            <li><strong class="term-eng">Ring 0</strong>：<span class="keyword-highlight">最高權限</span>，<strong class="term-cn">核心</strong> / <span class="keyword-highlight">核心模式</span> 運行於此。</li>
+                            <li><strong class="term-eng">Ring 3</strong>：<span class="keyword-highlight">最低權限</span>，<span class="keyword-highlight">應用程式</span> / <span class="keyword-highlight">使用者模式</span> 運行於此。</li>
+                        </ul>
+                         作業系統的<strong class="term-cn">核心模式</strong>運行在<span class="keyword-highlight">Ring 0</span>。<span class="source-annotation">(資料來源：109初級-技術概論 Q16, 112初級-技術概論 Q14)</span>
+                    </div>
+                </div>
+             </div>
+
+             <!-- Focus Point: Linux Login History -->
+             <div class="focus-card" data-category="7" data-stars="2">
+                 <div class="focus-header"><div class="focus-id">#8</div><div class="focus-importance">★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><span class="term-eng">Linux</span> <strong class="term-cn">使用者登入歷史記錄</strong></div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         在 <span class="term-eng">Linux</span> 系統中：
+                         <ul>
+                             <li><code class="keyword-highlight">/var/log/wtmp</code>：記錄<span class="keyword-highlight">成功登入和登出</span>，使用 `last` 查看。</li>
+                             <li><code class="keyword-highlight">~/.bash_history</code>：記錄使用者<span class="keyword-highlight">下過的指令</span>，使用 `history` 查看。</li>
+                         </ul><span class="source-annotation">(資料來源：111初級-技術概論 Q42, 109初級-技術概論 Q17)</span>
+                     </div>
+                 </div>
+             </div>
+
+            <!-- Focus Point: Memory Protection Mechanisms -->
+            <div class="focus-card" data-category="5" data-stars="3">
+                <div class="focus-header"><div class="focus-id">#9</div><div class="focus-importance">★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><strong class="term-cn">記憶體保護機制</strong></div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        作業系統記憶體保護機制：
+                        <ul>
+                             <li><strong class="term-cn">資料執行保護</strong> (<strong class="term-abbr">DEP</strong> - <span class="term-eng">Data Execution Prevention</span>)：記憶體區域標記為<span class="keyword-highlight">不可執行</span>。</li>
+                             <li><strong class="term-cn">位址空間佈局隨機化</strong> (<strong class="term-abbr">ASLR</strong> - <span class="term-eng">Address Space Layout Randomization</span>)：<span class="keyword-highlight">隨機化</span>記憶體載入位置，使攻擊者<span class="keyword-highlight">難以預測</span>位址。</li>
+                             <li><strong class="term-cn">可執行空間保護</strong> (<strong class="term-abbr">ESP</strong> - <span class="term-eng">Executable Space Protection</span>)：確保僅可執行的記憶體區域能執行程式碼。</li>
+                             <li><strong class="term-cn">安全例外狀況處理常式</strong> (<strong class="term-abbr">SEH/SAFESEH</strong> - <span class="term-eng">Structured Exception Handling / SafeSEH</span>)：保護例外處理機制。</li>
+                         </ul>
+                        <strong class="term-abbr">ASLR</strong> 透過<span class="keyword-highlight">隨機化</span>位址增加攻擊難度。<span class="source-annotation">(資料來源：109初級-技術概論 Q15)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point: OS Security Measures -->
+            <div class="focus-card" data-category="5" data-stars="3">
+                <div class="focus-header"><div class="focus-id">#10</div><div class="focus-importance">★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><strong class="term-cn">作業系統安全措施</strong></div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        基本安全措施：<span class="keyword-highlight">定期更新</span>、<span class="keyword-highlight">安裝防毒</span>、<span class="keyword-highlight">關閉不必要服務</span>、啟用防火牆等。更新應先<span class="keyword-highlight">測試</span>。防毒<span class="keyword-highlight">無法完全</span>防禦。關閉不必要服務是<span class="keyword-highlight">正確</span>的。關閉內建防火牆<span class="keyword-highlight">增加風險</span>。<span class="source-annotation">(資料來源：109初級-技術概論 Q17, 113初級-技術概論 Q17)</span>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point: Memory Leaks -->
+            <div class="focus-card" data-category="5" data-stars="2">
+                <div class="focus-header"><div class="focus-id">#11</div><div class="focus-importance">★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><strong class="term-cn">記憶體洩漏</strong> (<span class="term-eng">Memory Leaks</span>)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <strong class="term-cn">記憶體洩漏</strong>指應用程式<span class="keyword-highlight">請求</span>記憶體後<span class="keyword-highlight">未能釋放</span>，導致可用記憶體減少。
+                         <span class="source-annotation">(資料來源：109初級-技術概論 Q18)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point: OS Update Command -->
+            <div class="focus-card" data-category="6" data-stars="1">
+                <div class="focus-header"><div class="focus-id">#12</div><div class="focus-importance">★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><strong class="term-cn">作業系統更新指令</strong></div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                       更新指令因系統而異：
+                        <ul>
+                           <li><span class="term-eng">Windows</span>: <code class="keyword-highlight">wuauclt.exe</code> (舊), PowerShell (新)。</li>
+                           <li><span class="term-eng">Debian/Ubuntu</span>: <code class="keyword-highlight">apt update/upgrade</code>。</li>
+                           <li><span class="term-eng">CentOS/RHEL</span>: <code class="keyword-highlight">yum/dnf update</code>。</li>
+                        </ul>
+                       `update` 不是通用指令。<span class="source-annotation">(資料來源：111初級-技術概論 Q12)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point: Access Control Models -->
+            <div class="focus-card" data-category="1" data-stars="3">
+                <div class="focus-header"><div class="focus-id">#13</div><div class="focus-importance">★★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><strong class="term-cn">存取控制模型</strong> (<span class="term-eng">Access Control Models</span>)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                       常見模型：<strong class="term-abbr">DAC</strong> (擁有者決定), <strong class="term-abbr">MAC</strong> (系統強制標籤), <strong class="term-abbr">RBAC</strong> (角色), <strong class="term-abbr">ABAC</strong> (屬性)。<span class="term-abbr">SELinux</span> 屬於 <strong class="term-abbr">MAC</strong>。<span class="source-annotation">(資料來源：108初級-技術概論 Q17)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point: User Account Control (UAC) -->
+            <div class="focus-card" data-category="7" data-stars="2">
+                <div class="focus-header"><div class="focus-id">#14</div><div class="focus-importance">★★</div></div>
+                <div class="focus-topic-container"><div class="focus-topic"><span class="term-eng">Windows</span> <strong class="term-cn">使用者帳戶控制</strong> (<strong class="term-abbr">UAC</strong> - <span class="term-eng">User Account Control</span>)</div></div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                       <strong class="term-abbr">UAC</strong> <span class="keyword-highlight">限制</span>應用程式權限，高權限操作需<span class="keyword-highlight">使用者確認</span>。目的是防止惡意軟體<span class="keyword-highlight">擅自修改系統</span>。<span class="keyword-highlight">訪客帳號</span>權限<span class="keyword-highlight">最低</span>。<span class="source-annotation">(資料來源：110初級-技術概論(11月) Q16)</span>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point: Preventative Controls -->
+             <div class="focus-card" data-category="5" data-stars="3">
+                 <div class="focus-header"><div class="focus-id">#15</div><div class="focus-importance">★★★</div></div>
+                 <div class="focus-topic-container"><div class="focus-topic"><strong class="term-cn">預防性控制</strong> (<span class="term-eng">Preventive Control</span>)</div></div>
+                 <div class="focus-details-container">
+                     <div class="details-header">核心概念</div>
+                     <div class="details-content">
+                         <strong class="term-cn">預防性控制</strong>的目的是在<span class="keyword-highlight">事件發生前阻止</span>不希望的情況。<br>
+                         例子：<strong class="term-cn">強制性密碼原則</strong>、<strong class="term-cn">防毒軟體即時偵測</strong>、<strong class="term-cn">定期安全性更新</span>。<br>
+                         <strong class="term-cn">定期檢視安全記錄檔</strong>屬於<strong class="term-cn">偵測性控制</strong> (<span class="term-eng">Detective Control</span>)。<span class="source-annotation">(資料來源：110初級-技術概論 Q17, 108初級-技術概論 Q17)</span>
+                     </div>
+                 </div>
+             </div>
+
+             <!-- Placeholder for No Results -->
+             <div id="noResultsMessage">沒有找到符合條件的重點。</div>
+
+        </div><!-- end focus-points-container -->
+
+        <div class="back-to-top" id="backToTop">↑</div>
+    </div>
+
+    <script>
+        // Progress bar (no changes needed)
+        const progressBar = document.getElementById("progressBar");
+        window.onscroll = function() { updateProgressBar(); toggleBackToTopButton(); };
+        function updateProgressBar() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (height > 0) ? (winScroll / height) * 100 : 0;
+            progressBar.style.width = scrolled + "%";
+        }
+
+        // Back to top button (no changes needed)
+        const backToTopButton = document.getElementById("backToTop");
+        function toggleBackToTopButton() {
+             backToTopButton.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "flex" : "none";
+        }
+        backToTopButton.addEventListener("click", () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+        // Filter by category (Updated function name)
+        function filterByCategory(categoryNumber) {
+            document.getElementById('categoryFilter').value = categoryNumber === 'all' ? 'all' : String(categoryNumber);
+            document.getElementById('searchInput').value = ''; // Clear search on filter click
+            filterFocusPoints(); // Call updated filter function
+        }
+
+        // Event listeners for filters and search (Updated IDs/functions)
+        document.getElementById("categoryFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("starFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("searchButton").addEventListener("click", searchFocusPoints); // Updated function call
+        document.getElementById("searchInput").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                searchFocusPoints(); // Updated function call
+            }
+        });
+
+        const noResultsMessage = document.getElementById('noResultsMessage');
+
+        // Combined filter function (Updated variable/class names)
+        function filterFocusPoints() {
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+            let points = document.querySelectorAll(".focus-card"); // Target .focus-card
+            let anyVisible = false;
+
+            points.forEach(function(point) {
+                // Updated dataset attribute name
+                const matchesCategory = (category === "all" || point.dataset.category === category);
+                const matchesStars = (stars === "all" || point.dataset.stars === stars);
+
+                if (matchesCategory && matchesStars) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                 // Updated message text
+                 noResultsMessage.textContent = '沒有找到符合篩選條件的重點。';
+             }
+        }
+
+        // Search function (Updated variable/class names)
+        function searchFocusPoints() {
+            let searchText = document.getElementById("searchInput").value.toLowerCase().trim();
+            let points = document.querySelectorAll(".focus-card"); // Target .focus-card
+            let anyVisible = false;
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+
+            points.forEach(function(point) {
+                // Check filters first
+                const matchesCategory = (category === "all" || point.dataset.category === category);
+                const matchesStars = (stars === "all" || point.dataset.stars === stars);
+                let visibleBasedOnFilter = matchesCategory && matchesStars;
+
+                // Check search text
+                let pointText = point.textContent.toLowerCase();
+                let matchesSearch = (searchText === "" || pointText.includes(searchText));
+
+                // Show if matches filters AND search (or if search is empty)
+                if (visibleBasedOnFilter && matchesSearch) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 if (searchText !== "") {
+                      noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                      // Updated message text
+                      noResultsMessage.textContent = '沒有找到符合目前篩選及搜尋條件的重點。';
+                 } else {
+                     // If search is empty, rely on filter results
+                     filterFocusPoints();
+                 }
+             }
+        }
+
+        // Removed Toggle Explanations Logic
+
+         // Initial setup
+         toggleBackToTopButton();
+         updateProgressBar();
+         filterFocusPoints(); // Apply default filters on load
+
+    </script>
+</body>
+</html>

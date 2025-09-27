@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>iPAS 初級資訊安全工程師 考試重點整理 - IS111 資訊安全管理概論</title> <!-- Changed Title -->
+    <style>
+        /* RWD設定，讓整體版面在不同裝置都有良好顯示 */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft JhengHei", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto; /* Added top/bottom margin */
+            padding: 25px;
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border-radius: 8px;
+        }
+        /* Updated Header */
+        .header-container {
+            background: linear-gradient(135deg, #2c3e50, #34495e); /* Darker gradient */
+            color: white;
+            padding: 30px 20px; /* Increased padding */
+            margin: -25px -25px 25px -25px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+        .header-container h1 {
+            margin: 0;
+            color: white;
+            font-size: 2.2rem; /* Larger title */
+            font-weight: 600;
+            margin-bottom: 5px; /* Space below title */
+        }
+        .header-container div { /* Subtitle */
+             font-size: 1.2rem;
+             opacity: 0.9;
+             margin-top: 5px;
+             font-weight: 300; /* Lighter weight */
+        }
+
+        /* Topic Categories Section (Renamed from Directions) */
+        .categories-container { /* Renamed */
+            background-color: #e8f0f5; /* Slightly different blue */
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 5px solid #5dade2; /* Lighter blue border */
+            border-radius: 5px;
+        }
+        .categories-title { /* Renamed */
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .categories-grid { /* Renamed */
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        .category-item { /* Renamed */
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background-color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #d6e0ea; /* Border matching background */
+        }
+        .category-item:hover {
+            background-color: #5dade2; /* Lighter blue hover */
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: #5dade2;
+        }
+        .category-number { /* Renamed */
+            width: 30px;
+            height: 30px;
+            background-color: #5dade2; /* Lighter blue number */
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 12px;
+            font-weight: bold;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .category-item:hover .category-number {
+            background-color: white;
+            color: #5dade2;
+        }
+        .category-text { /* Renamed */
+            font-size: 0.95rem;
+        }
+
+        /* Focus Point Card Styling (Replaces Question Card) */
+        .focus-points-container { /* Renamed */
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px; /* Increased gap */
+        }
+        .focus-card { /* Renamed */
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 0; /* Remove padding here, apply to inner elements */
+            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.1); /* Slightly stronger shadow */
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            border: 1px solid #e0e0e0;
+            overflow: hidden; /* Ensure inner elements respect border radius */
+        }
+        .focus-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(44, 62, 80, 0.15);
+        }
+        .focus-header { /* Renamed */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px; /* Padding inside header */
+            background-color: #f8f9fa; /* Light header background */
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .focus-id { /* Renamed */
+            font-weight: bold;
+            color: #5dade2; /* Lighter blue ID */
+            font-size: 1rem;
+            background-color: #e8f0f5; /* Background for ID */
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .focus-importance { /* Renamed */
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .focus-topic-container { /* New container for the main topic */
+             padding: 25px 25px 20px 25px; /* Padding around the topic */
+             border-bottom: 1px dashed #eee; /* Separator line */
+        }
+
+        .focus-topic { /* Replaces question-content */
+            font-size: 1.5rem; /* Larger font for the topic */
+            font-weight: 600; /* Bolder */
+            margin-bottom: 0; /* Remove margin, handled by container padding */
+            line-height: 1.4;
+            color: #2c3e50; /* Dark blue-grey for topic */
+        }
+
+        /* Styling for terminology within topic/details */
+        strong[style*="color: blue"] { /* Chinese Proper Noun */
+            color: blue !important;
+            font-weight: bold;
+        }
+        strong[style*="color: purple"] { /* English Abbreviation */
+            color: purple !important;
+            font-weight: bold;
+        }
+        strong[style*="color: red"] { /* English Full Name */
+            color: red !important;
+            font-weight: bold;
+        }
+
+
+        /* Details Section Styling (Replaces Explanation) */
+        .focus-details-container { /* Renamed */
+            padding: 20px 25px 25px 25px; /* Padding for details */
+            /* background-color: #fdfefe; */ /* Optional subtle background, removing for cleaner look */
+        }
+        .details-header { /* Renamed */
+            font-weight: bold;
+            margin-bottom: 15px; /* Space below header */
+            color: #34495e;
+            font-size: 1.2rem; /* Slightly larger details header */
+            /* text-transform: uppercase; */ /* Optional styling */
+            letter-spacing: 0.5px; /* Optional spacing */
+            /* border-bottom: 2px solid #5dade2; */ /* Optional underline */
+            /* display: inline-block; */ /* If using underline */
+            /* padding-bottom: 5px; */ /* If using underline */
+        }
+        .details-content { /* Renamed */
+            line-height: 1.75; /* Increased line height for readability */
+            color: #444;
+            font-size: 1.05rem; /* Slightly larger detail text */
+        }
+        .details-content ul { /* Style lists if used in details */
+             padding-left: 25px;
+             margin-top: 10px;
+             margin-bottom: 10px;
+        }
+         .details-content li {
+             margin-bottom: 8px; /* Space between list items */
+         }
+         .details-content span[style*="background-color"] {
+             background-color: #ffff0030;
+             padding: 0.1em 0.2em; /* Optional: adds slight padding around highlighted text */
+             border-radius: 3px; /* Optional: rounds corners */
+         }
+
+
+        /* Controls Section Styling (Adjusted for Focus Points) */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 15px;
+            background-color: #fdfdfd;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+        .filter-container, .search-container, .star-filter-container { /* Removed .toggle-explanations */
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            min-width: 200px;
+        }
+         .search-container { flex-grow: 2; }
+        .filter-label, .search-label, .star-filter-label {
+            font-weight: 600;
+            margin-right: 10px;
+            white-space: nowrap;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        select, input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+            flex-grow: 1;
+            font-size: 0.95rem;
+            background-color: white;
+        }
+         input[type="text"] { min-width: 180px; }
+        button {
+            padding: 10px 18px;
+            background-color: #5dade2; /* Lighter blue buttons */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.2s ease;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-left: 8px;
+            white-space: nowrap;
+        }
+        button:hover {
+            background-color: #3498db; /* Darker blue hover */
+        }
+
+        /* RWD Adjustments */
+        @media (max-width: 992px) {
+             .controls { flex-direction: column; align-items: stretch; }
+            .filter-container, .search-container, .star-filter-container { width: 100%; flex-grow: 0; }
+             select, input[type="text"] { width: 100%; }
+             button { margin-left: 0; margin-top: 5px; }
+             .search-container button { margin-left: 8px; margin-top: 0; }
+             #searchInput { width: calc(100% - 90px); }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 15px; }
+            .header-container { padding: 25px 15px; margin: -15px -15px 20px -15px; }
+            .categories-grid { grid-template-columns: 1fr; }
+            .focus-card { padding: 0; } /* Ensure no padding on card itself */
+             .focus-header, .focus-topic-container, .focus-details-container { padding-left: 20px; padding-right: 20px; } /* Adjust inner padding */
+            h1 { font-size: 1.8rem; }
+            .header-container h1 { font-size: 2rem; }
+            .focus-topic { font-size: 1.3rem; }
+            .details-header { font-size: 1.1rem; }
+            .details-content { font-size: 1rem; }
+        }
+
+        /* Back to Top Button & Progress Bar (No changes needed) */
+        .back-to-top {
+            position: fixed; bottom: 25px; right: 25px; background-color: #5dade2; color: white;
+            width: 45px; height: 45px; border-radius: 50%; display: none; justify-content: center;
+            align-items: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, opacity 0.3s, transform 0.3s; z-index: 1000;
+            opacity: 0.8; font-size: 1.2rem;
+        }
+        .back-to-top:hover { background-color: #3498db; opacity: 1; transform: scale(1.1); }
+        .progress-container {
+            width: 100%; height: 5px; background-color: #e8f0f5; position: fixed;
+            top: 0; left: 0; z-index: 1001;
+        }
+        .progress-bar {
+            height: 5px; background: linear-gradient(90deg, #5dade2, #85c1e9); /* Adjusted gradient */
+            width: 0%; border-radius: 0 2px 2px 0; transition: width 0.1s linear;
+        }
+         #noResultsMessage {
+             text-align: center; padding: 20px; color: #777; display: none; font-style: italic;
+         }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <div class="header-container">
+            <h1>iPAS 初級資訊安全工程師 考試重點</h1> <!-- Updated Title -->
+            <div>IS111 資訊安全管理系統</div> <!-- Updated Subtitle -->
+        </div>
+
+        <div class="controls">
+             <div class="filter-container">
+                <label for="categoryFilter" class="filter-label">篩選主題：</label>
+                <select id="categoryFilter">
+                    <option value="all">全部主題</option>
+                    <option value="1">ISMS基礎與框架</option>
+                    <option value="2">資產管理</option>
+                    <option value="3">風險管理</option>
+                    <option value="4">存取控制</option>
+                    <option value="5">密碼學與憑證</option>
+                    <option value="6">事故應變與營運持續</option>
+                    <option value="7">法規遵循與稽核</option>
+                    <option value="8">實體與環境安全</option>
+                </select>
+            </div>
+
+            <div class="star-filter-container">
+                <label for="starFilter" class="star-filter-label">重要性：</label>
+                <select id="starFilter">
+                    <option value="all">全部重要性</option>
+                    <option value="5">★★★★★</option>
+                    <option value="4">★★★★</option>
+                    <option value="3">★★★</option>
+                    <option value="2">★★</option>
+                    <option value="1">★</option>
+                </select>
+            </div>
+
+            <div class="search-container">
+                <label for="searchInput" class="search-label">搜尋：</label>
+                <input type="text" id="searchInput" placeholder="輸入關鍵字...">
+                <button id="searchButton">搜尋</button>
+            </div>
+        </div>
+
+        <div class="categories-container">
+            <div class="categories-title">主題分類</div>
+            <div class="categories-grid" id="categoriesGrid">
+                 <div class="category-item" onclick="filterByCategory(1)">
+                    <div class="category-number">1</div>
+                    <div class="category-text">ISMS基礎與框架</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(2)">
+                    <div class="category-number">2</div>
+                    <div class="category-text">資產管理</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(3)">
+                    <div class="category-number">3</div>
+                    <div class="category-text">風險管理</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(4)">
+                    <div class="category-number">4</div>
+                    <div class="category-text">存取控制</div>
+                </div>
+                 <div class="category-item" onclick="filterByCategory(5)">
+                    <div class="category-number">5</div>
+                    <div class="category-text">密碼學與憑證</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(6)">
+                    <div class="category-number">6</div>
+                    <div class="category-text">事故應變與營運持續</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(7)">
+                    <div class="category-number">7</div>
+                    <div class="category-text">法規遵循與稽核</div>
+                </div>
+                <div class="category-item" onclick="filterByCategory(8)">
+                    <div class="category-number">8</div>
+                    <div class="category-text">實體與環境安全</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="focus-points-container" id="focusPointsContainer">
+
+            <!-- Focus Point 1: ISMS Definition -->
+            <div class="focus-card" data-category="1" data-stars="5">
+                <div class="focus-header">
+                    <div class="focus-id">#1</div>
+                    <div class="focus-importance">★★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <strong style="color: blue;">資訊安全管理系統</strong> (<strong style="color: red;">Information Security Management System</strong>, <strong style="color: purple;">ISMS</strong>) - 定義與目的
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念</div>
+                    <div class="details-content">
+                        <strong style="color: purple;">ISMS</strong> 是一套<span style="background-color: #ffff0030;">系統化的政策、流程、程序和控制措施</span>，用於<span style="background-color: #ffff0030;">建立、實施、維護並持續改進</span>組織的<strong style="color: blue;">資訊安全管理能力</strong>。其主要目的是<span style="background-color: #ffff0030;">確保能有效地識別、管理及降低資訊安全風險</span>，並符合相關法規及利害關係人的要求。<strong style="color: purple;">ISMS</strong>並非特定指<strong style="color: red;">ISO 27001</strong>，但<strong style="color: red;">ISO 27001</strong>是實現<strong style="color: purple;">ISMS</strong>最廣泛採用的國際標準框架。建立<strong style="color: purple;">ISMS</strong>旨在保護資訊資產的<strong style="color: blue;">機密性</strong>、<strong style="color: blue;">完整性</strong>與<strong style="color: blue;">可用性</strong>（<strong style="color: purple;">CIA</strong>）。<span style="background-color: #ffff0030;">ISMS 的建立與實作會受到組織規模大小及性質的影響</span>，<span style="background-color: #ffff0030;">影響ISMS的風險因素</span>以及<span style="background-color: #ffff0030;">採用的措施</span>都會<span style="background-color: #ffff0030;">隨時間改變</span>，需要持續改善。(管理113-2 Q1)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 2: PDCA Cycle -->
+            <div class="focus-card" data-category="1" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#2</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <strong style="color: blue;">戴明循環</strong> (<strong style="color: red;">Plan-Do-Check-Act</strong>, <strong style="color: purple;">PDCA</strong>) - <strong style="color: purple;">ISMS</strong> 核心理念
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">PDCA 四階段</div>
+                    <div class="details-content">
+                        <strong style="color: purple;">PDCA</strong> 是<strong style="color: red;">ISO 27001</strong> <strong style="color: blue;">資訊安全管理系統</strong>的核心理念與運作基石，提供持續改進的框架：
+                        <ul>
+                            <li><strong style="color: red;">Plan</strong> (<strong style="color: blue;">規劃</strong>)：<span style="background-color: #ffff0030;">建立</span><strong style="color: blue;">ISMS</strong>，定義<span style="background-color: #ffff0030;">範圍</span>、<span style="background-color: #ffff0030;">政策</span>、<span style="background-color: #ffff0030;">目標</span>，進行<span style="background-color: #ffff0030;">風險評鑑</span>與規劃處理措施。</li>
+                            <li><strong style="color: red;">Do</strong> (<strong style="color: blue;">執行</strong>)：<span style="background-color: #ffff0030;">實施</span>與<span style="background-color: #ffff0030;">運作</span>計畫中的<strong style="color: blue;">ISMS</strong>政策、控制措施與程序。例如：<span style="background-color: #ffff0030;">資產盤點</span>、實施控制措施、<span style="background-color: #ffff0030;">文件紀錄管理</span>。(管理111-2 Q5)</li>
+                            <li><strong style="color: red;">Check</strong> (<strong style="color: blue;">檢查</strong>)：<span style="background-color: #ffff0030;">監視</span>、<span style="background-color: #ffff0030;">審查</span>並<span style="background-color: #ffff0030;">評估</span><strong style="color: purple;">ISMS</strong>的績效與有效性。例如：<span style="background-color: #ffff0030;">內部稽核</span>、<span style="background-color: #ffff0030;">管理審查</span>會議。(管理112-1 Q5)</li>
+                            <li><strong style="color: red;">Act</strong> (<strong style="color: blue;">行動</strong>)：根據檢查結果，採取<span style="background-color: #ffff0030;">矯正</span>與<span style="background-color: #ffff0030;">預防</span>措施，以<span style="background-color: #ffff0030;">持續改進</span><strong style="color: purple;">ISMS</strong>。</li>
+                        </ul>
+                        <strong style="color: purple;">PDCA</strong>是一個<span style="background-color: #ffff0030;">持續循環</span>、<span style="background-color: #ffff0030;">反覆改善</span>的過程。
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 3: Information Security Definition (CIA) -->
+            <div class="focus-card" data-category="1" data-stars="5">
+                <div class="focus-header">
+                    <div class="focus-id">#3</div>
+                    <div class="focus-importance">★★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <strong style="color: blue;">資訊安全</strong>定義與三要素 (<strong style="color: purple;">CIA Triad</strong>)
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心三要素</div>
+                    <div class="details-content">
+                        <strong style="color: blue;">資訊安全</strong>旨在保護資訊資產，其核心目標通常由<strong style="color: purple;">CIA</strong>三要素來定義：
+                        <ul>
+                            <li><strong style="color: blue;">機密性</strong> (<strong style="color: red;">Confidentiality</strong>)：確保資訊<span style="background-color: #ffff0030;">不被未經授權</span>的個人、實體或流程<span style="background-color: #ffff0030;">存取或揭露</span>。例如：檔案加密的目的是保護機密性。(管理112-2 Q2)</li>
+                            <li><strong style="color: blue;">完整性</strong> (<strong style="color: red;">Integrity</strong>)：保護資訊與處理方法的<span style="background-color: #ffff0030;">準確性</span>與<span style="background-color: #ffff0030;">完全性</span>，確保資料<span style="background-color: #ffff0030;">未被未經授權的竄改</span>。例如：防止駭客竄改銀行存款金額。(管理112-1 Q4, 管理113-1 Q4)</li>
+                            <li><strong style="color: blue;">可用性</strong> (<strong style="color: red;">Availability</strong>)：確保<span style="background-color: #ffff0030;">已獲授權</span>的使用者在<span style="background-color: #ffff0030;">需要時</span>能夠<span style="background-color: #ffff0030;">存取</span>資訊與相關資產。例如：防止<strong style="color: purple;">DDoS</strong>攻擊導致網站無法訪問。(管理113-2 Q40, 管理112-1 Q3) 建立備份機制主要關聯可用性。(管理112-1 Q103)</li>
+                        </ul>
+                         <span style="background-color: #ffff0030;">安全性(Security)本身不是基本要素之一</span>，而是這些要素的總稱或目標。(管理113-2 Q4) <strong style="color: blue;">可靠性</strong>(<strong style="color: red;">Reliability</strong>) 和 <strong style="color: blue;">可讀性</strong>(<strong style="color: red;">Readability</strong>) 也不是基本要素。(管理112-1 Q2)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 4: Asset Management -->
+            <div class="focus-card" data-category="2" data-stars="5">
+                <div class="focus-header">
+                    <div class="focus-id">#4</div>
+                    <div class="focus-importance">★★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <strong style="color: blue;">資訊資產管理</strong> (<strong style="color: red;">Asset Management</strong>) - 盤點、分類與分級
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心活動與考量</div>
+                    <div class="details-content">
+                        <strong style="color: blue;">資訊資產</strong>是指任何對組織有價值的資訊相關事物。
+                        <ul>
+                            <li><strong style="color: blue;">資產盤點</strong>：<span style="background-color: #ffff0030;">識別</span>組織<span style="background-color: #ffff0030;">擁有</span>的所有資訊資產，建立<strong style="color: blue;">資產清冊</strong>。盤點應<span style="background-color: #ffff0030;">定期</span>進行。(管理112-2 Q15) 其主要目的是<span style="background-color: #ffff0030;">識別和管理</span>資訊資產。(管理112-2 Q14) <span style="background-color: #ffff0030;">虛擬資產</span>（如虛擬機、雲端伺服器）與<span style="background-color: #ffff0030;">員工使用的設備</span>（如平板電腦）皆須納入。(管理113-2 Q17) 久未使用的<span style="background-color: #ffff0030;">線上資料庫</span>也須盤點。公開資訊（如公司徵才公告）通常<span style="background-color: #ffff0030;">不視為</span>需要嚴格盤點管理的內部資產。(管理113-2 Q17)</li>
+                            <li><strong style="color: blue;">資產分類</strong>：將資產依據<span style="background-color: #ffff0030;">類型</span>分組，常見分類包括：<strong style="color: blue;">硬體</strong>、<strong style="color: blue;">軟體</strong>、<strong style="color: blue;">資料</strong>、<strong style="color: blue;">文件</strong>、<strong style="color: blue;">人員</strong>、<strong style="color: blue;">服務</strong>、<strong style="color: blue;">環境</strong>等。企業資源管理(<strong style="color: purple;">ERP</strong>)系統主要屬於<strong style="color: blue;">軟體</strong>類資產。(管理112-2 Q19) 電力供應屬於<strong style="color: blue;">服務</strong>資產。(管理111-2 Q20) 例如，「加密系統作業管理程序」屬於<strong style="color: blue;">文件</strong>類。(管理113-2 Q18)</li>
+                            <li><strong style="color: blue;">資產分級</strong>：根據資產對組織的<span style="background-color: #ffff0030;">重要性</span>與<span style="background-color: #ffff0030;">敏感性</span>（通常依據<strong style="color: purple;">CIA</strong>評估），<span style="background-color: #ffff0030;">賦予</span>不同的<span style="background-color: #ffff0030;">安全等級</span>。目的是確保資產受到<span style="background-color: #ffff0030;">適切等級</span>的保護。(管理112-1 Q17, 管理113-1 Q15, 管理111-2 Q17) 分級是<span style="background-color: #ffff0030;">風險評估的基礎</span>。(管理113-2 Q13) 分級時需考量資產損失對<span style="background-color: #ffff0030;">營運</span>、<span style="background-color: #ffff0030;">聲譽</span>、<span style="background-color: #ffff0030;">盈利能力</span>及<span style="background-color: #ffff0030;">合作夥伴</span>的潛在影響。(管理113-2 Q16) 維護成本通常<span style="background-color: #ffff0030;">不是</span>主要分級依據。(管理113-2 Q16) <span style="background-color: #ffff0030;">價格高低不直接等於資產價值</span>。(管理110-2 Q15)</li>
+                            <li><strong style="color: blue;">資產清冊用途</strong>：支援<span style="background-color: #ffff0030;">風險管理</span>、<span style="background-color: #ffff0030;">稽核活動</span>、<span style="background-color: #ffff0030;">事故回應</span>等，但<span style="background-color: #ffff0030;">不直接</span>用於財產報廢（財產報廢需依循財務及資產管理規定）。(管理113-2 Q15) 應包含資產<span style="background-color: #ffff0030;">名稱、位置、價值</span>等。(管理113-1 Q14)</li>
+                            <li><strong style="color: blue;">權責單位</strong>：<strong style="color: blue;">資產擁有者</strong>(<strong style="color: red;">Asset Owner</strong>)負責<span style="background-color: #ffff0030;">最終管理</span>與<span style="background-color: #ffff0030;">分級</span>；<strong style="color: blue;">保管者</strong>(<strong style="color: red;">Asset Custodian</strong>)負責<span style="background-color: #ffff0030;">日常維護</span>；<strong style="color: blue;">使用者</strong>(<strong style="color: red;">Asset User</strong>)負責<span style="background-color: #ffff0030;">合規使用</span>。(管理110-2 Q16)</li>
+                            <li><strong style="color: blue;">跨部門資產管理</strong>：當資產被多個部門使用且重要性評估不同時，應選擇<span style="background-color: #ffff0030;">最高</span>的安全等級進行管理，以確保最周全的保護。(管理113-2 Q20)</li>
+                        </ul>
+                         <span style="background-color: #ffff0030;">未被列入清冊的資產將導致風險評估不準確</span>。(管理113-2 Q19)
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 5: Risk Management -->
+            <div class="focus-card" data-category="3" data-stars="5">
+                <div class="focus-header">
+                    <div class="focus-id">#5</div>
+                    <div class="focus-importance">★★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <strong style="color: blue;">風險管理</strong> (<strong style="color: red;">Risk Management</strong>) - 評鑑與處理
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心流程、策略與角色</div>
+                    <div class="details-content">
+                        <strong style="color: blue;">風險管理</strong>是<strong style="color: purple;">ISMS</strong>的核心活動之一。
+                         <ul>
+                            <li><strong style="color: blue;">風險</strong>：<span style="background-color: #ffff0030;">目標的不確定性影響</span>，包含損失或機會的不確定性。<span style="background-color: #ffff0030;">不確定性</span>指事件<span style="background-color: #ffff0030;">是否發生</span>、<span style="background-color: #ffff0030;">何時發生</span>、<span style="background-color: #ffff0030;">造成多嚴重</span>的後果。(管理113-2 Q23) 地點通常是已知的。</li>
+                            <li><strong style="color: blue;">風險評鑑</strong> (<strong style="color: red;">Risk Assessment</strong>)：包含<strong style="color: blue;">風險識別</strong>、<strong style="color: blue;">風險分析</strong>與<strong style="color: blue;">風險評估</strong>。(管理110-2 Q22) <span style="background-color: #ffff0030;">定期辦理</span>風險評估的目的是因應<span style="background-color: #ffff0030;">組織業務發展</span>帶來的<span style="background-color: #ffff0030;">威脅不斷改變</span>。(管理113-2 Q8)</li>
+                             <li><strong style="color: blue;">風險評鑑技術(參考指引)</strong>：<span style="background-color: #ffff0030;">根本原因分析</span>(<strong style="color: red;">Root Cause Analysis, RCA</strong>)、<span style="background-color: #ffff0030;">後果/機率矩陣</span>(<strong style="color: red;">Probability and Impact Matrix</strong>)、<span style="background-color: #ffff0030;">德爾菲法</span>(<strong style="color: red;">Delphi</strong>)、<span style="background-color: #ffff0030;">檢查表</span>(<strong style="color: red;">Checklist</strong>)、<strong style="color: blue;">企業營運衝擊分析</strong>(<strong style="color: red;">Business Impact Analysis, BIA</strong>)等。(管理113-2 Q25)</li>
+                            <li><strong style="color: blue;">風險處理</strong> (<strong style="color: red;">Risk Treatment</strong>)：選擇並實施<span style="background-color: #ffff0030;">處理策略</span>。需制定<strong style="color: blue;">風險處理計畫</strong>，產出<strong style="color: blue;">適用性聲明</strong>(<strong style="color: red;">SoA</strong>)。(管理113-2 Q21)
+                                <ul>
+                                     <li><strong style="color: blue;">風險降低</strong> (<strong style="color: red;">Risk Reduction/Mitigation</strong>)</li>
+                                     <li><strong style="color: blue;">風險轉移</strong> (<strong style="color: red;">Risk Transfer/Sharing</strong>)：將部分或全部風險轉移給第三方，如<span style="background-color: #ffff0030;">購買保險</span>或<span style="background-color: #ffff0030;">委外</span>。</li>
+                                     <li><strong style="color: blue;">風險避免</strong> (<strong style="color: red;">Risk Avoidance</strong>)：<span style="background-color: #ffff0030;">停止</span>可能引發風險的活動。</li>
+                                     <li><strong style="color: blue;">風險接受/保留</strong> (<strong style="color: red;">Risk Acceptance/Retention</strong>)：常用於處理<span style="background-color: #ffff0030;">低風險</span>項目。(管理113-2 Q22)</li>
+                                </ul>
+                                風險處理<span style="background-color: #ffff0030;">選項的控制措施並非一定要實作</span>，可依風險評估結果決定。(管理113-2 Q21) <span style="background-color: #ffff0030;">風險忽略(Risk Neglect)不是</span>標準的風險處理選項。(管理112-1 Q25)
+                             </li>
+                             <li><strong style="color: blue;">風險擁有者</strong> (<strong style="color: red;">Risk Owner</strong>)：負責<span style="background-color: #ffff0030;">評估</span>風險、<span style="background-color: #ffff0030;">核定</span>風險處理計畫、<span style="background-color: #ffff0030;">確保</span>計畫被執行，並與其他部門合作。<span style="background-color: #ffff0030;">不一定需要</span>是資安領域的專業人士，通常由<span style="background-color: #ffff0030;">業務單位主管</span>擔任。(管理113-2 Q24, 管理112-1 Q34)</li>
+                             <li>風險處理後可能產生新的風險或<strong style="color: blue;">殘餘風險</strong>(<strong style="color: red;">Residual Risk</strong>)。(管理110-2 Q20)</li>
+                         </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Focus Point 6: Access Control Basics -->
+            <div class="focus-card" data-category="4" data-stars="5">
+                <div class="focus-header">
+                    <div class="focus-id">#6</div>
+                    <div class="focus-importance">★★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <strong style="color: blue;">存取控制</strong> (<strong style="color: red;">Access Control</strong>) - 模型、技術與要素
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">模型比較與應用</div>
+                    <div class="details-content">
+                        <strong style="color: blue;">存取控制</strong>是用來限制<strong style="color: blue;">主體</strong> (<strong style="color: red;">Subject</strong>, 如使用者、程式) 對<strong style="color: blue;">客體</strong> (<strong style="color: red;">Object</strong>, 如檔案(<strong style="color: purple;">File</strong>)、印表機(<strong style="color: purple;">Printer</strong>)、記憶體(<strong style="color: purple;">Memory</strong>)、個人電腦(<strong style="color: purple;">PC</strong>)) 的存取權限。(管理113-2 Q30)
+                        <ul>
+                            <li><strong style="color: blue;">四要素 (<strong style="color: purple;">IAAA</strong>)</strong>：
+                                <ul>
+                                    <li><strong style="color: blue;">識別</strong> (<strong style="color: red;">Identification</strong>)</li>
+                                    <li><strong style="color: blue;">認證/鑑別</strong> (<strong style="color: red;">Authentication</strong>)：方法包含<span style="background-color: #ffff0030;">你知道的</span> (<strong style="color: red;">Something you know</strong>)、<span style="background-color: #ffff0030;">你擁有的</span> (<strong style="color: red;">Something you have</strong>)、<span style="background-color: #ffff0030;">你所具備的/你是</span> (<strong style="color: red;">Something you are</strong>)。<strong style="color: blue;">多因子認證</strong> (<strong style="color: red;">Multi-factor Authentication</strong>, <strong style="color: purple;">MFA</strong>) 需結合<span style="background-color: #ffff0030;">兩種或以上不同類型</span>。(管理112-1 Q29, 管理111-2 Q32) 生物辨識用於身份驗證。(管理113-2 Q29)</li>
+                                    <li><strong style="color: blue;">授權</strong> (<strong style="color: red;">Authorization</strong>)</li>
+                                    <li><strong style="color: blue;">可歸責性/紀錄</strong> (<strong style="color: red;">Accountability/Auditing</strong>)</li>
+                                </ul>
+                            </li>
+                            <li><strong style="color: blue;">存取控制原則</strong>：<strong style="color: blue;">最小權限</strong>(<strong style="color: purple;">PoLP</strong>)、<strong style="color: blue;">僅知</strong>、<strong style="color: blue;">職責區隔</strong>(<strong style="color: purple;">SoD</strong>)。(管理112-1 Q31)</li>
+                             <li><strong style="color: blue;">存取控制模型</strong>：
+                                <ul>
+                                    <li><strong style="color: purple;">DAC</strong> (<strong style="color: red;">Discretionary Access Control</strong>)：<span style="background-color: #ffff0030;">擁有者</span>設定權限。(管理113-2 Q26, 管理113-1 Q34)</li>
+                                    <li><strong style="color: purple;">MAC</strong> (<strong style="color: red;">Mandatory Access Control</strong>)：<span style="background-color: #ffff0030;">系統</span>依安全標籤<span style="background-color: #ffff0030;">強制執行</span>，管理者<span style="background-color: #ffff0030;">不可改</span>。(管理113-2 Q26, 管理113-1 Q34)</li>
+                                    <li><strong style="color: purple;">RBAC</strong> (<strong style="color: red;">Role-Based Access Control</strong>)：<span style="background-color: #ffff0030;">依角色</span>分配權限。(管理113-2 Q26, 管理113-1 Q34)</li>
+                                     <li><strong style="color: purple;">RuBAC</strong> (<strong style="color: red;">Rule-Based Access Control</strong>)：依<span style="background-color: #ffff0030;">規則</span>決定。(管理113-1 Q34)</li>
+                                    <li><strong style="color: purple;">ABAC</strong> (<strong style="color: red;">Attribute Based Access Control</strong>)：依<span style="background-color: #ffff0030;">多種屬性</span>決定，<span style="background-color: #ffff0030;">非常彈性</span>。(管理113-2 Q26)</li>
+                                </ul>
+                             </li>
+                             <li><strong style="color: blue;">生物辨識誤差</strong>：<strong style="color: purple;">FRR</strong>(Type I):<span style="background-color: #ffff0030;">拒絕合法</span>；<strong style="color: purple;">FAR</strong>(Type II):<span style="background-color: #ffff0030;">接受非法</span>；<strong style="color: purple;">CER</strong>:<strong style="color: purple;">FRR=FAR</strong>點，<span style="background-color: #ffff0030;">越低越精確</span>。提高安全性需<span style="background-color: #ffff0030;">增加FRR</span>、<span style="background-color: #ffff0030;">減少FAR</span>。(管理113-2 Q27)</li>
+                             <li><strong style="color: blue;">雲端存取控制</strong>：需<span style="background-color: #ffff0030;">最小權限</span>、<span style="background-color: #ffff0030;">定期檢查</span>、<span style="background-color: #ffff0030;">MFA</span>、<span style="background-color: #ffff0030;">記錄審查</span>、<span style="background-color: #ffff0030;">合併管理帳戶(集中權限)</span>等。(管理113-2 Q28)</li>
+                             <li><strong style="color: blue;">醫療場域</strong>：<span style="background-color: #ffff0030;">儀器不應直接</span>連網維護。(管理113-2 Q31)</li>
+                             <li><strong style="color: blue;">生成式AI</strong>：<span style="background-color: #ffff0030;">資訊分類</span>+<span style="background-color: #ffff0030;">過濾技術</span>防洩密。(管理113-1 Q35)</li>
+                         </ul>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 7: Cryptography & PKI -->
+            <div class="focus-card" data-category="5" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#7</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <strong style="color: blue;">密碼學</strong> (<strong style="color: red;">Cryptography</strong>) 與 <strong style="color: purple;">PKI</strong>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">金鑰、憑證與攻擊</div>
+                    <div class="details-content">
+                         <ul>
+                             <li><strong style="color: purple;">RSA</strong>：<span style="background-color: #ffff0030;">非對稱</span>加密，<span style="background-color: #ffff0030;">不使用</span>單一金鑰。(管理113-1 Q36)</li>
+                             <li><strong style="color: blue;">憑證管理中心</strong> (<strong style="color: red;">Certificate Authority</strong>, <strong style="color: purple;">CA</strong>)：負責簽發、管理、撤銷<strong style="color: blue;">數位憑證</strong>。憑證有安全顧慮時，應<span style="background-color: #ffff0030;">註銷憑證</span>。(管理113-1 Q37)</li>
+                             <li><strong style="color: blue;">生日攻擊</strong> (<strong style="color: red;">Birthday Attack</strong>)：針對<span style="background-color: #ffff0030;">雜湊函數碰撞</span>，影響<strong style="color: purple;">MD5</strong>。(管理113-1 Q39)</li>
+                             <li><strong style="color: red;">EDI</strong> (<strong style="color: red;">Electronic Data Interchange</strong>) 安全：需確認加密標準、<span style="background-color: #ffff0030;">是否使用</span><strong style="color: red;">PSDN</strong>(<strong style="color: red;">Public Switched Data Network</strong>)、合約條款等，<span style="background-color: #ffff0030;">不需稽核</span>供應商營運。(管理113-1 Q38)</li>
+                         </ul>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 8: Incident Response Lifecycle & Logging -->
+            <div class="focus-card" data-category="6" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#8</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                         <strong style="color: blue;">事故回應</strong>與<strong style="color: blue;">日誌管理</strong>
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">生命週期與稽核日誌</div>
+                    <div class="details-content">
+                        <ul>
+                            <li><strong style="color: blue;">事故回應生命週期</strong> (<strong style="color: red;">NIST SP 800-61 Rev. 2</strong>)：準備 -> 偵測與分析 -> <span style="background-color: #ffff0030;">抑制、根除與復原</span> -> 事後活動。(<span style="background-color: #ffff0030;">備份 Backup 非獨立階段</span>)。(管理113-1 Q42)</li>
+                            <li><strong style="color: blue;">事故類型</strong>：<span style="background-color: #ffff0030;">一般資安事件</span> 與 <span style="background-color: #ffff0030;">重大資安事故</span> 可依對組織<span style="background-color: #ffff0030;">影響程度</span>區分。影響<strong style="color: blue;">資安指標</strong>(<strong style="color: purple;">CIA</strong>)達成者，<span style="background-color: #ffff0030;">不論嚴重性</span>都應視為事件處理，<span style="background-color: #ffff0030;">而非</span>判定為非事件。(管理113-1 Q43)</li>
+                             <li><strong style="color: blue;">稽核日誌</strong> (<strong style="color: red;">Audit Log</strong>)：用於<span style="background-color: #ffff0030;">追溯</span>、<span style="background-color: #ffff0030;">歸責</span>與<span style="background-color: #ffff0030;">鑑識</span>。
+                                <ul>
+                                    <li>應<span style="background-color: #ffff0030;">妥善保護</span>。</li>
+                                    <li>管理者活動<span style="background-color: #ffff0030;">應記錄</span>，並可<span style="background-color: #ffff0030;">優先通知</span>權責主管。(管理113-1 Q41)</li>
+                                    <li><span style="background-color: #ffff0030;">不應</span>使用共用帳號。(管理113-1 Q41)</li>
+                                    <li>異常登入等<span style="background-color: #ffff0030;">被阻擋</span>的紀錄仍<span style="background-color: #ffff0030;">應審查</span>。(管理113-1 Q41)</li>
+                                </ul>
+                             </li>
+                             <li><strong style="color: blue;">事件通報目的</strong>：主要為<span style="background-color: #ffff0030;">遵守法規</span>、<span style="background-color: #ffff0030;">快速解決問題</span>、利於<span style="background-color: #ffff0030;">保險理賠</span>，<span style="background-color: #ffff0030;">而非</span>維護公司形象。(管理113-1 Q44)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 9: BCP/DRP Details -->
+            <div class="focus-card" data-category="6" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#9</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <strong style="color: blue;">營運持續</strong> (<strong style="color: purple;">BCP</strong>) 與<strong style="color: blue;">災難復原</strong> (<strong style="color: purple;">DRP</strong>) 細節
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">計畫、測試與指標</div>
+                    <div class="details-content">
+                         <ul>
+                            <li><strong style="color: blue;">營運持續計畫</strong> (<strong style="color: purple;">BCP</strong>) <span style="background-color: #ffff0030;">演練</span>：需考慮供應商<span style="background-color: #ffff0030;">到場時間</span>；異地演練時，<span style="background-color: #ffff0030;">交通時間</span>也需納入；設備的前置準備時間<span style="background-color: #ffff0030;">不應</span>因演練前已完成而<span style="background-color: #ffff0030;">忽略</span>。(管理113-1 Q46)</li>
+                            <li><strong style="color: blue;">營運衝擊分析</strong> (<strong style="color: purple;">BIA</strong>)：<span style="background-color: #ffff0030;">辨識</span>關鍵業務活動、<span style="background-color: #ffff0030;">中斷衝擊</span>、<span style="background-color: #ffff0030;">復原優先順序</span>。(管理113-1 Q47) <strong style="color: purple;">不直接</span>確認<strong style="color: purple;">MTPD</strong>。(管理113-1 Q47)</li>
+                            <li><strong style="color: purple;">DRP vs BCP</strong>：<strong style="color: purple;">DRP</strong>專注<span style="background-color: #ffff0030;">IT系統復原</span>；<strong style="color: purple;">BCP</strong>涵蓋<span style="background-color: #ffff0030;">整體業務持續</span>。<strong style="color: purple;">BCP</strong>更強調<span style="background-color: #ffff0030;">業務韌性</span>與<span style="background-color: #ffff0030;">客戶關係</span>。(管理113-1 Q48)</li>
+                             <li><strong style="color: blue;">災難時最重要</strong>：<span style="background-color: #ffff0030;">人員生命安全</span>。(管理113-1 Q49)</li>
+                             <li><strong style="color: blue;">備援時間</strong>：<span style="background-color: #ffff0030;">冷備援</span>(<strong style="color: red;">Cold site</strong>)所需<span style="background-color: #ffff0030;">時間最長</span>。(管理113-1 Q50) <span style="background-color: #ffff0030;">熱備援</span>(<strong style="color: red;">Hot site</strong>)有完整設備。<span style="background-color: #ffff0030;">暖備援</span>(<strong style="color: red;">Warm site</strong>)有部分設備。<span style="background-color: #ffff0030;">行動備援</span>(<strong style="color: red;">Mobile hot site</strong>)在移動車輛中。(管理113-1 Q50)</li>
+                         </ul>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 10: Compliance and Legal -->
+            <div class="focus-card" data-category="7" data-stars="4">
+                <div class="focus-header">
+                    <div class="focus-id">#10</div>
+                    <div class="focus-importance">★★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <strong style="color: blue;">法規遵循</strong>與相關標準
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">重要標準與法規</div>
+                    <div class="details-content">
+                        <ul>
+                            <li><strong style="color: blue;">支付卡產業資料安全標準</strong> (<strong style="color: red;">Payment Card Industry Data Security Standard</strong>, <strong style="color: purple;">PCI DSS</strong>)：處理支付卡資料的安全標準。(管理113-2 Q7)</li>
+                             <li><strong style="color: red;">ISO/IEC 27001:2022</strong>：最新版<strong style="color: purple;">ISMS</strong>標準。(管理113-2 Q3) <span style="background-color: #ffff0030;">轉版重點</span>包括與<strong style="color: purple;">ISO</strong><span style="background-color: #ffff0030;">高階結構</span>(<strong style="color: purple;">HLS</strong>)一致性、<span style="background-color: #ffff0030;">簡化標題</span>、<span style="background-color: #ffff0030;">新增/合併控制項目</span>，但<span style="background-color: #ffff0030;">未</span>強調驗證範圍調整。(管理113-2 Q3)</li>
+                             <li><strong style="color: red;">ISO/IEC 27018</strong>：<span style="background-color: #ffff0030;">雲端服務</span>中<span style="background-color: #ffff0030;">個人可識別資訊</span>(<strong style="color: purple;">PII</strong>)保護。(管理113-2 Q12)</li>
+                             <li><strong style="color: blue;">上市上櫃公司資通安全管控指引</strong>：要求<span style="background-color: #ffff0030;">定期</span>風險評估，分析<strong style="color: purple;">CIA</strong>衝擊。(管理113-2 Q8)</li>
+                             <li><strong style="color: blue;">資通安全專業證照</strong>：<strong style="color: purple;">ISO 27001 LA</strong>, <strong style="color: purple;">CISSP</strong>, <strong style="color: purple;">iPAS</strong>中級<span style="background-color: #ffff0030;">認可</span>。<strong style="color: red;">ISO 29100 LPI</strong> <span style="background-color: #ffff0030;">非</span>目前官方認可清單中。(管理113-2 Q6)</li>
+                             <li><strong style="color: red;">HIPAA</strong> (<strong style="color: red;">Health Insurance Portability and Accountability Act</strong>): 美國<span style="background-color: #ffff0030;">健康保險</span>法案。(管理113-2 Q7)</li>
+                             <li><strong style="color: purple;">SOC II</strong> (<strong style="color: red;">System and Organization Controls 2</strong>): 服務組織<span style="background-color: #ffff0030;">安全性</span>等稽核報告。(管理113-2 Q7)</li>
+                              <li><strong style="color: red;">IEC 62443</strong>: <span style="background-color: #ffff0030;">工控系統</span>(<strong style="color: purple;">IACS</strong>)資安標準。(管理113-2 Q7)</li>
+                              <li><strong style="color: blue;">資通安全管理法</strong>：台灣法規，規範公務與特定非公務機關。(管理113-2 Q9, Q11)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Focus Point 11: Zero Trust -->
+            <div class="focus-card" data-category="1" data-stars="3">
+                <div class="focus-header">
+                    <div class="focus-id">#11</div>
+                    <div class="focus-importance">★★★</div>
+                </div>
+                <div class="focus-topic-container">
+                    <div class="focus-topic">
+                        <strong style="color: blue;">零信任架構</strong> (<strong style="color: red;">Zero Trust Architecture</strong>, <strong style="color: purple;">ZTA</strong>)
+                    </div>
+                </div>
+                <div class="focus-details-container">
+                    <div class="details-header">核心概念與部署</div>
+                    <div class="details-content">
+                         <ul>
+                            <li>核心理念：<span style="background-color: #ffff0030;">永不信任，一律驗證</span> (<strong style="color: red;">Never Trust, Always Verify</strong>)。</li>
+                             <li><strong style="color: blue;">資源門戶部署</strong> (<strong style="color: red;">Resource Portal-Based Deployment</strong>)：台灣政府參考<strong style="color: red;">NIST</strong>。核心機制含<span style="background-color: #ffff0030;">身分鑑別</span>、<span style="background-color: #ffff0030;">設備鑑別</span>、<span style="background-color: #ffff0030;">信任推斷</span>。<span style="background-color: #ffff0030;">系統識別非其主要</span>核心。(管理113-1 Q33)</li>
+                             <li><strong style="color: red;">FIDO2</strong>：屬<span style="background-color: #ffff0030;">零信任</span>，<span style="background-color: #ffff0030;">無密碼</span>驗證。應用於企業、金融。非強制加入<strong style="color: red;">FIDO</strong>聯盟才能實作。(管理113-2 Q32)</li>
+                         </ul>
+                    </div>
+                </div>
+            </div>
+
+
+             <!-- Focus Point 12: ISMS Audit -->
+             <div class="focus-card" data-category="7" data-stars="4">
+                 <div class="focus-header">
+                     <div class="focus-id">#12</div>
+                     <div class="focus-importance">★★★★</div>
+                 </div>
+                 <div class="focus-topic-container">
+                     <div class="focus-topic">
+                         <strong style="color: purple;">ISMS</strong> <strong style="color: blue;">驗證稽核流程</strong>
+                     </div>
+                 </div>
+                 <div class="focus-details-container">
+                     <div class="details-header">稽核階段</div>
+                     <div class="details-content">
+                          <strong style="color: red;">ISO 27001</strong> 第三方驗證流程：
+                          <ul>
+                              <li><strong style="color: blue;">第一階段（文件審查 Stage 1 Audit）</strong>：審查<strong style="color: purple;">ISMS</strong>文件（政策、程序、範圍等）。</li>
+                              <li><strong style="color: blue;">第二階段（實地審查 Stage 2 Audit）</strong>：現場驗證<strong style="color: purple;">ISMS</strong><span style="background-color: #ffff0030;">實施的有效性</span>。</li>
+                              <li><strong style="color: blue;">後續稽核</strong>：
+                                   <ul>
+                                       <li><strong style="color: blue;">監督審查（<strong style="color: red;">Surveillance Audit</strong>）</strong>：<span style="background-color: #ffff0030;">每年</span>進行。</li>
+                                       <li><strong style="color: blue;">重新驗證（<strong style="color: red;">Recertification Audit</strong>）</strong>：<span style="background-color: #ffff0030;">每三年</span>進行。</li>
+                                   </ul>
+                                   重新審查<span style="background-color: #ffff0030;">包含現場稽核</span>。(管理113-2 Q2)
+                              </li>
+                          </ul>
+                           <span style="background-color: #ffff0030;">初次驗證流程分為文件審查與實地審查兩個階段</span>。(管理113-2 Q2)
+                     </div>
+                 </div>
+             </div>
+
+            <!-- Placeholder for Category 8 -->
+            <div class="focus-card" data-category="8" data-stars="3">
+                 <div class="focus-header">
+                     <div class="focus-id">#13</div>
+                     <div class="focus-importance">★★★</div>
+                 </div>
+                 <div class="focus-topic-container">
+                     <div class="focus-topic">
+                         <strong style="color: blue;">實體與環境安全</strong>
+                     </div>
+                 </div>
+                 <div class="focus-details-container">
+                     <div class="details-header">機房安全考量</div>
+                     <div class="details-content">
+                          <strong style="color: blue;">機房安全</strong>是<strong style="color: purple;">ISMS</strong>實體安全的重要環節。
+                          <ul>
+                              <li><strong style="color: blue;">人員安全</strong>：<span style="background-color: #ffff0030;">人員生命安全</span>是最高優先。(管理110-2 Q49)</li>
+                              <li><strong style="color: blue;">門禁管制</strong>：控制人員進出，防止未授權存取。</li>
+                              <li><strong style="color: blue;">環境監控</strong>：溫濕度控制、消防系統、防水措施。</li>
+                              <li><strong style="color: blue;">電力供應</strong>：<strong style="color: purple;">UPS</strong> (不斷電系統) 提供短暫備援、穩壓；發電機提供長時間備援。</li>
+                          </ul>
+                          雖然未在提供的 PDF 中直接出現考題，但實體安全是 <strong style="color: red;">ISO 27001</strong> 的重要控制領域。
+                     </div>
+                 </div>
+             </div>
+
+
+             <div id="noResultsMessage">沒有找到符合條件的重點。</div>
+
+        </div><!-- end focus-points-container -->
+
+        <div class="back-to-top" id="backToTop">↑</div>
+    </div>
+
+    <script>
+        // Progress bar (no changes needed)
+        const progressBar = document.getElementById("progressBar");
+        window.onscroll = function() { updateProgressBar(); toggleBackToTopButton(); };
+        function updateProgressBar() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (height > 0) ? (winScroll / height) * 100 : 0;
+            progressBar.style.width = scrolled + "%";
+        }
+
+        // Back to top button (no changes needed)
+        const backToTopButton = document.getElementById("backToTop");
+        function toggleBackToTopButton() {
+             backToTopButton.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "flex" : "none";
+        }
+        backToTopButton.addEventListener("click", () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+        // Filter by category (Updated function name)
+        function filterByCategory(categoryNumber) {
+            document.getElementById('categoryFilter').value = categoryNumber === 'all' ? 'all' : String(categoryNumber);
+            document.getElementById('searchInput').value = ''; // Clear search on filter click
+            filterFocusPoints(); // Call updated filter function
+        }
+
+        // Event listeners for filters and search (Updated IDs/functions)
+        document.getElementById("categoryFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("starFilter").addEventListener("change", () => {
+             document.getElementById('searchInput').value = '';
+             filterFocusPoints();
+        });
+        document.getElementById("searchButton").addEventListener("click", searchFocusPoints); // Updated function call
+        document.getElementById("searchInput").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                searchFocusPoints(); // Updated function call
+            }
+        });
+
+        const noResultsMessage = document.getElementById('noResultsMessage');
+
+        // Combined filter function (Updated variable/class names)
+        function filterFocusPoints() {
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+            let points = document.querySelectorAll(".focus-card"); // Target .focus-card
+            let anyVisible = false;
+
+            points.forEach(function(point) {
+                // Updated dataset attribute name
+                const matchesCategory = (category === "all" || point.dataset.category === category);
+                const matchesStars = (stars === "all" || point.dataset.stars === stars);
+
+                if (matchesCategory && matchesStars) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                 // Updated message text
+                 noResultsMessage.textContent = '沒有找到符合篩選條件的重點。';
+             }
+        }
+
+        // Search function (Updated variable/class names)
+        function searchFocusPoints() {
+            let searchText = document.getElementById("searchInput").value.toLowerCase().trim();
+            let points = document.querySelectorAll(".focus-card"); // Target .focus-card
+            let anyVisible = false;
+            let category = document.getElementById("categoryFilter").value;
+            let stars = document.getElementById("starFilter").value;
+
+            points.forEach(function(point) {
+                // Check filters first
+                const matchesCategory = (category === "all" || point.dataset.category === category);
+                const matchesStars = (stars === "all" || point.dataset.stars === stars);
+                let visibleBasedOnFilter = matchesCategory && matchesStars;
+
+                // Check search text
+                let pointText = point.textContent.toLowerCase();
+                let matchesSearch = (searchText === "" || pointText.includes(searchText));
+
+                // Show if matches filters AND search (or if search is empty)
+                if (visibleBasedOnFilter && matchesSearch) {
+                    point.style.display = "block";
+                    anyVisible = true;
+                } else {
+                    point.style.display = "none";
+                }
+            });
+
+             if (noResultsMessage) {
+                 if (searchText !== "") {
+                      noResultsMessage.style.display = anyVisible ? 'none' : 'block';
+                      // Updated message text
+                      noResultsMessage.textContent = '沒有找到符合目前篩選及搜尋條件的重點。';
+                 } else {
+                     // If search is empty, rely on filter results
+                     filterFocusPoints();
+                 }
+             }
+        }
+
+        // Removed Toggle Explanations Logic
+
+         // Initial setup
+         toggleBackToTopButton();
+         updateProgressBar();
+         filterFocusPoints(); // Apply default filters on load
+
+    </script>
+</body>
+</html>
