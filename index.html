@@ -1,146 +1,164 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>iPAS 資安章節導覽</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body, html { height: 100%; overflow: hidden; font-family: Arial, sans-serif; }
-        body { dISplay: flex; background: #F8F9FA; }
-        .sidebar {
-            width: 300px;
-            background: #212529;
-            color: #FFFFFF;
-            dISplay: flex;
-            flex-direction: column;
-            padding: 20px;
-            position: fixed;
-            height: 100vh;
-            transition: transform 0.3s ease;
-            overflow-y: auto;
-        }
-        .menu-toggle {
-            dISplay: none;
-            font-size: 20px;
-            background: #212529;
-            color: #FFFFFF;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            position: fixed;
-            top: 10px;
-            left: 10px;
-            z-index: 1000;
-        }
-        .sidebar.active { transform: translateX(0); }
-        .content {
-            margin-left: 300px;
-            width: calc(100% - 300px);
-            height: 100vh;
-            padding: 20px;
-            overflow: hidden;
-        }
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        @media (max-width: 768px) {
-            .sidebar { transform: translateX(-100%); }
-            .menu-toggle { dISplay: block; }
-            .content { margin-left: 0; width: 100%; }
-        }
-        .section-title {
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-top: 15px;
-            margin-bottom: 8px;
-            color: #FFC107;
-        }
-        .section-subtitle {
-            font-weight: bold;
-            font-size: 1rem;
-            margin-top: 10px;
-            margin-bottom: 6px;
-            padding-left: 10px;
-            color: #7ddf3b;
-            text-decoration: underline;
-        }
-        .sidebar a {
-            dISplay: block;
-            font-size: 0.95rem;
-            color: #FFFFFF;
-            text-decoration: none;
-            padding: 6px 10px;
-            margin-left: 30px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        .sidebar a:hover {
-            background: #343A40;
-        }
-        .sidebar a.active-link {
-            background-color: #FFC107;
-            color: #000;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>iPAS 資安章節導覽</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; font-family: Arial, sans-serif; }
+    body { display: flex; background: #F8F9FA; overflow: hidden; }
+
+    .sidebar {
+      width: 300px;
+      background: #212529;
+      color: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      position: fixed;
+      height: 100vh;
+      transition: transform 0.3s ease;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 20px;
+      background: #212529;
+      color: #FFFFFF;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 1000;
+    }
+
+    .sidebar.active { transform: translateX(0); }
+
+    .content {
+      margin-left: 300px;
+      width: calc(100% - 300px);
+      height: 100vh;
+      padding: 20px;
+      overflow: auto;                       /* 允許右側捲動 */
+      -webkit-overflow-scrolling: touch;    /* iPad 慣性滑動 */
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar { transform: translateX(-100%); }
+      .menu-toggle { display: block; }
+      .content { margin-left: 0; width: 100%; }
+    }
+
+    .section-title {
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-top: 15px;
+      margin-bottom: 8px;
+      color: #FFC107;
+    }
+
+    .section-subtitle {
+      font-weight: bold;
+      font-size: 1rem;
+      margin-top: 10px;
+      margin-bottom: 6px;
+      padding-left: 10px;
+      color: #7ddf3b;
+      text-decoration: underline;
+    }
+
+    .sidebar a {
+      display: block;
+      font-size: 0.95rem;
+      color: #FFFFFF;
+      text-decoration: none;
+      padding: 6px 10px;
+      margin-left: 30px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .sidebar a:hover { background: #343A40; }
+    .sidebar a.active-link { background-color: #FFC107; color: #000; }
+  </style>
 </head>
 <body>
 <button class="menu-toggle" onclick="toggleMenu()">☰</button>
-<div class="sidebar" id="sidebar">
-    <a href="topic/home.html" target="content-frame">首頁</a>
-<div class="section-title">IS1 資訊安全管理概論</div>
-<div class="section-subtitle">IS11 資訊安全管理概念</div>
-<a href="topic/is111_資訊安全管理系統.html" target="content-frame">IS111 資訊安全管理系統</a>
-<a href="topic/is112_相關法規職場與遵循.html" target="content-frame">IS112 相關法規職場與遵循</a>
-<a href="topic/is113_隱私權保護與智慧財產權.html" target="content-frame">IS113 隱私權保護與智慧財產權</a>
-<div class="section-subtitle">IS12 資產與風險管理</div>
-<a href="topic/is121_資產分類分級與盤點.html" target="content-frame">IS121 資產分類分級與盤點</a>
-<a href="topic/is122_風險評鑑與風險處理.html" target="content-frame">IS122 風險評鑑與風險處理</a>
-<div class="section-subtitle">IS13 存取控制、加解密與金鑰管理</div>
-<a href="topic/is131_存取控制與身份認證.html" target="content-frame">IS131 存取控制與身份認證</a>
-<a href="topic/is132_加解密與金鑰生命週期.html" target="content-frame">IS132 加解密與金鑰生命週期</a>
-<div class="section-subtitle">IS14 事故管理與營運持續</div>
-<a href="topic/is141_事件與事故管理.html" target="content-frame">IS141 事件與事故管理</a>
-<a href="topic/is142_備援與營運持續.html" target="content-frame">IS142 備援與營運持續</a>
-<div class="section-subtitle">IS15 網路與通訊安全</div>
-<a href="topic/is151_網路安全.html" target="content-frame">IS151 網路安全</a>
-<a href="topic/is152_通訊安全.html" target="content-frame">IS152 通訊安全</a>
-<div class="section-title">IS2 資訊安全技術概論</div>
-<div class="section-subtitle">IS21 作業系統與應用程式安全</div>
-<a href="topic/is211_作業系統安全.html" target="content-frame">IS211 作業系統安全</a>
-<a href="topic/is212_作業系統與應用程式攻擊手法.html" target="content-frame">IS212 作業系統與應用程式攻擊手法</a>
-<a href="topic/is213_程式與開發安全.html" target="content-frame">IS213 程式與開發安全</a>
-<div class="section-subtitle">IS22 資安維運技術</div>
-<a href="topic/is221_惡意程式防護與弱點管理.html" target="content-frame">IS221 惡意程式防護與弱點管理</a>
-<a href="topic/is222_資料安全及備份管理.html" target="content-frame">IS222 資料安全及備份管理</a>
-<a href="topic/is223_日誌管理.html" target="content-frame">IS223 日誌管理</a>
-<div class="section-subtitle">IS23 新興科技安全</div>
-<a href="topic/is231_雲端安全概論.html" target="content-frame">IS231 雲端安全概論</a>
-<a href="topic/is232_行動裝置安全概論.html" target="content-frame">IS232 行動裝置安全概論</a>
-<a href="topic/is233_智慧製造及物聯網安全概論.html" target="content-frame">IS233 智慧製造及物聯網安全概論</a>
 
+<div class="sidebar" id="sidebar">
+  <a href="topic/home.html" target="content-frame">首頁</a>
+
+  <div class="section-title">IS1 資訊安全管理概論</div>
+  <div class="section-subtitle">IS11 資訊安全管理概念</div>
+  <a href="topic/is111_資訊安全管理系統.html" target="content-frame">IS111 資訊安全管理系統</a>
+  <a href="topic/is112_相關法規職場與遵循.html" target="content-frame">IS112 相關法規職場與遵循</a>
+  <a href="topic/is113_隱私權保護與智慧財產權.html" target="content-frame">IS113 隱私權保護與智慧財產權</a>
+
+  <div class="section-subtitle">IS12 資產與風險管理</div>
+  <a href="topic/is121_資產分類分級與盤點.html" target="content-frame">IS121 資產分類分級與盤點</a>
+  <a href="topic/is122_風險評鑑與風險處理.html" target="content-frame">IS122 風險評鑑與風險處理</a>
+
+  <div class="section-subtitle">IS13 存取控制、加解密與金鑰管理</div>
+  <a href="topic/is131_存取控制與身份認證.html" target="content-frame">IS131 存取控制與身份認證</a>
+  <a href="topic/is132_加解密與金鑰生命週期.html" target="content-frame">IS132 加解密與金鑰生命週期</a>
+
+  <div class="section-subtitle">IS14 事故管理與營運持續</div>
+  <a href="topic/is141_事件與事故管理.html" target="content-frame">IS141 事件與事故管理</a>
+  <a href="topic/is142_備援與營運持續.html" target="content-frame">IS142 備援與營運持續</a>
+
+  <div class="section-subtitle">IS15 網路與通訊安全</div>
+  <a href="topic/is151_網路安全.html" target="content-frame">IS151 網路安全</a>
+  <a href="topic/is152_通訊安全.html" target="content-frame">IS152 通訊安全</a>
+
+  <div class="section-title">IS2 資訊安全技術概論</div>
+  <div class="section-subtitle">IS21 作業系統與應用程式安全</div>
+  <a href="topic/is211_作業系統安全.html" target="content-frame">IS211 作業系統安全</a>
+  <a href="topic/is212_作業系統與應用程式攻擊手法.html" target="content-frame">IS212 作業系統與應用程式攻擊手法</a>
+  <a href="topic/is213_程式與開發安全.html" target="content-frame">IS213 程式與開發安全</a>
+
+  <div class="section-subtitle">IS22 資安維運技術</div>
+  <a href="topic/is221_惡意程式防護與弱點管理.html" target="content-frame">IS221 惡意程式防護與弱點管理</a>
+  <a href="topic/is222_資料安全及備份管理.html" target="content-frame">IS222 資料安全及備份管理</a>
+  <a href="topic/is223_日誌管理.html" target="content-frame">IS223 日誌管理</a>
+
+  <div class="section-subtitle">IS23 新興科技安全</div>
+  <a href="topic/is231_雲端安全概論.html" target="content-frame">IS231 雲端安全概論</a>
+  <a href="topic/is232_行動裝置安全概論.html" target="content-frame">IS232 行動裝置安全概論</a>
+  <a href="topic/is233_智慧製造及物聯網安全概論.html" target="content-frame">IS233 智慧製造及物聯網安全概論</a>
 </div>
+
 <div class="content">
-    <iframe name="content-frame" src="topic/IS111_資訊安全管理系統.html"></iframe>
+  <!-- 這裡改成小寫檔名，與上面連結一致 -->
+  <iframe name="content-frame" src="topic/is111_資訊安全管理系統.html"></iframe>
 </div>
+
 <script>
-    function toggleMenu() {
-        document.getElementById('sidebar').classLISt.toggle('active');
-    }
-    document.addEventLIStener('DOMContentLoaded', function() {
-        const links = document.querySelectorAll('.sidebar a[target="content-frame"]');
-        const defaultLink = document.querySelector('.sidebar a[href="topic/is111_資訊安全管理系統.html"]');
-        if (defaultLink) {
-            defaultLink.classLISt.add('active-link');
-        }
-        links.forEach(link => {
-            link.addEventLIStener('click', function() {
-                links.forEach(l => l.classLISt.remove('active-link'));
-                thIS.classLISt.add('active-link');
-            });
-        });
+  function toggleMenu() {
+    document.getElementById('sidebar').classList.toggle('active');
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const links = document.querySelectorAll('.sidebar a[target="content-frame"]');
+    const defaultLink = document.querySelector('.sidebar a[href="topic/is111_資訊安全管理系統.html"]');
+    if (defaultLink) defaultLink.classList.add('active-link');
+
+    links.forEach(link => {
+      link.addEventListener('click', function () {
+        links.forEach(l => l.classList.remove('active-link'));
+        this.classList.add('active-link');
+      });
     });
+  });
 </script>
 </body>
 </html>
